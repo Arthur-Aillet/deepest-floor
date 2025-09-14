@@ -171,8 +171,8 @@ section {
   margin: auto;
   height: 8px;
   padding-top: 4px;
-  padding-bottom: 4px;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-18px);
   image-rendering: pixelated;
 }
