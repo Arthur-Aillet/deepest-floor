@@ -4,6 +4,19 @@
     <script type="text/javascript" src="http://livejs.com/live.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
+  <script>
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.querySelector('.custom-cursor');
+      cursor.style.left = `${e.clientX - 20.5}px`;
+      cursor.style.top = `${e.clientY - 20.5}px`;
+      const cursorType = getComputedStyle(e.target).cursor;
+      if (cursorType != "none") {
+        cursor.style.display = "none";
+      } else {
+        cursor.style.display = "inherit";
+      }
+    });
+  </script>
   <body>
     <div class="background overlay"></div>
     <div class="background background-img"></div>
@@ -25,7 +38,13 @@
           </p>
         </div>
         <div class="sidebar">
-          <img class="portrait block" src="./portrait.png"></img>
+          <div class="block" style="background-color: white; width: 100%;">
+            <img class="portrait " src="./portrait.png"></img>
+            <img class="custom-cursor" src="cursor.svg"></img>
+          </div>
+
+          <div class="sidebar block">test</div>
+          <div class="sidebar block">test</div>
           <div class="sidebar block">test</div>
         </div>
       </section>

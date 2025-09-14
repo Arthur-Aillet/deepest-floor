@@ -2,12 +2,31 @@ body {
   margin: auto;
   width: fit-content;
   overflow: hidden;
+  cursor: none;
 }
 
 .background-img {
   background-image: url("background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.custom-cursor {
+  position: absolute;
+  top: 10000px;
+  left: 50VW;
+  pointer-events: none;
+  transition: transform 0.1s ease;
+  animation: rotating 5s linear infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .background {
@@ -20,9 +39,33 @@ body {
   transition: transform 50s ease;
   overflow: hidden;
 }
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+    filter: invert(0%);
+  }
+  66% {
+    opacity: 0;
+    filter: invert(100%);
+  }
+  99% {
+    opacity: 0;
+  }
+}
 
 .portrait {
   width: 100%;
+}
+
+.portrait:hover ~ .custom-cursor {
+  animation-play-state: paused;
+}
+
+.portrait:active {
+  animation: blink normal 0.1s 4 linear;
 }
 
 .overlay:hover ~ .background {

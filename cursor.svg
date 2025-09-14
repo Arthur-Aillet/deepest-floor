@@ -1,0 +1,24 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" width="41" height="41">
+    <g transform="rotate(0, 16, 16)">
+    <!-- <animateTransform
+      attributeName="transform"
+      begin="0s"
+      dur="10s"
+      type="rotate"
+      from="0 20.5 20.5"
+      to="360 20.5 20.5"
+      repeatCount="indefinite" /> -->
+	<title>aim-sniper-shoot-group-focus-cursor-red-icon-red-target-destination-icon-set-vector-1718166242</title>
+	<defs>
+		<image  width="41" height="41" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAApBAMAAABaTh3FAAAAAXNSR0IB2cksfwAAABVQTFRFAAAA/wAA/wAA/wAA/wAA/wAA/wAAuiTdgAAAAAd0Uk5TAP80AE11jsULYtUAAAA0SURBVHicY2SAA4EPcCbjqOjAiio8wCZqcAEhKghjGX2QOwBl/sehFiGasIA27h0VpUgUAP+BKzpd2osEAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		.s0 { fill: none;stroke: #ff0000;stroke-linejoin: round }
+	</style>
+	<use id="Layer 2" href="#img1" x="0" y="0"/>
+	<path id="Shape 1" fill-rule="evenodd" class="s0" d="m20.5 36c-8.57 0-15.5-6.93-15.5-15.5 0-8.57 6.93-15.5 15.5-15.5 8.57 0 15.5 6.93 15.5 15.5 0 8.57-6.93 15.5-15.5 15.5z"/>
+	<path id="Shape 1 copy" fill-rule="evenodd" class="s0" d="m20.5 36c-8.57 0-15.5-6.93-15.5-15.5 0-8.57 6.93-15.5 15.5-15.5 8.57 0 15.5 6.93 15.5 15.5 0 8.57-6.93 15.5-15.5 15.5z"/>
+	<path id="Shape 2" fill-rule="evenodd" class="s0" d="m20.5 27c-3.59 0-6.5-2.91-6.5-6.5 0-3.59 2.91-6.5 6.5-6.5 3.59 0 6.5 2.91 6.5 6.5 0 3.59-2.91 6.5-6.5 6.5z"/>
+	<path id="Shape 2 copy" fill-rule="evenodd" class="s0" d="m20.5 27c-3.59 0-6.5-2.91-6.5-6.5 0-3.59 2.91-6.5 6.5-6.5 3.59 0 6.5 2.91 6.5 6.5 0 3.59-2.91 6.5-6.5 6.5z"/>
+    </g>
+</svg>
