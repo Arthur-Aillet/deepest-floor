@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <script>
-    document.addEventListener('mousemove', (e) => {
-      const cursor = document.querySelector('.custom-cursor');
+    document.addEventListener("mousemove", (e) => {
+      const cursor = document.querySelector(".custom-cursor");
       cursor.style.left = `${e.clientX - 20.5}px`;
       cursor.style.top = `${e.clientY - 20.5}px`;
       const cursorType = getComputedStyle(e.target).cursor;
@@ -26,7 +26,13 @@
         <div class="sidebar block">
           <p>My Socials</p>
           <ul>
-            <li><a href="https://bsky.app/profile/iddeko.bsky.social" target="_blank">bluesky</a></li>
+            <li>
+              <a
+                href="https://bsky.app/profile/iddeko.bsky.social"
+                target="_blank"
+                >bluesky</a
+              >
+            </li>
           </ul>
         </div>
 
@@ -38,17 +44,37 @@
           </p>
         </div>
         <div class="sidebar">
-          <div class="block" style="background-color: white; width: 100%;">
-            <img class="portrait " src="./portrait.png"></img>
-            <img class="custom-cursor" src="cursor.svg"></img>
+          <div class="block" style="background-color: white; width: 100%">
+            <img class="portrait" src="./portrait.png" />
+            <img class="custom-cursor" src="cursor.svg" />
           </div>
-
-          <div class="sidebar block">test</div>
-          <div class="sidebar block">test</div>
-          <div class="sidebar block">test</div>
+          <div class="namecard">
+            <div class="sidebar namecard-inner block">
+              Radical FOSS activist
+            </div>
+            <div class="sidebar namecard-back block">Leftist optimist</div>
+          </div>
+          <div class="namecard">
+            <div class="sidebar namecard-inner block">
+              Post-cyberpunk artist
+            </div>
+            <div class="sidebar namecard-back block">Leftist optimist</div>
+          </div>
+          <div class="namecard">
+            <div class="sidebar namecard-inner block">
+              Radical FOSS activist
+            </div>
+            <div class="sidebar namecard-back block">Leftist optimist</div>
+          </div>
         </div>
       </section>
-      <footer class="block">Footer</footer>
+      <footer class="block">
+        <p>
+          <small>
+            This page content is available on github under the GPL GNU License
+          </small>
+        </p>
+      </footer>
     </div>
   </body>
 </html>

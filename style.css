@@ -14,6 +14,7 @@ body {
 .custom-cursor {
   position: absolute;
   top: 10000px;
+  z-index: 1000;
   left: 50VW;
   pointer-events: none;
   transition: transform 0.1s ease;
@@ -97,13 +98,43 @@ section {
 }
 
 .sidebar {
-  width: 100px;
+  width: 150px;
 }
 
 .content {
   width: 300px;
 }
 
-footer {
-  background-color: grey;
+.namecard {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+
+.namecard-inner {
+  font-size: smaller;
+  position: absolute;
+  transform: rotateX(0deg);
+  transition: all 1s;
+  position: relative;
+  backface-visibility: hidden;
+}
+
+.namecard:hover .namecard-inner {
+  transform: rotateX(180deg);
+}
+
+.namecard-back {
+  margin-top: 0%;
+  font-size: smaller;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: all 1s;
+  backface-visibility: hidden;
+  transform: rotateX(180deg);
+}
+
+.namecard:hover .namecard-back {
+  transform: rotateX(0deg);
 }
