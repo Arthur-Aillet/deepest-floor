@@ -8,7 +8,7 @@
     async function eyeBlink() {
       const back = document.getElementById("eyes-closed");
       const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-      console.log(1);
+
       while (true) {
         back.style.display = "inherit";
         await delay(100);
@@ -60,7 +60,6 @@
     });
 
     function randomIntFromInterval(min, max) {
-      // min and max included
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
@@ -113,18 +112,27 @@
     <div class="background background-img"></div>
     <div style="padding-top: 30px">
       <header class="block">Endless pit for withered souls</header>
-      <section>
-        <div class="sidebar block">
-          <p>My Socials</p>
-          <ul>
-            <li>
-              <a
-                href="https://bsky.app/profile/iddeko.bsky.social"
-                target="_blank"
-                >bluesky</a
-              >
-            </li>
-          </ul>
+      <div class="section">
+        <div class="sidebar-left">
+          <div class="block" style="height: 130px; width: calc(100% - 16px)">
+            <p>My Socials</p>
+            <ul>
+              <li>
+                <a
+                  href="https://bsky.app/profile/iddeko.bsky.social"
+                  target="_blank"
+                  >bluesky</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="block"
+            style="flex-grow: 1; overflow-x: hidden; width: 100%"
+          >
+            <p>Just plug me already</p>
+          </div>
         </div>
 
         <div class="content block">
@@ -197,7 +205,7 @@
             <div class="sidebar namecard-back block">Leftist optimist</div>
           </div>
         </div>
-      </section>
+      </div>
       <footer class="block">
         <p>
           <small>
