@@ -1,8 +1,8 @@
+<link rel="stylesheet" href="style.css" />
 <html>
   <head>
     <title>Deepest floor</title>
     <script type="text/javascript" src="http://livejs.com/live.js"></script>
-    <link rel="stylesheet" href="style.css" />
   </head>
   <script>
     document.addEventListener("mousemove", (e) => {
@@ -16,6 +16,32 @@
         cursor.style.display = "inherit";
       }
     });
+
+    function playShot() {
+      const element = document.getElementById("shot");
+      element.volume = 0.1;
+
+      const portrait = document.getElementById("portrait-img");
+      portrait.style.animation = "blink normal 0.1s 3 linear";
+
+      const atencion = document.getElementById("atencion");
+      atencion.style.animation = "blink normal 0.1s 3 linear";
+
+      element.play();
+    }
+
+    function stopShot() {
+      const element = document.getElementById("shot");
+
+      const portrait = document.getElementById("portrait-img");
+      portrait.style.animation = "none";
+
+      const atencion = document.getElementById("atencion");
+      atencion.style.animation = "none";
+
+      element.pause();
+      element.currentTime = 0;
+    }
   </script>
   <body>
     <div class="background overlay"></div>
@@ -46,8 +72,23 @@
         <div class="sidebar">
           <div class="block portrait-container">
             <div class="portrait">
-              <img style="width: 100%" src="./portrait.png" />
-              <img class="atencion" src="./atencion.gif" />
+              <audio id="shot" src="shot.wav" preload="auto"></audio>
+              <img
+                id="portrait-img"
+                style="width: 100%"
+                src="./portrait.png"
+                onmousedown="playShot()"
+                onmouseup="stopShot()"
+                onmouseleave="stopShot()"
+                onfocusout="stopShot()"
+              />
+              <img
+                id="atencion"
+                class="atencion"
+                alt="atencion"
+                title="atención"
+                src="./atencion.gif"
+              />
             </div>
             <img class="custom-cursor" src="cursor.svg" />
           </div>
