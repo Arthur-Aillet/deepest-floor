@@ -1,0 +1,166 @@
+<link rel="stylesheet" href="style.css" />
+<html>
+  <head>
+    <title>Deepest floor</title>
+    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+  </head>
+  <script>
+    document.addEventListener("mousemove", (e) => {
+      const cursor = document.querySelector(".custom-cursor");
+      cursor.style.left = `${e.clientX - 20.5}px`;
+      cursor.style.top = `${e.clientY - 20.5}px`;
+      const cursorType = getComputedStyle(e.target).cursor;
+      if (cursorType != "none") {
+        cursor.style.display = "none";
+      } else {
+        cursor.style.display = "inherit";
+      }
+    });
+
+    function randomIntFromInterval(min, max) {
+      // min and max included
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function playAtencion() {
+      const element = document.getElementById(
+        "atencion-" + randomIntFromInterval(1, 3)
+      );
+      element.volume = 0.1;
+      element.play();
+    }
+
+    function playShot() {
+      const element = document.getElementById("shot");
+      element.volume = 0.1;
+
+      const portrait = document.getElementById("portrait-img");
+      portrait.style.animation = "blink normal 0.1s 3 linear";
+
+      const atencion = document.getElementById("atencion-img");
+      atencion.style.animation = "blink normal 0.1s 3 linear";
+
+      element.play();
+
+      const atencion1 = document.getElementById("atencion-1");
+      atencion1.pause();
+      atencion1.currentTime = 0;
+      const atencion2 = document.getElementById("atencion-2");
+      atencion2.pause();
+      atencion2.currentTime = 0;
+      const atencion3 = document.getElementById("atencion-3");
+      atencion3.pause();
+      atencion3.currentTime = 0;
+    }
+
+    function stopShot() {
+      const element = document.getElementById("shot");
+
+      const portrait = document.getElementById("portrait-img");
+      portrait.style.animation = "none";
+
+      const atencion = document.getElementById("atencion-img");
+      atencion.style.animation = "none";
+
+      element.pause();
+      element.currentTime = 0;
+    }
+  </script>
+  <body>
+    <div class="background overlay"></div>
+    <div class="background background-img"></div>
+    <div style="padding-top: 30px">
+      <header class="block">Endless pit for withered souls</header>
+      <section>
+        <div class="sidebar block">
+          <p>My Socials</p>
+          <ul>
+            <li>
+              <a
+                href="https://bsky.app/profile/iddeko.bsky.social"
+                target="_blank"
+                >bluesky</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="content block">
+          <h1>This is a test</h1>
+          <p>This is a paragraph.</p>
+          <p>
+            Embrace the <a href="https://rustup.rs/" target="_blank">rust</a>.
+          </p>
+        </div>
+        <div class="sidebar">
+          <div class="block portrait-container">
+            <div class="portrait">
+              <audio id="shot" src="shot.wav" preload="auto"></audio>
+              <audio
+                id="atencion-1"
+                src="atencion-1.wav"
+                preload="auto"
+              ></audio>
+              <audio
+                id="atencion-2"
+                src="atencion-2.wav"
+                preload="auto"
+              ></audio>
+              <audio
+                id="atencion-3"
+                src="atencion-3.wav"
+                preload="auto"
+              ></audio>
+              <img
+                id="portrait-img"
+                style="width: 100%"
+                src="./portrait.png"
+                onmousedown="playShot()"
+                onmouseup="stopShot()"
+                onmouseleave="stopShot()"
+                onfocusout="stopShot()"
+              />
+              <img
+                id="atencion-img"
+                class="atencion"
+                alt="atencion"
+                title="atención"
+                onclick="playAtencion()"
+                src="./atencion.gif"
+              />
+            </div>
+            <img class="custom-cursor" src="cursor.svg" />
+          </div>
+          <div class="namecard">
+            <div class="sidebar namecard-inner block">
+              Radical FOSS activist
+            </div>
+            <div class="sidebar namecard-back block">Leftist optimist</div>
+          </div>
+          <div class="namecard">
+            <div class="sidebar namecard-inner block">
+              Post-cyberpunk artist
+            </div>
+            <div class="sidebar namecard-back block" style="display: flex">
+              <img src="eyes-open.png" class="eyes" />
+              <div style="height: 16px"></div>
+            </div>
+          </div>
+          <div class="namecard">
+            <div class="sidebar namecard-inner block">
+              Radical FOSS activist
+            </div>
+            <div class="sidebar namecard-back block">Leftist optimist</div>
+          </div>
+        </div>
+      </section>
+      <footer class="block">
+        <p>
+          <small>
+            This page content is available on github under the GPL GNU License
+          </small>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
