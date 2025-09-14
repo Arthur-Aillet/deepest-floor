@@ -40,25 +40,51 @@ body {
   transition: transform 50s ease;
   overflow: hidden;
 }
+
 @keyframes blink {
   0% {
     opacity: 0;
   }
-  33% {
+  25% {
     opacity: 1;
-    filter: invert(0%);
-  }
-  66% {
-    opacity: 0;
     filter: invert(100%);
   }
-  99% {
+  50% {
     opacity: 0;
+    filter: invert(0%);
+  }
+  75% {
+    opacity: 1;
+    filter: invert(100%);
+  }
+  100% {
+    opacity: 0;
+    filter: invert(0%);
   }
 }
 
-.portrait {
+.portrait-container {
+  background-color: white;
   width: 100%;
+}
+
+.portrait {
+  position: relative;
+}
+
+.atencion {
+  width: 20px;
+  position: absolute;
+  border: 1px solid white;
+  background-color: white;
+  z-index: 100;
+  top: 0px;
+  right: 0px;
+}
+
+.portrait:active ~ .atencion {
+  background-color: red;
+  /* animation: blink normal 0.1s 2 linear; */
 }
 
 .portrait:hover ~ .custom-cursor {
@@ -66,7 +92,7 @@ body {
 }
 
 .portrait:active {
-  animation: blink normal 0.1s 4 linear;
+  animation: blink normal 0.1s 2 linear;
 }
 
 .overlay:hover ~ .background {
@@ -112,7 +138,7 @@ section {
 }
 
 .namecard-inner {
-  font-size: smaller;
+  font-size: 12px;
   position: absolute;
   transform: rotateX(0deg);
   transition: all 1s;
@@ -126,7 +152,7 @@ section {
 
 .namecard-back {
   margin-top: 0%;
-  font-size: smaller;
+  font-size: 12px;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -137,4 +163,14 @@ section {
 
 .namecard:hover .namecard-back {
   transform: rotateX(0deg);
+}
+
+.eyes {
+  margin: auto;
+  height: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  image-rendering: pixelated;
 }
