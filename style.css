@@ -21,6 +21,10 @@ body {
   overflow: hidden;
 }
 
+.portrait {
+  width: 100%;
+}
+
 .overlay:hover ~ .background {
   transform: scale(3);
 }
