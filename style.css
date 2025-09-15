@@ -1,8 +1,24 @@
 body {
-  margin: auto;
-  width: fit-content;
   overflow: hidden;
   cursor: none;
+  margin: 0;
+}
+
+main {
+  margin: auto;
+  width: fit-content;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 20px;
 }
 
 .background-img {
@@ -15,16 +31,9 @@ body {
   position: absolute;
   top: 10000px;
   z-index: 1000;
-  left: 50VW;
+  left: 50vw;
   pointer-events: none;
-  transition: transform 0.1s ease;
-  animation: rotating 5s linear infinite;
 }
-
-.portrait:hover ~ .custom-cursor {
-  animation-play-state: paused;
-}
-
 
 @keyframes rotating {
   from {
@@ -106,7 +115,12 @@ body {
 }
 
 .overlay {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
   z-index: -1000;
 }
 
@@ -118,6 +132,7 @@ header {
   border-style: inset;
   background-color: grey;
   margin: 5px;
+  font-size: 20px;
 }
 
 /* .block:hover {
@@ -155,7 +170,7 @@ header {
 }
 
 .namecard-inner {
-  font-size: 12px;
+  font-size: 16px;
   position: absolute;
   transform: rotateX(0deg);
   transition: all 1s;
@@ -169,7 +184,7 @@ header {
 
 .namecard-back {
   margin-top: 0%;
-  font-size: 12px;
+  font-size: 16px;
   position: absolute;
   top: 0px;
   left: 0px;
