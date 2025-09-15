@@ -17,8 +17,9 @@ window.onload = eyeBlink;
 
 function eyesFollow(x, y) {
   const pupil = document.getElementById("pupil");
+  const pupilBox = pupil.getBoundingClientRect();
 
-  const diffX = pupil.x - x;
+  const diffX = pupilBox.right - (pupilBox.right - pupilBox.left) / 2 - x;
   let offsetX = 0;
   if (diffX > 18) {
     offsetX = -4;
@@ -31,7 +32,7 @@ function eyesFollow(x, y) {
   }
   offsetX -= 18;
 
-  const diffY = pupil.y - y + 10;
+  const diffY = pupilBox.top - (pupilBox.top - pupilBox.bottom) / 2 - y + 6;
   let offsetY = -1;
   if (diffY > 1) {
     offsetY = -2;
