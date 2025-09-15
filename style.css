@@ -115,12 +115,9 @@ p {
 }
 
 .overlay {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 1) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background-image: url("background-gradient.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   z-index: -1000;
 }
 
