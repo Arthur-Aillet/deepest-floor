@@ -12,6 +12,7 @@ import Portrait from "../components/portrait.astro";
     <link rel="stylesheet" href="styles/bank.css" />
   </head>
   <body>
+    <Cursor />
     <div class="background overlay"></div>
     <div class="background background-img"></div>
     <div
@@ -89,10 +90,7 @@ import Portrait from "../components/portrait.astro";
             </p>
           </div>
           <div class="sidebar">
-            <div class="block portrait-container">
-              <Portrait />
-              <Cursor />
-            </div>
+            <Portrait />
             <Namecard>
               <Fragment slot="front">Radical FOSS activist</Fragment>
               <Fragment slot="back">Leftist optimist</Fragment>
