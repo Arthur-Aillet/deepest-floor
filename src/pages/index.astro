@@ -94,19 +94,20 @@ import Portrait from "../components/portrait.astro";
               <Cursor />
             </div>
             <Namecard>
-              <div slot="front">Radical FOSS activist</div>
-              <div slot="back">Leftist optimist</div>
+              <Fragment slot="front">Radical FOSS activist</Fragment>
+              <Fragment slot="back">Leftist optimist</Fragment>
             </Namecard>
             <Namecard>
-              <div slot="front">Post-cyberpunk artist</div>
-              <Eyes slot="back"/>
+              <Fragment slot="front">Post-cyberpunk artist</Fragment>
+              <Fragment slot="back">
+                <Eyes/>
+                <Eyes/>
+              </Fragment>
             </Namecard>
-            <div class="namecard">
-              <div class="sidebar namecard-inner block">
-                Radical FOSS activist
-              </div>
-              <div class="sidebar namecard-back block">Leftist optimist</div>
-            </div>
+            <Namecard>
+              <Fragment slot="front">Radical FOSS activist</Fragment>
+              <Fragment slot="back">Leftist optimist</Fragment>
+            </Namecard>
           </div>
         </div>
         <footer class="block">

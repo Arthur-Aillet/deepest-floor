@@ -1,5 +1,13 @@
 <img class="custom-cursor" src="cursor.svg" data-cursor />
+<style>
 
+.custom-cursor {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+</style>
 <script type="module">
   import { cursorData } from "/stores/app.js";
 
