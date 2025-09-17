@@ -1,12 +1,12 @@
 ---
 import Cursor from "../components/cursor.astro";
+import Eyes from "../components/eyes.astro";
 import Portrait from "../components/portrait.astro";
 ---
 
 <html lang="en">
   <head>
     <title>Deepest floor</title>
-    <script is:inline type="text/javascript" src="/scripts/eyes.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="styles/bank.css" />
   </head>
@@ -103,10 +103,15 @@ import Portrait from "../components/portrait.astro";
                 Post-cyberpunk artist
               </div>
               <div class="sidebar namecard-back block" style="display: flex">
-                <img src="eyes-back.png" class="eyes" />
-                <img src="eyes-pupil.png" class="eyes" id="pupil" />
-                <img src="eyes-close.png" class="eyes" id="eyes-closed" />
-                <div style="height: 16px"></div>
+                <Eyes>
+              </div>
+            </div>
+            <div class="namecard">
+              <div class="sidebar namecard-inner block">
+                Post-cyberpunk artist
+              </div>
+              <div class="sidebar namecard-back block" style="display: flex">
+                <Eyes>
               </div>
             </div>
             <div class="namecard">
