@@ -1,12 +1,15 @@
-<html>
+---
+import Cursor from "../components/cursor.astro";
+import Portrait from "../components/portrait.astro";
+---
+
+<html lang="en">
   <head>
     <title>Deepest floor</title>
+    <script is:inline type="text/javascript" src="/scripts/sound.js"></script>
+    <script is:inline type="text/javascript" src="/scripts/eyes.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="styles/bank.css" />
-    <script type="text/javascript" src="http://livejs.com/live.js"></script>
-    <script type="text/javascript" src="scripts/sound.js"></script>
-    <script type="text/javascript" src="scripts/cursor.js"></script>
-    <script type="text/javascript" src="scripts/eyes.js"></script>
   </head>
   <body>
     <div class="background overlay"></div>
@@ -87,44 +90,8 @@
           </div>
           <div class="sidebar">
             <div class="block portrait-container">
-              <div class="portrait">
-                <audio id="shot" src="shot.wav" preload="auto"></audio>
-                <audio
-                  id="atencion-1"
-                  src="atencion-1.wav"
-                  preload="auto"
-                ></audio>
-                <audio
-                  id="atencion-2"
-                  src="atencion-2.wav"
-                  preload="auto"
-                ></audio>
-                <audio
-                  id="atencion-3"
-                  src="atencion-3.wav"
-                  preload="auto"
-                ></audio>
-                <img
-                  id="portrait-img"
-                  style="width: 100%"
-                  src="./portrait.png"
-                  onmouseover="portraitHover()"
-                  onmouseout="portraitLeave()"
-                  onmousedown="playShot()"
-                  onmouseup="stopShot()"
-                  onmouseleave="stopShot()"
-                  onfocusout="stopShot()"
-                />
-                <img
-                  id="atencion-img"
-                  class="atencion"
-                  alt="atencion"
-                  title="atención"
-                  onclick="playAtencion()"
-                  src="./atencion.gif"
-                />
-              </div>
-              <img class="custom-cursor" src="cursor.svg" />
+              <Portrait />
+              <Cursor />
             </div>
             <div class="namecard">
               <div class="sidebar namecard-inner block">

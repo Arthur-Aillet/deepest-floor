@@ -1,0 +1,53 @@
+<script type="module">
+  import { cursorData } from "/stores/app.js";
+
+
+  function portraitHover() {
+    cursorData.lockCursor();
+  }
+
+  function portraitLeave() {
+    cursorData.unlockCursor();
+  }
+  const img = document.getElementById("portrait-img");
+
+  img.addEventListener("mouseover", portraitHover);
+  img.addEventListener("mouseout", portraitLeave);
+</script>
+
+
+<div class="portrait">
+  <audio id="shot" src="shot.wav" preload="auto"></audio>
+  <audio
+    id="atencion-1"
+    src="atencion-1.wav"
+    preload="auto"
+  ></audio>
+  <audio
+    id="atencion-2"
+    src="atencion-2.wav"
+    preload="auto"
+  ></audio>
+  <audio
+    id="atencion-3"
+    src="atencion-3.wav"
+    preload="auto"
+  ></audio>
+  <img
+    id="portrait-img"
+    style="width: 100%"
+    src="./portrait.png"
+    onmousedown="playShot()"
+    onmouseup="stopShot()"
+    onmouseleave="stopShot()"
+    onfocusout="stopShot()"
+  />
+  <img
+    id="atencion-img"
+    class="atencion"
+    alt="atencion"
+    title="atención"
+    onclick="playAtencion()"
+    src="./atencion.gif"
+  />
+</div>
