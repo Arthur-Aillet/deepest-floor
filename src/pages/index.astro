@@ -1,6 +1,7 @@
 ---
 import Cursor from "../components/cursor.astro";
 import Eyes from "../components/eyes.astro";
+import Namecard from "../components/namecard.astro";
 import Portrait from "../components/portrait.astro";
 ---
 
@@ -92,28 +93,14 @@ import Portrait from "../components/portrait.astro";
               <Portrait />
               <Cursor />
             </div>
-            <div class="namecard">
-              <div class="sidebar namecard-inner block">
-                Radical FOSS activist
-              </div>
-              <div class="sidebar namecard-back block">Leftist optimist</div>
-            </div>
-            <div class="namecard">
-              <div class="sidebar namecard-inner block">
-                Post-cyberpunk artist
-              </div>
-              <div class="sidebar namecard-back block" style="display: flex">
-                <Eyes>
-              </div>
-            </div>
-            <div class="namecard">
-              <div class="sidebar namecard-inner block">
-                Post-cyberpunk artist
-              </div>
-              <div class="sidebar namecard-back block" style="display: flex">
-                <Eyes>
-              </div>
-            </div>
+            <Namecard>
+              <div slot="front">Radical FOSS activist</div>
+              <div slot="back">Leftist optimist</div>
+            </Namecard>
+            <Namecard>
+              <div slot="front">Post-cyberpunk artist</div>
+              <Eyes slot="back"/>
+            </Namecard>
             <div class="namecard">
               <div class="sidebar namecard-inner block">
                 Radical FOSS activist
