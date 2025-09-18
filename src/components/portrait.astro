@@ -1,0 +1,153 @@
+<script type="module">
+  import { cursorData } from "/stores/app.js";
+
+  function portraitHover() {
+    cursorData.lockCursor();
+  }
+
+  function portraitLeave() {
+    cursorData.unlockCursor();
+  }
+  const img = document.getElementById("portrait-img");
+
+  img.addEventListener("mouseout", portraitLeave);
+  img.addEventListener("mouseover", portraitHover);
+
+  function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  function playAtencion() {
+    const element = document.getElementById(
+      "atencion-" + randomIntFromInterval(1, 3)
+    );
+    element.volume = 0.1;
+    element.play();
+  }
+
+  function playShot() {
+    const element = document.getElementById("shot");
+    element.volume = 0.1;
+
+    const portrait = document.getElementById("portrait-img");
+    portrait.style.animation = "blink normal 0.1s 3 linear";
+
+    const atencion = document.getElementById("atencion-img");
+    atencion.style.animation = "blink normal 0.1s 3 linear";
+
+    element.play();
+
+    const atencion1 = document.getElementById("atencion-1");
+    atencion1.pause();
+    atencion1.currentTime = 0;
+    const atencion2 = document.getElementById("atencion-2");
+    atencion2.pause();
+    atencion2.currentTime = 0;
+    const atencion3 = document.getElementById("atencion-3");
+    atencion3.pause();
+    atencion3.currentTime = 0;
+  }
+
+  function stopShot() {
+    const element = document.getElementById("shot");
+
+    const portrait = document.getElementById("portrait-img");
+    portrait.style.animation = "none";
+
+    const atencion = document.getElementById("atencion-img");
+    atencion.style.animation = "none";
+
+    element.pause();
+    element.currentTime = 0;
+  }
+
+  img.addEventListener("mousedown", playShot);
+  img.addEventListener("mouseup", stopShot);
+  img.addEventListener("mouseleave", stopShot);
+  img.addEventListener("focusout", stopShot);
+
+
+  const atencion = document.getElementById("atencion-img");
+
+  atencion.addEventListener("click", playAtencion);
+</script>
+<style>
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+  25% {
+    opacity: 1;
+    filter: invert(100%);
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  50% {
+    opacity: 0;
+    filter: invert(0%);
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  75% {
+    opacity: 1;
+    filter: invert(100%);
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  100% {
+    opacity: 0;
+    filter: invert(0%);
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+}
+
+.portrait-container {
+  width: 100%;
+  position: relative;
+}
+
+.atencion {
+  width: 20px;
+  position: absolute;
+  border: 1px solid white;
+  background-color: white;
+  z-index: 100;
+  top: 0px;
+  right: 0px;
+}
+</style>
+
+<div class="block portrait-container">
+  <audio id="shot" src="shot.wav" preload="auto"/>
+  <audio
+    id="atencion-1"
+    src="atencion-1.wav"
+    preload="auto"
+  />
+  <audio
+    id="atencion-2"
+    src="atencion-2.wav"
+    preload="auto"
+  />
+  <audio
+    id="atencion-3"
+    src="atencion-3.wav"
+    preload="auto"
+  />
+  <img
+    id="portrait-img"
+    style="width: 100%; display:block;"
+    src="./portrait.png"
+  />
+  <img
+    id="atencion-img"
+    class="atencion"
+    alt="atencion"
+    title="atención"
+    src="./atencion.gif"
+  />
+</div>
