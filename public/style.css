@@ -61,57 +61,6 @@ p {
   overflow: hidden;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 0;
-    margin-top: 10px;
-    margin-bottom: -10px;
-  }
-  25% {
-    opacity: 1;
-    filter: invert(100%);
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  50% {
-    opacity: 0;
-    filter: invert(0%);
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  75% {
-    opacity: 1;
-    filter: invert(100%);
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  100% {
-    opacity: 0;
-    filter: invert(0%);
-    margin-top: 10px;
-    margin-bottom: -10px;
-  }
-}
-
-.portrait-container {
-  background-color: white;
-  width: 100%;
-}
-
-.portrait {
-  position: relative;
-}
-
-.atencion {
-  width: 20px;
-  position: absolute;
-  border: 1px solid white;
-  background-color: white;
-  z-index: 100;
-  top: 0px;
-  right: 0px;
-}
-
 .overlay:hover ~ .background {
   transform: scale(3);
 }
