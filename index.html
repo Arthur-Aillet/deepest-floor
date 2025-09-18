@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="viewport" content="width=device-width, initial-scale=1"><title>Deepest floor</title><link rel="stylesheet" href="style.css"><style>.custom-cursor[data-astro-cid-h6vz4pgo]{position:fixed;z-index:1000;pointer-events:none}.namecard[data-astro-cid-fktwwujc]{width:fit-content;height:fit-content;position:relative}.inner[data-astro-cid-fktwwujc]{font-size:12px;transform:rotateX(0);transition:all 1s;backface-visibility:hidden}.namecard[data-astro-cid-fktwwujc]:hover .inner[data-astro-cid-fktwwujc]{transform:rotateX(180deg)}.front[data-astro-cid-fktwwujc]{transform:rotateX(0);position:relative}.back[data-astro-cid-fktwwujc]{position:absolute;top:0;left:0;margin-top:0%;transform:rotateX(180deg)}.namecard[data-astro-cid-fktwwujc]:hover .back[data-astro-cid-fktwwujc]{transform:rotateX(0)}@keyframes blink{0%{opacity:0;margin-top:10px;margin-bottom:-10px}25%{opacity:1;filter:invert(100%);margin-top:-10px;margin-bottom:10px}50%{opacity:0;filter:invert(0%);margin-top:-10px;margin-bottom:10px}75%{opacity:1;filter:invert(100%);margin-top:-10px;margin-bottom:10px}to{opacity:0;filter:invert(0%);margin-top:10px;margin-bottom:-10px}}.portrait-container[data-astro-cid-h66bbvuj]{width:100%;position:relative}.atencion[data-astro-cid-h66bbvuj]{width:20px;position:absolute;border:1px solid white;background-color:#fff;z-index:100;top:0;right:0}.bank[data-astro-cid-q54akx6s]{position:absolute;left:75%;display:flex;flex-flow:row;z-index:9;top:-1px;transform:scale(.95)}.textblock[data-astro-cid-q54akx6s]{border:1px;border-style:inset;background-color:#000;padding-right:3px;background:linear-gradient(to top,#000,#000,#151515,#151515);background-size:100% 2px;height:1em;width:177px;overflow:hidden;animation:scanlines infinite 10s linear}.text[data-astro-cid-q54akx6s]{animation:scroll 10s linear infinite;text-align:right}green[data-astro-cid-q54akx6s]{color:#2fff36}red[data-astro-cid-q54akx6s]{color:#ff2f2f}.bank-overlay[data-astro-cid-q54akx6s]{position:absolute;background:linear-gradient(to top,#0000,#0000,#5d5d5da3,#5d5d5da3);mix-blend-mode:hard-light;background-size:100% 2px;animation:scanlines infinite 10s linear;z-index:10;width:100%;top:0;height:100%;pointer-events:none}@keyframes scanlines{0%{background-position:0 0}to{background-position:0 -10px}}@keyframes scroll{0%{transform:translateY(1em)}to{transform:translateY(-100%)}}.square[data-astro-cid-q54akx6s]{position:relative;height:calc(1em - 2px);width:calc(1em - 2px);background-color:#151515;border:1px;border-style:inset}.square[data-astro-cid-q54akx6s]:hover{background-color:#2e2e2e}.dollar[data-astro-cid-q54akx6s]{color:#e0ffff;font-size:13px;position:absolute;left:3px}.first[data-astro-cid-q54akx6s]{color:#0f6;top:-3px}.second[data-astro-cid-q54akx6s]{color:#0ff;top:-2px}.outer[data-astro-cid-q54akx6s]{border:1px;border-style:outset}
+</style></head> <body> <img class="custom-cursor" src="cursor.svg" data-cursor data-astro-cid-h6vz4pgo>  <script type="module">
+  import { cursorData } from "/stores/app.js";
+
+  document.addEventListener("mousemove", (e) => {
+    const cursor = document.querySelector(".custom-cursor");
+    cursor.style.left = `${e.clientX - 20.5}px`;
+    cursor.style.top = `${e.clientY - 20.5}px`;
+
+    const cursorType = getComputedStyle(e.target).cursor;
+    if (cursorType != "none") {
+      cursor.style.display = "none";
+    } else {
+      cursor.style.display = "inherit";
+    }
+  });
+
+  let updateAngle = () => {
+    cursorData.angle += 2;
+    document.querySelector("[data-cursor]").style.transform = `rotate(${cursorData.angle}deg) scale(100%)`;
+    if (cursorData.animate == true) {
+      requestAnimationFrame(updateAngle);
+    }
+  };
+
+  requestAnimationFrame(updateAngle);
+
+  cursorData.lockCursor = () => {
+    cursorData.animate = false;
+    const cursor = document.querySelector(".custom-cursor");
+    cursorData.angle = Math.floor(cursorData.angle / 90) * 90 - 1;
+    cursor.style.transition =
+      "transform 0.4s linear(0, 0.012 0.6%, 0.047 1.2%, 0.186 2.5%, 0.387 3.8%, 0.948 7%, 1.186 8.7%, 1.278 9.6%, 1.338 10.4%, 1.378 11.2%, 1.398 12.1%, 1.398 12.7%, 1.387 13.4%, 1.331 14.8%, 1.253 16.1%, 1.022 19.4%, 0.922 21.2%, 0.865 22.8%, 0.842 24.4%, 0.844 25.6%, 0.86 26.8%, 1.023 33.2%, 1.052 35%, 1.063 36.8%, 1.056 39.2%, 0.992 45.5%, 0.975 49.1%, 1.01 61.4%, 0.996 73.6%, 1)";
+    setTimeout(() => {
+      cursor.style.transform = `rotate(${cursorData.angle}deg) scale(90%)`;
+    }, 400);
+  }
+
+  cursorData.unlockCursor = () => {
+    cursorData.animate = true;
+    requestAnimationFrame(updateAngle);
+  }
+</script> <div class="background overlay"></div> <div class="background background-img"></div> <div class="gun-img" style="
+        position: absolute;
+        right: 5px;
+        height: 100vh;
+        width: 100px;
+        overflow: hidden;
+        z-index: 2;
+      "></div> <div class="gun-img" style="
+        position: absolute;
+        left: 5px;
+        height: 100vh;
+        width: 100px;
+        transform: scaleX(-1);
+        overflow: hidden;
+        z-index: 2;
+      "></div> <div class="bank" data-astro-cid-q54akx6s> <div class="textblock" data-astro-cid-q54akx6s> <div class="text" data-astro-cid-q54akx6s> <green data-astro-cid-q54akx6s>+1000000$</green><br data-astro-cid-q54akx6s> <red data-astro-cid-q54akx6s>-100000$</red><br data-astro-cid-q54akx6s> <green data-astro-cid-q54akx6s>+9999999$</green><br data-astro-cid-q54akx6s> <green data-astro-cid-q54akx6s>+10000000$<br data-astro-cid-q54akx6s></green> <red data-astro-cid-q54akx6s>-10000$</red> </div> <div class="bank-overlay" data-astro-cid-q54akx6s></div> </div> <div class="outer" data-astro-cid-q54akx6s> <div class="square" data-astro-cid-q54akx6s> <div class="dollar second" data-astro-cid-q54akx6s>
+$
+</div> <div class="dollar first" data-astro-cid-q54akx6s>
+$
+</div> </div> </div> </div> <main> <div style="padding-top: 30px"> <header class="block">Endless pit for withered souls</header> <div class="section"> <div class="sidebar-left"> <div class="block" style="height: 130px; width: calc(100% - 16px); margin-bottom: 0"> <p>My Socials</p> <ul> <li> <a href="https://bsky.app/profile/iddeko.bsky.social" target="_blank">bluesky</a> </li> </ul> </div> <div class="block" style="
+                flex-grow: 1;
+                overflow-x: hidden;
+                width: 100%;
+                margin-top: 0;
+              "> <p>Just plug me already</p> </div> </div> <div class="content block"> <h1>This is a test</h1> <p>This is a paragraph.</p> <p>
+Embrace the <a href="https://rustup.rs/" target="_blank">rust</a>.
+</p> </div> <div class="sidebar"> <script type="module">
+  import { cursorData } from "/stores/app.js";
+
+  function portraitHover() {
+    cursorData.lockCursor();
+  }
+
+  function portraitLeave() {
+    cursorData.unlockCursor();
+  }
+  const img = document.getElementById("portrait-img");
+
+  img.addEventListener("mouseout", portraitLeave);
+  img.addEventListener("mouseover", portraitHover);
+
+  function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  function playAtencion() {
+    const element = document.getElementById(
+      "atencion-" + randomIntFromInterval(1, 3)
+    );
+    element.volume = 0.1;
+    element.play();
+  }
+
+  function playShot() {
+    const element = document.getElementById("shot");
+    element.volume = 0.1;
+
+    const portrait = document.getElementById("portrait-img");
+    portrait.style.animation = "blink normal 0.1s 3 linear";
+
+    const atencion = document.getElementById("atencion-img");
+    atencion.style.animation = "blink normal 0.1s 3 linear";
+
+    element.play();
+
+    const atencion1 = document.getElementById("atencion-1");
+    atencion1.pause();
+    atencion1.currentTime = 0;
+    const atencion2 = document.getElementById("atencion-2");
+    atencion2.pause();
+    atencion2.currentTime = 0;
+    const atencion3 = document.getElementById("atencion-3");
+    atencion3.pause();
+    atencion3.currentTime = 0;
+  }
+
+  function stopShot() {
+    const element = document.getElementById("shot");
+
+    const portrait = document.getElementById("portrait-img");
+    portrait.style.animation = "none";
+
+    const atencion = document.getElementById("atencion-img");
+    atencion.style.animation = "none";
+
+    element.pause();
+    element.currentTime = 0;
+  }
+
+  img.addEventListener("mousedown", playShot);
+  img.addEventListener("mouseup", stopShot);
+  img.addEventListener("mouseleave", stopShot);
+  img.addEventListener("focusout", stopShot);
+
+
+  const atencion = document.getElementById("atencion-img");
+
+  atencion.addEventListener("click", playAtencion);
+</script> <div class="block portrait-container" data-astro-cid-h66bbvuj> <audio id="shot" src="shot.wav" preload="auto" data-astro-cid-h66bbvuj></audio> <audio id="atencion-1" src="atencion-1.wav" preload="auto" data-astro-cid-h66bbvuj></audio> <audio id="atencion-2" src="atencion-2.wav" preload="auto" data-astro-cid-h66bbvuj></audio> <audio id="atencion-3" src="atencion-3.wav" preload="auto" data-astro-cid-h66bbvuj></audio> <img id="portrait-img" style="width: 100%; display:block;" src="./portrait.png" data-astro-cid-h66bbvuj> <img id="atencion-img" class="atencion" alt="atencion" title="atención" src="./atencion.gif" data-astro-cid-h66bbvuj> </div> <div id="content-wrapper" class="namecard" data-astro-cid-fktwwujc> <div class="sidebar inner front block" style="display: flex" data-astro-cid-fktwwujc> Radical FOSS activist </div> <div class="sidebar inner back block" style="display: flex" data-astro-cid-fktwwujc> Leftist optimist </div> </div> <div id="content-wrapper" class="namecard" data-astro-cid-fktwwujc> <div class="sidebar inner front block" style="display: flex" data-astro-cid-fktwwujc> Post-cyberpunk artist </div> <div class="sidebar inner back block" style="display: flex" data-astro-cid-fktwwujc>  <script type="module">document.addEventListener("mousemove",e=>{c(e.clientX,e.clientY)});function a(){const e=t=>new Promise(i=>setTimeout(i,t));document.querySelectorAll("[data-eyes-closed]").forEach(async t=>{for(;;)t.style.display="inherit",await e(100),t.style.display="none",await e(2500)})}a();function c(e,t){document.querySelectorAll("[data-pupil]").forEach(i=>{const o=i.getBoundingClientRect(),n=o.right-(o.right-o.left)/2-e;let l=0;n>18?l=-4:n>5?l=-2:n<-18?l=4:n<-5&&(l=2),l-=18;const f=o.top-(o.top-o.bottom)/2-t+6;let s=-1;f>1?s=-2:f<-1&&(s=0),i.style.transform="translate("+l+"px, "+s+"px)"})}</script> <div style="height: 16px;"> <img src="eyes-back.png" class="eyes"> <img src="eyes-pupil.png" class="eyes" data-pupil> <img src="eyes-close.png" class="eyes" data-eyes-closed> </div>  <div style="height: 16px;"> <img src="eyes-back.png" class="eyes"> <img src="eyes-pupil.png" class="eyes" data-pupil> <img src="eyes-close.png" class="eyes" data-eyes-closed> </div>  </div> </div> <div id="content-wrapper" class="namecard" data-astro-cid-fktwwujc> <div class="sidebar inner front block" style="display: flex" data-astro-cid-fktwwujc> Radical FOSS activist </div> <div class="sidebar inner back block" style="display: flex" data-astro-cid-fktwwujc> Leftist optimist </div> </div> </div> </div> <footer class="block"> <p> <small>
+This page content is available on
+<a href="https://github.com/Arthur-Aillet/deepest-floor" target="_blank">github</a>
+under the
+<a href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE" target="_blank">AGPL GNU License</a> </small> </p> </footer> </div> </main> </body></html>
