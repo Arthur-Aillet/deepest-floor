@@ -3,13 +3,14 @@ import Cursor from "../components/cursor.astro";
 import Eyes from "../components/eyes.astro";
 import Namecard from "../components/namecard.astro";
 import Portrait from "../components/portrait.astro";
+import Bank from "../components/bank.astro";
 ---
 
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Deepest floor</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="styles/bank.css" />
   </head>
   <body>
     <Cursor />
@@ -38,16 +39,7 @@ import Portrait from "../components/portrait.astro";
         z-index: 2;
       "
     ></div>
-    <div class="bank">
-      <div class="bank-text">
-        <green>+1000000$</green><br />
-        <red>-100000$</red><br />
-        <green>+9999999$</green><br />
-        <green>+10000000$<br /></green>
-        <red>-10000$</red>
-      </div>
-      <div class="bank-overlay"></div>
-    </div>
+    <Bank />
     <main>
       <div style="padding-top: 30px">
         <header class="block">Endless pit for withered souls</header>
