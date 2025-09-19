@@ -33,11 +33,8 @@ import CustomLabel from "./CustomLabel.astro";
     const element = document.getElementById("shot");
     element.volume = 0.1;
 
-    const portrait = document.getElementById("portrait-img");
-    portrait.style.animation = "blink normal 0.1s 3 linear";
-
-    const atencion = document.getElementById("atencion-img");
-    atencion.style.animation = "blink normal 0.1s 3 linear";
+    const images = document.getElementById("images");
+    images.style.animation = "blink normal 0.1s 3 linear";
 
     element.play();
 
@@ -55,11 +52,8 @@ import CustomLabel from "./CustomLabel.astro";
   function stopShot() {
     const element = document.getElementById("shot");
 
-    const portrait = document.getElementById("portrait-img");
-    portrait.style.animation = "none";
-
-    const atencion = document.getElementById("atencion-img");
-    atencion.style.animation = "none";
+    const images = document.getElementById("images");
+    images.style.animation = "none";
 
     element.pause();
     element.currentTime = 0;
@@ -74,6 +68,14 @@ import CustomLabel from "./CustomLabel.astro";
   const atencion = document.getElementById("atencion-img");
 
   atencion.addEventListener("click", playAtencion);
+
+  const pronom = document.getElementById("pronom");
+  pronom.addEventListener("mouseover", () => pronom.textContent = "il/lui");
+  pronom.addEventListener("mouseleave", () => pronom.textContent = "they/them");
+
+  const age = document.getElementById("age");
+  age.addEventListener("mouseover", () => age.textContent = "??");
+  age.addEventListener("mouseleave", () => age.textContent = "20");
 </script>
 <style>
 
@@ -123,6 +125,25 @@ import CustomLabel from "./CustomLabel.astro";
   top: 0px;
   right: 0px;
 }
+
+.name {
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  font-size: 12px;
+  width: 100%;
+}
+
+span {
+  background-color: black;
+  color: white;
+}
+
+span:hover {
+  background-color: white;
+  color: black;
+}
+
 </style>
 
 <div class="block portrait-container">
@@ -142,16 +163,25 @@ import CustomLabel from "./CustomLabel.astro";
     src="atencion-3.wav"
     preload="auto"
   />
-  <img
-    id="portrait-img"
-    style="width: 100%; display:block;"
-    src="./portrait.png"
-  />
-  <img
-    id="atencion-img"
-    class="atencion"
-    alt="atencion"
-    src="./atencion.gif"
-  />
-  <CustomLabel text="atención"/>
+  <div id="images">
+    <img
+      id="portrait-img"
+      style="width: 100%; display:block;"
+      src="./portrait.png"
+    />
+    <img
+      id="atencion-img"
+      class="atencion"
+      alt="atencion"
+      src="./atencion.gif"
+    />
+    <CustomLabel text="atención"/>
+    <div class="name">
+      <span>iddeko</span>
+      <br/>
+      <span>
+        <span id="age">20</span><span> / </span><span style="width: 58.5px; text-align: center; display:inline-block;" id="pronom">they/them</span>
+      </span>
+    </div>
+    </div>
 </div>
