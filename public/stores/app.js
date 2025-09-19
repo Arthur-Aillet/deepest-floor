@@ -4,3 +4,7 @@ export const cursorData = {
   lockCursor: () => {},
   unlockCursor: () => {},
 };
+
+export const labelData = {
+  alreadySetup: false,
+};

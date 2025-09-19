@@ -4,6 +4,7 @@ import Eyes from "../components/eyes.astro";
 import Namecard from "../components/namecard.astro";
 import Portrait from "../components/portrait.astro";
 import Bank from "../components/bank.astro";
+import CustomLabel from "../components/CustomLabel.astro";
 ---
 
 <html lang="en">
@@ -26,7 +27,8 @@ import Bank from "../components/bank.astro";
         overflow: hidden;
         z-index: 2;
       "
-    ></div>
+    />
+    <CustomLabel mousetracked={true} text="Peace Activist Has To Admit Barrett .50 Caliber Sniper Rifle Is Pretty Cool"/>
     <div
       class="gun-img"
       style="
@@ -38,11 +40,12 @@ import Bank from "../components/bank.astro";
         overflow: hidden;
         z-index: 2;
       "
-    ></div>
+    />
+    <CustomLabel mousetracked={true} text="Peace Activist Has To Admit Barrett .50 Caliber Sniper Rifle Is Pretty Cool"/>
     <Bank />
     <main>
       <div style="padding-top: 30px">
-        <header class="block">Endless pit for withered souls</header>
+        <header class="block">Endless pit for <a style="color: orange; background-color: black;">withered</a> souls</header>
         <div class="section">
           <div class="sidebar-left">
             <div
@@ -75,7 +78,7 @@ import Bank from "../components/bank.astro";
           </div>
 
           <div class="content block">
-            <h1>This is a test</h1>
+            <h1>This is a title</h1>
             <p>This is a paragraph.</p>
             <p>
               Embrace the <a href="https://rustup.rs/" target="_blank">rust</a>.
@@ -101,7 +104,7 @@ import Bank from "../components/bank.astro";
           </div>
         </div>
         <footer class="block">
-          <p>
+          <p                 style="postition: relative;">
             <small>
               This page content is available on
               <a
@@ -113,10 +116,14 @@ import Bank from "../components/bank.astro";
               <a
                 href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE"
                 target="_blank"
-                >AGPL GNU License</a
+                style=""
+                >AGPL GNU License
+
+              </a
               >
             </small>
           </p>
+
         </footer>
       </div>
     </main>

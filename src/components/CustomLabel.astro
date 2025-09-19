@@ -1,0 +1,130 @@
+---
+const { text } = Astro.props;
+---
+
+<custom-label mousetracked={true} style="position: fixed; top: 0px; left: 0px; display: none; z-index: 100;">
+  <div class="label" data-label>
+    <div class="arrow-up-border" />
+    <div class="arrow-up" />
+    <div class="text">
+      {text}
+    </div>
+  </div>
+</custom-label>
+
+
+<script >
+
+class CustomLabel extends HTMLElement {
+  static get observedAttributes() {
+    return ['mousetracked'];
+  }
+
+  get mousetracked() {
+    return this.getAttribute('mousetracked');
+  }
+
+  set mousetracked(val) {
+    if (val == null) { // check for null and undefined
+      this.removeAttribute('mousetracked');
+    }
+    else {
+      this.setAttribute('mousetracked', val);
+    }
+  }
+
+  connectedCallback() {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const labeled = this.previousElementSibling !== null ? this.previousElementSibling : this.parentElement;
+    const self = this;
+
+    let x = 0;
+    let y = 0;
+
+    function refreshPosition() {
+      if (self.mousetracked) {
+        self.style.top = y + "px";
+        self.style.left = x + "px";
+      } else {
+        const labeledRect = labeled.getBoundingClientRect()
+
+        self.style.top = labeledRect.bottom + "px";
+        self.style.left = labeledRect.left + "px";
+      }
+    }
+
+
+    let canceled = false;
+
+    labeled?.addEventListener("mouseover", async () => {
+      canceled = false;
+
+      await delay(500);
+      if (canceled == false) {
+        refreshPosition();
+        self.style.display = "inline";
+      }
+    })
+
+    if (this.mousetracked) {
+      document.addEventListener("mousemove", (e) => {
+        x = e.clientX;
+        y = e.clientY;
+      })
+    }
+
+    labeled?.addEventListener("mouseout", () => {
+      canceled = true;
+      self.style.display = "none";
+    })
+  }
+}
+customElements.define("custom-label", CustomLabel);
+</script>
+
+
+<style>
+
+.label {
+  position: absolute;
+  width: fit-content;
+}
+
+.text {
+  background-color: rgb(35, 35, 35);
+  border: 1px solid rgb(194, 255, 250);
+  padding-left: 3px;
+  padding-right: 3px;
+  color: white;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: monospace;
+  word-break: normal;
+  max-width: 180px;
+  width: max-content;
+}
+
+.arrow-up {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 0px;
+  height: 0px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid rgb(35, 35, 35);
+  z-index: 101;
+}
+
+.arrow-up-border {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid rgb(194, 255, 250);
+  z-index: 101;
+}
+
+</style>
