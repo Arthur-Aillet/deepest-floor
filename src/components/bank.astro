@@ -1,7 +1,11 @@
+---
+import CustomLabel from "./CustomLabel.astro";
+---
+
 <style>
 
 .bank {
-  position: absolute;
+  position: fixed;
   left: 75%;
   display: flex;
   flex-flow: row;
@@ -108,25 +112,30 @@ red {
 
 </style>
 
-<div class="bank">
-  <div class="textblock">
-    <div class="text">
-      <green>+1000000$</green><br />
-      <red>-100000$</red><br />
-      <green>+9999999$</green><br />
-      <green>+10000000$<br /></green>
-      <red>-10000$</red>
+<>
+  <div class="bank">
+    <div class="textblock">
+      <div class="text">
+        <green>+1000000$</green><br />
+        <red>-100000$</red><br />
+        <green>+9999999$</green><br />
+        <green>+10000000$<br /></green>
+        <red>-10000$</red>
+      </div>
+      <div class="bank-overlay"/>
     </div>
-    <div class="bank-overlay"/>
-  </div>
-  <div class="outer">
-  <div class="square">
-    <div class="dollar second">
-      $
+    <div class="outer">
+      <div style="position: static;">
+        <div class="square">
+          <div class="dollar second">
+            $
+          </div>
+          <div class="dollar first">
+            $
+          </div>
+        </div>
+      </div>
+      <CustomLabel mousetracked={false} text="what sin do you relish the most? greed. how insatiable. i only want what's mine -and theirs, and his and yours."/>
     </div>
-    <div class="dollar first">
-      $
-    </div>
   </div>
-  </div>
-</div>
+</>

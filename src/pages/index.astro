@@ -12,8 +12,11 @@ import CustomLabel from "../components/CustomLabel.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Deepest floor</title>
     <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   </head>
   <body>
+    <div id="label-container" ></div> <!-- Do not remove even if empty -->
     <Cursor />
     <div class="background overlay"></div>
     <div class="background background-img"></div>
@@ -94,12 +97,11 @@ import CustomLabel from "../components/CustomLabel.astro";
               <Fragment slot="front">Post-cyberpunk artist</Fragment>
               <Fragment slot="back">
                 <Eyes/>
-                <Eyes/>
               </Fragment>
             </Namecard>
             <Namecard>
-              <Fragment slot="front">Radical FOSS activist</Fragment>
-              <Fragment slot="back">Leftist optimist</Fragment>
+              <Fragment slot="front">Non-binary mess</Fragment>
+              <Fragment slot="back">Autistic Robot w/ shitty ram</Fragment>
             </Namecard>
           </div>
         </div>
@@ -116,14 +118,12 @@ import CustomLabel from "../components/CustomLabel.astro";
               <a
                 href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE"
                 target="_blank"
-                style=""
+                id="license-link"
                 >AGPL GNU License
-
-              </a
-              >
+              </a>
             </small>
           </p>
-
+          <CustomLabel id="license-link" mousetracked={false} text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."/>
         </footer>
       </div>
     </main>

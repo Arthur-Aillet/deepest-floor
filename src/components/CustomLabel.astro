@@ -1,8 +1,8 @@
 ---
-const { text } = Astro.props;
+const { text, mousetracked = false, id = "" } = Astro.props;
 ---
 
-<custom-label mousetracked={true} style="position: fixed; top: 0px; left: 0px; display: none; z-index: 100;">
+<custom-label mousetracked={mousetracked} id={id} style="position: fixed; top: 0px; left: 0px; z-index: 100; display: none;">
   <div class="label" data-label>
     <div class="arrow-up-border" />
     <div class="arrow-up" />
@@ -12,12 +12,10 @@ const { text } = Astro.props;
   </div>
 </custom-label>
 
-
-<script >
-
+<script>
 class CustomLabel extends HTMLElement {
   static get observedAttributes() {
-    return ['mousetracked'];
+    return ['mousetracked', 'id'];
   }
 
   get mousetracked() {
@@ -33,27 +31,52 @@ class CustomLabel extends HTMLElement {
     }
   }
 
+  get id() {
+    return this.getAttribute('id');
+  }
+
+  set id(val) {
+    if (val == null) { // check for null and undefined
+      this.removeAttribute('id');
+    }
+    else {
+      this.setAttribute('id', val);
+    }
+  }
+
   connectedCallback() {
+    console.log(this.parentNode);
+    const container = document.getElementById("label-container");
+
+    if (this.parentNode !== container) {
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    const labeled = this.previousElementSibling !== null ? this.previousElementSibling : this.parentElement;
-    const self = this;
+    let labeled;
+    if (this.id === "") {
+      labeled = this.previousElementSibling !== null ? this.previousElementSibling : this.parentElement;
+    } else {
+      labeled = document.getElementById(this.id);
+    }
+
+    let self = this;
+    container?.append(this);
 
     let x = 0;
     let y = 0;
 
     function refreshPosition() {
-      if (self.mousetracked) {
+      console.log("refreshed", self.mousetracked, self.mousetracked === 'true');
+
+      if (self.mousetracked === 'true') {
         self.style.top = y + "px";
         self.style.left = x + "px";
       } else {
-        const labeledRect = labeled.getBoundingClientRect()
+        const labeledRect = labeled.getBoundingClientRect();
 
         self.style.top = labeledRect.bottom + "px";
         self.style.left = labeledRect.left + "px";
       }
     }
-
 
     let canceled = false;
 
@@ -63,11 +86,11 @@ class CustomLabel extends HTMLElement {
       await delay(500);
       if (canceled == false) {
         refreshPosition();
-        self.style.display = "inline";
+        self.style.display = "block";
       }
     })
 
-    if (this.mousetracked) {
+    if (this.mousetracked === 'true') {
       document.addEventListener("mousemove", (e) => {
         x = e.clientX;
         y = e.clientY;
@@ -79,7 +102,9 @@ class CustomLabel extends HTMLElement {
       self.style.display = "none";
     })
   }
+  }
 }
+
 customElements.define("custom-label", CustomLabel);
 </script>
 

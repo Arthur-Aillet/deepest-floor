@@ -19,3 +19,4 @@
 - sub drawer site, large switch
 - xray loupe
 - brainscans
+- daftpunk shrine
