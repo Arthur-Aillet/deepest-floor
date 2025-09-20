@@ -5,13 +5,13 @@ import CustomLabel from "../components/CustomLabel.astro";
 <style>
 
 .background-img {
-  background-image: url("/background.jpg");
+  background-image: url("./background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .gun-img {
-  background-image: url("/gun.png");
+  background-image: url("./gun.png");
   background-size: contain;
   background-repeat: space;
 }
@@ -36,7 +36,7 @@ import CustomLabel from "../components/CustomLabel.astro";
 } */
 
 .overlay {
-  background-image: url("/background-gradient.png");
+  background-image: url("./background-gradient.png");
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 1;
@@ -45,7 +45,7 @@ import CustomLabel from "../components/CustomLabel.astro";
 </style>
 
 <script type="module">
-  import { cursorData } from "/stores/app.js";
+  import { cursorData } from "./stores/app.js";
 
 
   const overlay = document.querySelector(".overlay");
@@ -58,7 +58,7 @@ import CustomLabel from "../components/CustomLabel.astro";
   }
 
   const applySize = (size) => {
-    const eased = easeInSine(size);
+    const eased = easeInSine(size) * 2/3 + size * 1/3;
     document.querySelector(".overlay").style.transform = 'scale(' + (1 + eased * 6) + ')';
     document.querySelector(".background-img").style.transform = 'scale(' + (1 + eased * 2) + ')';
   }
