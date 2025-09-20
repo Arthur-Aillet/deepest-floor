@@ -69,11 +69,11 @@ import CustomLabel from "../components/CustomLabel.astro";
       applySize(scaleUniform);
       return;
     }
-    const wasOver = scaleUniform < 0.5;
+    const wasOver = scaleUniform < 0.3;
 
     scaleUniform += 0.0005;
 
-    if (scaleUniform > 0.5 && wasOver == false) {
+    if (scaleUniform > 0.3 && wasOver == false) {
       cursorData.setMode('door');
     }
     applySize(scaleUniform);

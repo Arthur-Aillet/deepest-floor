@@ -13,6 +13,7 @@
   import { cursorData } from "/stores/app.js";
 
   let mode = 'cursor';
+  let killAngle = false;
 
   cursorData.setMode = (newMode) => {
     const cursor = document.querySelector(".custom-cursor");
@@ -20,7 +21,10 @@
     mode = newMode;
     if (mode == 'cursor') {
       cursor.src = 'cursor.svg';
+      killAngle = false;
+      requestAnimationFrame(updateAngle);
     } else if (mode == 'door'){
+      killAngle = true;
       cursor.style.transform = 'rotate(0deg) scale(100%)';
       cursor.style.transition = '',
       cursor.src = 'door-icon.png';
@@ -43,7 +47,7 @@
   });
 
   let updateAngle = () => {
-    if (mode == 'cursor') {
+    if (mode == 'cursor' && killAngle == false) {
       cursorData.angle += 2;
       document.querySelector("[data-cursor]").style.transform = `rotate(${cursorData.angle}deg) scale(100%)`;
       if (cursorData.animate == true) {
