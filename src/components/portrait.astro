@@ -3,7 +3,7 @@ import CustomLabel from "./CustomLabel.astro";
 ---
 
 <script type="module">
-  import { cursorData } from "./stores/app.js";
+  import { cursorData } from "/stores/app.js";
 
   function portraitHover() {
     cursorData.lockCursor();
@@ -167,13 +167,13 @@ span:hover {
     <img
       id="portrait-img"
       style="width: 100%; display:block;"
-      src="./portrait.png"
+      src="/portrait.png"
     />
     <img
       id="atencion-img"
       class="atencion"
       alt="atencion"
-      src="./atencion.gif"
+      src="/atencion.gif"
     />
     <CustomLabel text="atención"/>
     <div class="name">
