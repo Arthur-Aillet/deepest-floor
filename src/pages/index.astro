@@ -5,6 +5,7 @@ import Namecard from "../components/namecard.astro";
 import Portrait from "../components/portrait.astro";
 import Bank from "../components/bank.astro";
 import CustomLabel from "../components/CustomLabel.astro";
+import Background from "../components/Background.astro";
 ---
 
 <html lang="en">
@@ -18,33 +19,7 @@ import CustomLabel from "../components/CustomLabel.astro";
   <body>
     <div id="label-container" ></div> <!-- Do not remove even if empty -->
     <Cursor />
-    <div class="background overlay"></div>
-    <div class="background background-img"></div>
-    <div
-      class="gun-img"
-      style="
-        position: absolute;
-        right: 5px;
-        height: 100vh;
-        width: 100px;
-        overflow: hidden;
-        z-index: 2;
-      "
-    />
-    <CustomLabel mousetracked={true} text="Peace Activist Has To Admit Barrett .50 Caliber Sniper Rifle Is Pretty Cool"/>
-    <div
-      class="gun-img"
-      style="
-        position: absolute;
-        left: 5px;
-        height: 100vh;
-        width: 100px;
-        transform: scaleX(-1);
-        overflow: hidden;
-        z-index: 2;
-      "
-    />
-    <CustomLabel mousetracked={true} text="Peace Activist Has To Admit Barrett .50 Caliber Sniper Rifle Is Pretty Cool"/>
+    <Background />
     <Bank />
     <main>
       <div style="padding-top: 30px">
