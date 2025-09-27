@@ -39,7 +39,6 @@ import CustomLabel from "../components/CustomLabel.astro";
 <script type="module">
   import { cursorData } from "/stores/app.js";
 
-
   const overlay = document.querySelector(".overlay");
 
   let scaleUniform = 0;
@@ -58,7 +57,6 @@ import CustomLabel from "../components/CustomLabel.astro";
   let animationId = null;
 
   const updateSize = () => {
-    console.log(direction, scaleUniform);
     if (direction == 1) {
       if (scaleUniform > 1.0) {
         scaleUniform = 1;
