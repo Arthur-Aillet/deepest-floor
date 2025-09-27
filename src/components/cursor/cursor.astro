@@ -1,4 +1,12 @@
-<img class="custom-cursor" src="cursor.svg" data-cursor />
+---
+import { Image } from 'astro:assets';
+import cursorLogo from './cursor.svg';
+import doorLogo from './door-icon.png';
+---
+<head>
+ <link rel="preload" href={doorLogo.src} as="image" />
+</head>
+<img class="custom-cursor" src={cursorLogo.src} data-cursor />
 
 <style>
 
@@ -9,7 +17,7 @@
 }
 
 </style>
-<script type="module">
+<script type="module" define:vars={{doorLogo, cursorLogo}}>
   import { cursorData } from "/stores/app.js";
 
   let mode = 'cursor';
@@ -24,15 +32,14 @@
 
     mode = newMode;
     if (mode == 'cursor') {
-      cursor.src = 'cursor.svg';
+      cursor.src = cursorLogo.src;
       killAngle = false;
       requestAnimationFrame(updateAngle);
     } else if (mode == 'door'){
-      console.log('change');
       killAngle = true;
       cursor.style.transform = 'rotate(0deg) scale(100%)';
       cursor.style.transition = '',
-      cursor.src = 'door-icon.png';
+      cursor.src = doorLogo.src;
     }
   }
 

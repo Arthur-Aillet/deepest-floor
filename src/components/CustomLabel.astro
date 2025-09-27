@@ -45,7 +45,6 @@ class CustomLabel extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log(this.parentNode);
     const container = document.getElementById("label-container");
 
     if (this.parentNode !== container) {
@@ -65,8 +64,6 @@ class CustomLabel extends HTMLElement {
     let y = 0;
 
     function refreshPosition() {
-      console.log("refreshed", self.mousetracked, self.mousetracked === 'true');
-
       if (self.mousetracked === 'true') {
         self.style.top = y + "px";
         self.style.left = x + "px";
