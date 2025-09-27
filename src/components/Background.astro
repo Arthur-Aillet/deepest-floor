@@ -43,7 +43,6 @@ import CustomLabel from "../components/CustomLabel.astro";
   const overlay = document.querySelector(".overlay");
 
   let scaleUniform = 0;
-  let threadRunning = 0;
 
   function easeInSine(x) {
     return 1 - Math.cos((x * Math.PI) / 2);
@@ -55,58 +54,54 @@ import CustomLabel from "../components/CustomLabel.astro";
     document.querySelector(".background-img").style.transform = 'scale(' + (1 + eased * 2) + ')';
   }
 
-  let killFwd = false;
-  let killBwd = false;
+  let direction = 0;
+  let animationId = null;
 
-  const updateSizeForward = () => {
-    if (killFwd == true) {
-      killFwd = false;
-      killBwd = false;
-      return;
-    }
-    if (scaleUniform > 1.0) {
-      scaleUniform = 1;
-      applySize(scaleUniform);
-      return;
-    }
-    const wasOver = scaleUniform < 0.3;
+  const updateSize = () => {
+    console.log(direction, scaleUniform);
+    if (direction == 1) {
+      if (scaleUniform > 1.0) {
+        scaleUniform = 1;
+        direction = 0;
+      } else {
+        const wasOver = scaleUniform < 0.3;
+        scaleUniform += 0.0005;
 
-    scaleUniform += 0.0005;
-
-    if (scaleUniform > 0.3 && wasOver == false) {
-      cursorData.setMode('door');
+        if (scaleUniform > 0.3 && wasOver == false) {
+          cursorData.setMode('door');
+        }
+      }
+    } else if (direction == -1) {
+      if (scaleUniform < 0.0) {
+        scaleUniform = 0;
+        direction = 0;
+      } else {
+        scaleUniform -= 0.0005;
+      }
     }
-    applySize(scaleUniform);
-    requestAnimationFrame(updateSizeForward);
-  }
-
-  const updateSizeBackward = () => {
-    if (killBwd == true) {
-      killBwd = false;
-      killFwd = false;
-      return;
-    }
-    if (scaleUniform < 0.0) {
-      scaleUniform = 0;
-      applySize(scaleUniform);
-      return;
-    }
-    scaleUniform -= 0.0005;
 
     applySize(scaleUniform);
-    requestAnimationFrame(updateSizeBackward);
-  }
 
+    if (direction == 0) {
+      animationId = null;
+    } else {
+      requestAnimationFrame(updateSize);
+    }
+  }
 
   overlay.addEventListener("mouseover", async () => {
-    killBwd = true;
-    requestAnimationFrame(updateSizeForward);
+    direction = 1;
+    if (!animationId) {
+      animationId = requestAnimationFrame(updateSize);
+    }
   })
 
   overlay.addEventListener("mouseleave", async () => {
     cursorData.setMode('cursor');
-    killFwd = true;
-    requestAnimationFrame(updateSizeBackward);
+    direction = -1;
+    if (!animationId) {
+      animationId = requestAnimationFrame(updateSize);
+    }
   })
 
 </script>
