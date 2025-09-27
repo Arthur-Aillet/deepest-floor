@@ -18,12 +18,17 @@
   cursorData.setMode = (newMode) => {
     const cursor = document.querySelector(".custom-cursor");
 
+    if (newMode == mode) {
+      return;
+    }
+
     mode = newMode;
     if (mode == 'cursor') {
       cursor.src = 'cursor.svg';
       killAngle = false;
       requestAnimationFrame(updateAngle);
     } else if (mode == 'door'){
+      console.log('change');
       killAngle = true;
       cursor.style.transform = 'rotate(0deg) scale(100%)';
       cursor.style.transition = '',
