@@ -26,5 +26,6 @@
         "activityBar.background": "#113333",
         "titleBar.activeBackground": "#184748",
         "titleBar.activeForeground": "#F6FCFC"
-    }
+    },
+    "typescript.validate.enable": false,
 }
