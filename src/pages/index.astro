@@ -6,6 +6,7 @@ import Portrait from "../components/portrait.astro";
 import Bank from "../components/bank.astro";
 import CustomLabel from "../components/CustomLabel.astro";
 import Background from "../components/Background.astro";
+import UpdateLog from "../components/mainPage/UpdateLog.astro";
 ---
 
 <html lang="en">
@@ -81,7 +82,7 @@ import Background from "../components/Background.astro";
           </div>
         </div>
         <footer class="block">
-          <p                 style="postition: relative;">
+          <p style="postition: relative;">
             <small>
               This page content is available on
               <a
@@ -100,6 +101,7 @@ import Background from "../components/Background.astro";
           </p>
           <CustomLabel id="license-link" mousetracked={false} text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."/>
         </footer>
+        <UpdateLog />
       </div>
     </main>
   </body>
