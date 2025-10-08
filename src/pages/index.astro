@@ -8,6 +8,8 @@ import CustomLabel from "../components/CustomLabel.astro";
 import Background from "../components/Background.astro";
 import UpdateLog from "../components/mainPage/UpdateLog.astro";
 import Body from "../components/mainPage/Body.astro";
+import Socials from "../components/mainPage/Socials.astro";
+
 ---
 
 <html lang="en">
@@ -29,22 +31,7 @@ import Body from "../components/mainPage/Body.astro";
         <header class="block">Endless pit for <a style="color: orange; background-color: black;">withered</a> souls</header>
         <div class="section">
           <div class="sidebar-left">
-            <div
-              class="block"
-              style="height: 130px; width: calc(100% - 16px); margin-bottom: 0"
-            >
-              <p>My Socials</p>
-              <ul>
-                <li>
-                  <a
-                    href="https://bsky.app/profile/iddeko.bsky.social"
-                    target="_blank"
-                    >bluesky</a
-                  >
-                </li>
-              </ul>
-            </div>
-
+            <Socials/>
             <div
               class="block"
               style="
