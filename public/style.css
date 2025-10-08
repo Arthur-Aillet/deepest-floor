@@ -79,10 +79,6 @@ header {
   gap: 5px;
 }
 
-.content {
-  width: 300px;
-}
-
 .namecard {
   width: fit-content;
   height: fit-content;

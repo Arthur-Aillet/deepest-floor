@@ -7,6 +7,7 @@ import Bank from "../components/bank.astro";
 import CustomLabel from "../components/CustomLabel.astro";
 import Background from "../components/Background.astro";
 import UpdateLog from "../components/mainPage/UpdateLog.astro";
+import Body from "../components/mainPage/Body.astro";
 ---
 
 <html lang="en">
@@ -24,7 +25,7 @@ import UpdateLog from "../components/mainPage/UpdateLog.astro";
     <Background />
     <Bank />
     <main>
-      <div style="padding-top: 10vh">
+      <div style="padding-top: 90px">
         <header class="block">Endless pit for <a style="color: orange; background-color: black;">withered</a> souls</header>
         <div class="section">
           <div class="sidebar-left">
@@ -56,14 +57,7 @@ import UpdateLog from "../components/mainPage/UpdateLog.astro";
               <p>Just plug me already</p>
             </div>
           </div>
-
-          <div class="content block">
-            <h1>This is a title</h1>
-            <p>This is a paragraph.</p>
-            <p>
-              Embrace the <a href="https://rustup.rs/" target="_blank">rust</a>.
-            </p>
-          </div>
+          <Body />
           <div class="sidebar">
             <Portrait />
             <Namecard>
