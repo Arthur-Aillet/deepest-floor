@@ -1,6 +1,6 @@
 ---
+import LogLine from "./LogLine.astro";
 ---
-
 
 <style>
 
@@ -16,26 +16,76 @@
   padding-left: 5px;
   color: rgb(255, 255, 255);
   height: 1rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  transition: 1s;
 }
 
-.linked {
-  /* color: orange; */
-  font-size: 10px;
-  color: orange;
-  font-weight: bold;
-  text-decoration:underline;
-  /* text-shadow: none; */
+.logText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 7px;
+  position: absolute;
+  width: 76%;
+  height: 1rem;
+  transition: 1s;
+  overflow: hidden;
+}
+
+.arrow {
+  width: 12px;
+  height: fit-content;
+  transition: linear 0.1s;
+  transform: rotate(90deg) translateX(2px) translateY(2px);
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  position: absolute;
+  right: 60px;
 }
 
 </style>
 
-<div class="log block">
-  <a class="linked">7 Oct 2025 18:46</a>
-  - 
-  <a class="linked">32cf16c</a> 
-   - Live update log coming soon right here!
+<script>  
+  const button = document.getElementById('logArrow');
+  const text = document.getElementById('logText');
+  const bloc = document.getElementById('logBloc');
+  
+  fetch('https://api.github.com/repos/Arthur-Aillet/deepest-floor/commits?per_page=100')
+  .then(res => res.json())
+  .then(res => res.forEach(element => {
+      const line = document.createElement("log-line");
+      line.setAttribute("date", element.commit.author.date);
+      line.setAttribute("message", element.commit.message);
+      line.setAttribute("hash", element.commit.tree.sha);
+      text.appendChild(line);
+    }));
+
+  let logOpened = false;
+
+  // Handle clicks on each button.
+  bloc.addEventListener('click', () => {
+    logOpened = !logOpened;
+    if (logOpened) {
+      button.style.transform = 'none';
+      text.style.whiteSpace = 'normal';
+      bloc.style.height = '15rem';
+      text.style.height = '15rem';
+      text.style.overflow = 'scroll';
+    } else {
+      button.style.transform = 'rotate(90deg) translateX(2px) translateY(2px)';
+      bloc.style.height = '1rem';
+      text.style.height = '1rem';
+      text.style.overflow = 'hidden';
+      text.style.whiteSpace = 'nowrap';
+    }
+  });
+</script>
+
+<div class="log" id="logBloc">
+  <LogLine/>
+  <div class="logText" id="logText">
+  </div>
+  <a class="arrow" id="logArrow">
+    v
+  </a>
 </div>

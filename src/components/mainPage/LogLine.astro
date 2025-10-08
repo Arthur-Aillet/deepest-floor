@@ -1,0 +1,57 @@
+---
+---
+
+<style>
+
+.linked {
+  font-size: 10px;
+  color: orange;
+  font-weight: bold;
+  text-decoration:underline;
+}
+
+</style>
+
+<template id="logLineTemplate">
+  <a class="linked" data-part="date"></a>
+  -
+  <!-- <a class="linked" data-part="hash"></a>
+  - -->
+  <span data-part="message"></span>
+  <br/>
+</template>
+
+<script type="module">
+  const tmpl = document.getElementById("logLineTemplate");
+
+  class LogLine extends HTMLElement {
+    static get observedAttributes() {
+      return ["date", "hash", "message"];
+    }
+
+    connectedCallback() {
+      this.render();
+    }
+
+    attributeChangedCallback() {
+      this.render();
+    }
+
+    render() {
+      this.innerHTML = "";
+      const node = tmpl.content.cloneNode(true);
+      
+      if (this.getAttribute("date") !== null) {
+        const date = new Date(this.getAttribute("date"));
+        node.querySelector('[data-part="date"]').textContent = date.toLocaleDateString("en-US", { minute: "2-digit", hour: "2-digit", second: "2-digit", hour12: false});
+      } else {
+        node.querySelector('[data-part="date"]').textContent = "";
+      }
+      // node.querySelector('[data-part="hash"]').textContent = (this.getAttribute("hash") ?? "").substring(0,7);
+      node.querySelector('[data-part="message"]').textContent = this.getAttribute("message") ?? "";
+      this.appendChild(node);
+    }
+  }
+
+  customElements.define("log-line", LogLine);
+</script>
