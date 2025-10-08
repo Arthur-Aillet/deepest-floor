@@ -8,17 +8,28 @@ import CustomLabel from "../components/CustomLabel.astro";
   background-image: url("/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.cables-img {
+  background-image: url("/cables.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 2;
+  cursor: none;
+  pointer-events: none;
 }
 
 .gun-img {
   background-image: url("/gun.png");
   background-size: contain;
   background-repeat: space;
+  z-index: 2;
 }
 
 .background {
+  background-position: center; 
   position: absolute;
-  z-index: 0;
   left: 0;
   top: 0;
   width: 100vw;
@@ -104,8 +115,9 @@ import CustomLabel from "../components/CustomLabel.astro";
 
 </script>
 
-<div class="background overlay"></div>
-<div class="background background-img"></div>
+<div class="background overlay"/>
+<div class="background background-img"/>
+<div class="background cables-img" />
 <div
   class="gun-img"
   style="
