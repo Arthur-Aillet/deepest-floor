@@ -10,10 +10,14 @@
   text-decoration:underline;
 }
 
+.linked:hover {
+  color: rgb(255, 196, 87);
+}
+
 </style>
 
 <template id="logLineTemplate">
-  <a class="linked" data-part="date"></a>
+  <a class="linked" data-part="date" target="_blank"></a>
   -
   <!-- <a class="linked" data-part="hash"></a>
   - -->
@@ -44,6 +48,9 @@
       if (this.getAttribute("date") !== null) {
         const date = new Date(this.getAttribute("date"));
         node.querySelector('[data-part="date"]').textContent = date.toLocaleDateString("en-US", { minute: "2-digit", hour: "2-digit", second: "2-digit", hour12: false});
+        if (this.getAttribute("hash") !== null) {
+          node.querySelector('[data-part="date"]').href = "https://github.com/Arthur-Aillet/deepest-floor/commit/" + this.getAttribute("hash"); 
+        }
       } else {
         node.querySelector('[data-part="date"]').textContent = "";
       }

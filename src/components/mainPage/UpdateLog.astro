@@ -56,7 +56,7 @@ import LogLine from "./LogLine.astro";
       const line = document.createElement("log-line");
       line.setAttribute("date", element.commit.author.date);
       line.setAttribute("message", element.commit.message);
-      line.setAttribute("hash", element.commit.tree.sha);
+      line.setAttribute("hash", element.sha);
       text.appendChild(line);
     }));
 
