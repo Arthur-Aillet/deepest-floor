@@ -1,22 +1,50 @@
- <div
+<script type="module">
+
+import { Pixelate } from "/pixelate.js";
+
+let pixelate = null;
+
+window.onload = () => {
+  let pixelaters = [];
+
+  [document.getElementById('discord'), document.getElementById('butterfly')].forEach((image, n) => {
+    pixelaters.push(new Pixelate(image, 1));
+    pixelaters[n].canvas.addEventListener('mouseover', function () {
+        pixelaters[n].setAmount(0.5);
+        pixelaters[n].render();
+    });
+
+    pixelaters[n].canvas.addEventListener('mouseout', function () {
+      pixelaters[n].setAmount(0.3);
+      pixelaters[n].render();
+    });
+  })
+
+}
+</script>
+
+<style>
+
+.line {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 5px;
+}
+
+</style>
+
+<div
   class="block"
   style="height: 130px; width: calc(100% - 16px); margin-bottom: 0"
 >
   <p>My Socials</p>
-  <ul>
-    <li>
-      <a
-        href="https://bsky.app/profile/iddeko.bsky.social"
-        target="_blank"
-        >bluesky</a
-      >
-    </li>
-    <li>
-      <a
-        href="https://discordapp.com/users/582199835994750982"
-        target="_blank"
-        >discord</a
-      >
-    </li>
-  </ul>
+  <div class="line">
+    <img src="/icons/bluesky.png" id="butterfly" width="30px" style="background-color: black;"/>
+    <a href="https://bsky.app/profile/iddeko.bsky.social" target="_blank">bluesky</a>
+  </div>
+    <div class="line">
+      <img src="/icons/discord.png" id="discord" width="30px" style="background-color: black;"/>      
+      <a href="https://discordapp.com/users/582199835994750982" target="_blank">discord</a>
+  </div>
 </div>
