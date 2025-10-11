@@ -45,20 +45,37 @@ import LogLine from "./LogLine.astro";
 
 </style>
 
-<script>  
+<script>
+import { string } from "astro:schema";
+
+  
   const button = document.getElementById('logArrow');
   const text = document.getElementById('logText');
   const bloc = document.getElementById('logBloc');
   
-  fetch('https://api.github.com/repos/Arthur-Aillet/deepest-floor/commits?per_page=100')
-  .then(res => res.json())
-  .then(res => res.forEach(element => {
-      const line = document.createElement("log-line");
-      line.setAttribute("date", element.commit.author.date);
-      line.setAttribute("message", element.commit.message);
-      line.setAttribute("hash", element.sha);
-      text.appendChild(line);
-    }));
+  console.log()
+
+  fetch('/log.txt').then((res) => res.text())
+  .then((log) => {
+    log.split('@@@').filter(string => string != "").map(line => {
+      let commit = line.split('>', 3);
+      const el = document.createElement("log-line");
+      el.setAttribute("hash", commit[0]);
+      el.setAttribute("date", commit[1]);
+      el.setAttribute("message", commit[2]);
+      text.appendChild(el);
+    })
+   })
+
+  // fetch('https://api.github.com/repos/Arthur-Aillet/deepest-floor/commits?per_page=100')
+  // .then(res => res.json())
+  // .then(res => res.forEach(element => {
+  //     const line = document.createElement("log-line");
+  //     line.setAttribute("date", element.commit.author.date);
+  //     line.setAttribute("message", element.commit.message);
+  //     line.setAttribute("hash", element.sha);
+  //     text.appendChild(line);
+  //   }));
 
   let logOpened = false;
 
