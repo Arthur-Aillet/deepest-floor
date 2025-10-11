@@ -31,7 +31,6 @@ export class Pixelate {
         'image-rendering: pixelated; ' + // Future browsers
         '-ms-interpolation-mode: nearest-neighbor;';
 
-
       this.ctx = this.canvas.getContext('2d');
       this.ctx = disableSmoothRendering(this.ctx);
 

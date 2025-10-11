@@ -6,20 +6,58 @@ let pixelate = null;
 
 window.onload = () => {
   let pixelaters = [];
+  let clicked = false;
 
-  [document.getElementById('discord'), document.getElementById('butterfly')].forEach((image, n) => {
+  [document.getElementById('butterfly'), document.getElementById('discord')].forEach((image, n) => {
     pixelaters.push(new Pixelate(image, 1));
-    pixelaters[n].canvas.addEventListener('mouseover', function () {
+    pixelaters[n].canvas.addEventListener('mouseover', () => {
         pixelaters[n].setAmount(0.5);
         pixelaters[n].render();
     });
 
-    pixelaters[n].canvas.addEventListener('mouseout', function () {
+    pixelaters[n].canvas.addEventListener('mouseout', () => {
       pixelaters[n].setAmount(0.3);
       pixelaters[n].render();
     });
-  })
 
+    if (n == 0) {
+      console.log(pixelaters[n].canvas);
+      pixelaters[n].canvas.addEventListener('mousedown', () => {
+        if (clicked == false) {
+          clicked = true;
+          let div = document.createElement('div');
+          div.style.width = '28px';
+          div.style.height = '25px';
+          div.style.border = 'inset 1px';
+          pixelaters[n].canvas.parentNode.insertBefore(div, pixelaters[n].canvas);
+          let image = document.createElement('img');
+          image.style.width = '30px';
+          image.style.height = '27px';
+          image.src = "/icons/bluesky.gif";
+          image.style.position = "absolute";
+          image.animate(
+            [
+              { translate: "0 0" },
+              { translate: "0 -45px" },
+              { translate: "0 -60px" },
+              { translate: "0 -105px" },
+              { translate: "0 -120px" },
+              { translate: "0 -165px" },
+              { translate: "0 -180px" },
+              { translate: "0 -225px" },
+              { translate: "0 -240px" },
+            ],
+            {
+              duration: 3000, // milliseconds = 1s
+              fill: "forwards",
+              easing: "linear",
+            }
+          );
+          pixelaters[n].canvas.parentNode.replaceChild(image, pixelaters[n].canvas);
+        }
+      })
+    }
+  })
 }
 </script>
 
@@ -40,7 +78,7 @@ window.onload = () => {
 >
   <p>My Socials</p>
   <div class="line">
-    <img src="/icons/bluesky.png" id="butterfly" width="30px" style="background-color: black;"/>
+    <img src="/icons/bluesky.gif" id="butterfly" width="30px" style="background-color: black;"/>
     <a href="https://bsky.app/profile/iddeko.bsky.social" target="_blank">bluesky</a>
   </div>
     <div class="line">
