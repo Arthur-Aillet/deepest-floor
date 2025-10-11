@@ -38,14 +38,15 @@ window.onload = () => {
           image.animate(
             [
               { translate: "0 0" },
+              { translate: "0 -15px" },
               { translate: "0 -45px" },
-              { translate: "0 -60px" },
-              { translate: "0 -105px" },
-              { translate: "0 -120px" },
-              { translate: "0 -165px" },
-              { translate: "0 -180px" },
-              { translate: "0 -225px" },
+              { translate: "0 -65px" },
+              { translate: "0 -110px" },
+              { translate: "0 -130px" },
+              { translate: "0 -175px" },
+              { translate: "0 -195px" },
               { translate: "0 -240px" },
+              { translate: "0 -260px" },
             ],
             {
               duration: 3000, // milliseconds = 1s
@@ -53,7 +54,31 @@ window.onload = () => {
               easing: "linear",
             }
           );
-          pixelaters[n].canvas.parentNode.replaceChild(image, pixelaters[n].canvas);
+          let parent = pixelaters[n].canvas.parentNode;
+          parent.replaceChild(image, pixelaters[n].canvas);
+
+          let godray = document.createElement('img');
+          godray.style.width = '270px';
+          godray.style.top = '0px';
+          godray.style.left = '-115px';
+          godray.src = "/godrays.png";
+          godray.style.position = "absolute";
+          godray.animate(
+            [
+              { opacity: "0%" },
+              { opacity: "0%" },
+              { opacity: "0%" },
+              { opacity: "0%" },
+              { opacity: "40%" },
+              { opacity: "0%" },
+            ],
+            {
+              duration: 3000,
+              fill: "forwards",
+              easing: "linear",
+            }
+          );
+          parent.appendChild(godray);
         }
       })
     }
