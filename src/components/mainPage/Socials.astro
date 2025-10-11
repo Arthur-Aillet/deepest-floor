@@ -9,14 +9,14 @@ window.onload = () => {
   let clicked = false;
 
   [document.getElementById('butterfly'), document.getElementById('discord')].forEach((image, n) => {
-    pixelaters.push(new Pixelate(image, 1));
+    pixelaters.push(new Pixelate(image, 0.5));
     pixelaters[n].canvas.addEventListener('mouseover', () => {
-        pixelaters[n].setAmount(0.5);
+        pixelaters[n].setAmount(0.3);
         pixelaters[n].render();
     });
 
     pixelaters[n].canvas.addEventListener('mouseout', () => {
-      pixelaters[n].setAmount(0.3);
+      pixelaters[n].setAmount(0.5);
       pixelaters[n].render();
     });
 

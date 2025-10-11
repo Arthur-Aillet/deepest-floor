@@ -77,7 +77,9 @@ import doorLogo from './door-icon.png';
       cursor.style.transition =
         "transform 0.4s linear(0, 0.012 0.6%, 0.047 1.2%, 0.186 2.5%, 0.387 3.8%, 0.948 7%, 1.186 8.7%, 1.278 9.6%, 1.338 10.4%, 1.378 11.2%, 1.398 12.1%, 1.398 12.7%, 1.387 13.4%, 1.331 14.8%, 1.253 16.1%, 1.022 19.4%, 0.922 21.2%, 0.865 22.8%, 0.842 24.4%, 0.844 25.6%, 0.86 26.8%, 1.023 33.2%, 1.052 35%, 1.063 36.8%, 1.056 39.2%, 0.992 45.5%, 0.975 49.1%, 1.01 61.4%, 0.996 73.6%, 1)";
       setTimeout(() => {
-        cursor.style.transform = `rotate(${cursorData.angle}deg) scale(90%)`;
+        if (killAngle == false) {
+          cursor.style.transform = `rotate(${cursorData.angle}deg) scale(90%)`;
+        }
       }, 400);
     }
   }
