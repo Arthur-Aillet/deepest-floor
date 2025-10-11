@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+          #fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
           lfs: true # Fetch large files
 
       - name: Turn off LFS
@@ -34,7 +34,7 @@ jobs:
           npm i
           npm run build
 
-      - name:
+      - name: Get git log
         run: |
           git log --pretty=format:"@@@%h>%ad>%s" > public/log.txt
 
