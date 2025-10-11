@@ -27,13 +27,6 @@ a:visited {
   color:rgb(14, 14, 90);
 }
 
-
-.custom-cursor {
-  position: fixed;
-  z-index: 1000;
-  pointer-events: none;
-}
-
 @keyframes rotating {
   from {
     transform: rotate(0deg);

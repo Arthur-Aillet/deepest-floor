@@ -1,0 +1,16 @@
+{  
+  "1" : {
+    "image": "/kata/1.jpg",
+    "areas": [
+      {
+        "coords": "224,232,287,312",
+        "type": "forward",
+        "id": "2"
+      }
+    ]
+  },
+  "2" : {
+    "image": "/kata/2.jpg",
+    "event": "pause"
+  }
+}

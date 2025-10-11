@@ -1,0 +1,40 @@
+---
+import Arrow from './arrow.png';
+---
+
+<img class="custom-cursor" src={Arrow.src} data-cursor />
+
+<style>
+
+.custom-cursor {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  height: 30px;
+  width: 30px;
+  display: none;
+}
+
+</style>
+
+<script>
+import { cursorData } from "./depth.js";
+
+const cursor = document.querySelector(".custom-cursor");
+
+cursorData.setType = (type) => {
+  document.body.style.cursor = "none";
+  cursor.style.display = "inherit";
+}
+
+cursorData.unsetType = () => {
+    cursor.style.display = "none";
+    document.body.style.cursor = "pointer";
+}
+
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = `${e.clientX - 15}px`;
+  cursor.style.top = `${e.clientY - 15}px`;
+});
+
+</script>

@@ -1,23 +1,29 @@
 ---
 import { Image } from "astro:assets";
 
-import first from "../../public/kata/1.jpg";
+import Color from "../components/depth/Color.astro";
+import Interaction from "../components/depth/Interaction.astro";
+
+import Cursor from "../components/depth/Cursor.astro";
 ---
 
 <style>
 html {
   height: 100%;
 }
+
 body {
   background-color: black;
   height: 100%;
   display: flex;
+  cursor: pointer;
   overflow: hidden;
 }
 
 .cursed {
   height: 70%;
   margin: auto;
+  display: none;
   border-style: dashed;
   border-width: 2px;
   border-color: rgb(0, 0, 0);
@@ -39,16 +45,83 @@ body {
   top: calc(50% - 59px);
   height: fit-content;
   width: fit-content;
+  z-index: 10;
+  display: none;
 }
-
 
 </style>
 
+<script>
+import { cursorData } from "../components/depth/depth.js";
+
+import * as map from "../components/depth/map.json";
+
+let first = map["default"]["1"];
+
+console.log(map, first, first.image);
+
+let image = document.getElementById("cursed");
+let areas = document.getElementById("areas");
+
+
+let areaOver = (type) => {
+  return () => {
+    cursorData.setType(type);
+  }
+}
+
+let areaClicked = (id) => {
+  return (e) => {
+    if (e.shiftKey == false) {
+      setScene(map["default"][id])
+    }
+  }
+}
+
+let areaOut = () => {
+  cursorData.unsetType();
+}
+
+setScene(first);
+
+function setScene(scene) {
+  image.style.display = "inherit";
+  image.src = scene.image;
+  cursorData.unsetType();
+  areas.innerHTML = "";
+  if (scene.event != null) {
+    if (scene.event == "pause") {
+      let dialog = document.getElementById("dialog");
+      dialog.style.display = "inherit";
+    }
+  }
+
+  scene.areas.map(areaData => {
+    let newEl = document.createElement("area");
+    newEl.shape = "rect";
+    newEl.coords = areaData.coords;
+    newEl.addEventListener("mouseover", areaOver(areaData.type));
+    newEl.addEventListener("mouseout", areaOut);
+    newEl.addEventListener("click", areaClicked(areaData.id));
+    areas.appendChild(newEl);
+  })
+}
+
+
+
+</script>
+
 <html>
   <body>
-    <div class="dialog">
+    <div class="dialog" id="dialog">
       Nothing to see here, come back later...
     </div>
-    <img src={first.src} alt="" class="cursed">
+    <Cursor/>
+    <!-- <Interaction type="forward" /> -->
+    <img alt="" class="cursed" id="cursed" usemap="#map">
+    <map name="map" id="areas"> 
+        <!-- <area shape="rect" coords="224,232,287,312"
+            href="https://www.geeksforgeeks.org/"/>  -->
+    </map>
   </body>
 </html>

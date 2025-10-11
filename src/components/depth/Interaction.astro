@@ -1,0 +1,43 @@
+---
+
+const { type } = Astro.props;
+
+---
+
+<style>
+
+.interaction {
+    background-color: aquamarine;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+}
+
+</style>
+
+<div class="interaction" data-id/>
+
+<script type="module" define:vars={{type}}>
+
+// import { cursorData } from "/stores/depth.js";
+
+// let interact = document.querySelector(".interaction");
+
+// interact.addEventListener('mouseover', () => {
+//   cursorData.type = type;
+// });
+
+// interact.addEventListener('mouseout', () => {
+//   cursorData.type = "none";
+// });
+
+document.body.addEventListener('click', (e) => {
+  if (e.shiftKey == true) {
+    console.log(e.offsetX, e.offsetY)
+  }
+});
+
+</script>
