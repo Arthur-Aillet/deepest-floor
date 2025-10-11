@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+
+import first from "../../public/kata/1.jpg";
+---
+
+<style>
+html {
+  height: 100%;
+}
+body {
+  background-color: black;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.cursed {
+  height: 70%;
+  margin: auto;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0);
+  box-shadow: 0px 0px 10px rgb(255, 0, 0);
+}
+
+
+.dialog {
+  background-color: grey;
+  border-style: double;
+  border-width: 2px;
+  border-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 100px 30px rgb(0, 0, 0);
+  position: absolute;
+  padding: 10px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  left: calc(50% - 169px);
+  top: calc(50% - 59px);
+  height: fit-content;
+  width: fit-content;
+}
+
+
+</style>
+
+<html>
+  <body>
+    <div class="dialog">
+      Nothing to see here, come back later...
+    </div>
+    <img src={first.src} alt="" class="cursed">
+  </body>
+</html>

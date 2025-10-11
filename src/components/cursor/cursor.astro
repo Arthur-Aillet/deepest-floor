@@ -23,6 +23,10 @@ import doorLogo from './door-icon.png';
   let mode = 'cursor';
   let killAngle = false;
 
+  cursorData.getMode = () => {
+    return mode;
+  }
+
   cursorData.setMode = (newMode) => {
     const cursor = document.querySelector(".custom-cursor");
 
