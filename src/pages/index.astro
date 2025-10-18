@@ -9,6 +9,24 @@ import Socials from "../components/mainPage/Socials.astro";
 import Sidebar from "../components/mainPage/Sidebar.astro";
 ---
 
+<style>
+  .nano {
+    image-rendering: pixelated;
+    height: 310px;
+    /* width: fit-content; */
+    z-index: 6;
+    margin-top: 50px;
+  }
+
+  .extended {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 300px;
+    gap: 40px;
+  }
+</style>
+
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,56 +43,59 @@ import Sidebar from "../components/mainPage/Sidebar.astro";
     <Cursor />
     <Background />
     <Bank />
-    <main>
-      <div style="padding-top: 90px">
-        <header class="block">
-          Endless pit for <a style="color: orange; background-color: black;"
-            >withered</a
-          > souls
-        </header>
-        <div class="section">
-          <div class="sidebar-left">
-            <Socials />
-            <div
-              class="block"
-              style="
+    <div class="extended">
+      <main>
+        <div style="padding-top: 90px">
+          <header class="block">
+            Endless pit for <a style="color: orange; background-color: black;"
+              >withered</a
+            > souls
+          </header>
+          <div class="section">
+            <div class="sidebar-left">
+              <Socials />
+              <div
+                class="block"
+                style="
                 flex-grow: 1;
                 overflow-x: hidden;
                 width: 100%;
                 margin-top: 0;
               "
-            >
-              <p>Just plug me already</p>
-            </div>
-          </div>
-          <Body />
-          <Sidebar />
-        </div>
-        <footer class="block">
-          <p style="postition: relative;">
-            <small>
-              This page content is available on
-              <a
-                href="https://github.com/Arthur-Aillet/deepest-floor"
-                target="_blank">github</a
               >
-              under the
-              <a
-                href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE"
-                target="_blank"
-                id="license-link"
-                >AGPL GNU License
-              </a>
-            </small>
-          </p>
-          <CustomLabel
-            id="license-link"
-            mousetracked={false}
-            text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."
-          />
-        </footer>
-        <UpdateLog />
-      </div>
-    </main>
+                <p>Just plug me already</p>
+              </div>
+            </div>
+            <Body />
+            <Sidebar />
+          </div>
+          <footer class="block">
+            <p style="postition: relative;">
+              <small>
+                This page content is available on
+                <a
+                  href="https://github.com/Arthur-Aillet/deepest-floor"
+                  target="_blank">github</a
+                >
+                under the
+                <a
+                  href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE"
+                  target="_blank"
+                  id="license-link"
+                  >AGPL GNU License
+                </a>
+              </small>
+            </p>
+            <CustomLabel
+              id="license-link"
+              mousetracked={false}
+              text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."
+            />
+          </footer>
+          <UpdateLog />
+        </div>
+      </main>
+      <img src="/v2-highres.gif" class="block nano" />
+    </div>
   </body>
 </html>

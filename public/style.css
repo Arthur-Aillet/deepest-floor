@@ -7,7 +7,6 @@ body {
 main {
   width: fit-content;
   position: relative;
-  margin: auto;
   z-index: 5;
 }
 
@@ -24,13 +23,14 @@ p {
 }
 
 a:visited {
-  color:rgb(14, 14, 90);
+  color: rgb(14, 14, 90);
 }
 
 @keyframes rotating {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
