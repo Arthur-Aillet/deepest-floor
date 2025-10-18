@@ -1,0 +1,26 @@
+---
+import Eyes from "../eyes.astro";
+import Namecard from "../namecard.astro";
+import Portrait from "../portrait.astro";
+---
+
+<div class="sidebar">
+  <Portrait />
+  <Namecard>
+    <Fragment slot="front">Radical FOSS activist</Fragment>
+    <Fragment slot="back">Leftist optimist</Fragment>
+  </Namecard>
+  <Namecard>
+    <Fragment slot="front">Post-cyberpunk artist</Fragment>
+    <Fragment slot="back">
+      <div id="eyes-enabled">
+        <Eyes />
+      </div>
+      <div id="eyes-disabled" style="display: none;">AVPD enjoyer</div>
+    </Fragment>
+  </Namecard>
+  <Namecard>
+    <Fragment slot="front">Non-binary mess</Fragment>
+    <Fragment slot="back">AUDHD Bravest warrior</Fragment>
+  </Namecard>
+</div>

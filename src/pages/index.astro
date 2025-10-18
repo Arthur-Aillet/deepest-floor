@@ -1,38 +1,40 @@
 ---
 import Cursor from "../components/cursor/cursor.astro";
-import Eyes from "../components/eyes.astro";
-import Namecard from "../components/namecard.astro";
-import Portrait from "../components/portrait.astro";
 import Bank from "../components/bank.astro";
 import CustomLabel from "../components/CustomLabel.astro";
 import Background from "../components/Background.astro";
 import UpdateLog from "../components/mainPage/UpdateLog.astro";
 import Body from "../components/mainPage/Body.astro";
 import Socials from "../components/mainPage/Socials.astro";
-
+import Sidebar from "../components/mainPage/Sidebar.astro";
 ---
 
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="pragma" content="no-cache" />
     <title>Deepest floor</title>
     <link rel="stylesheet" href="style.css" />
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-    <link rel="icon" type="image/x-icon" href="/favicon.jpg">
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.jpg" />
   </head>
   <body>
-    <div id="label-container" ></div> <!-- Do not remove even if empty -->
+    <div id="label-container"></div>
+    <!-- Do not remove even if empty -->
     <Cursor />
     <Background />
     <Bank />
     <main>
       <div style="padding-top: 90px">
-        <header class="block">Endless pit for <a style="color: orange; background-color: black;">withered</a> souls</header>
+        <header class="block">
+          Endless pit for <a style="color: orange; background-color: black;"
+            >withered</a
+          > souls
+        </header>
         <div class="section">
           <div class="sidebar-left">
-            <Socials/>
+            <Socials />
             <div
               class="block"
               style="
@@ -46,23 +48,7 @@ import Socials from "../components/mainPage/Socials.astro";
             </div>
           </div>
           <Body />
-          <div class="sidebar">
-            <Portrait />
-            <Namecard>
-              <Fragment slot="front">Radical FOSS activist</Fragment>
-              <Fragment slot="back">Leftist optimist</Fragment>
-            </Namecard>
-            <Namecard>
-              <Fragment slot="front">Post-cyberpunk artist</Fragment>
-              <Fragment slot="back">
-                <Eyes/>
-              </Fragment>
-            </Namecard>
-            <Namecard>
-              <Fragment slot="front">Non-binary mess</Fragment>
-              <Fragment slot="back">AUDHD Bravest warrior</Fragment>
-            </Namecard>
-          </div>
+          <Sidebar />
         </div>
         <footer class="block">
           <p style="postition: relative;">
@@ -70,8 +56,7 @@ import Socials from "../components/mainPage/Socials.astro";
               This page content is available on
               <a
                 href="https://github.com/Arthur-Aillet/deepest-floor"
-                target="_blank"
-                >github</a
+                target="_blank">github</a
               >
               under the
               <a
@@ -82,7 +67,11 @@ import Socials from "../components/mainPage/Socials.astro";
               </a>
             </small>
           </p>
-          <CustomLabel id="license-link" mousetracked={false} text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."/>
+          <CustomLabel
+            id="license-link"
+            mousetracked={false}
+            text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."
+          />
         </footer>
         <UpdateLog />
       </div>
