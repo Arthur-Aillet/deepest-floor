@@ -1,0 +1,109 @@
+---
+import CustomLabel from "../../CustomLabel.astro";
+import xrayImg from "./v2-highres.gif";
+---
+
+<style>
+  .wrapper {
+    margin-top: 50px;
+    image-rendering: pixelated;
+    position: relative;
+    z-index: 6;
+  }
+
+  .xray {
+    height: 310px;
+    margin: 0px;
+    padding: 0px;
+    width: fit-content;
+    /* filter: saturate(100) contrast(200%); */
+    /* filter: saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5)
+      contrast(200%); */
+    transition: ease-in-out 0.1s all;
+  }
+
+  .red {
+    z-index: 7;
+    position: absolute;
+    left: 0px;
+    opacity: 0;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 0;
+      margin-top: 10px;
+      margin-bottom: -10px;
+    }
+    25% {
+      opacity: 1;
+      filter: invert(100%);
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+    50% {
+      opacity: 0;
+      filter: invert(0%);
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+    75% {
+      opacity: 1;
+      filter: invert(100%);
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+    100% {
+      opacity: 0;
+      filter: invert(0%);
+      margin-top: 10px;
+      margin-bottom: -10px;
+    }
+  }
+</style>
+
+<script>
+  const xray = document.getElementById("xray");
+  const shot = document.getElementById("shot-xray");
+
+  let suffix = "";
+
+  xray.addEventListener(
+    "mouseover",
+    () =>
+      (xray.style.filter =
+        "saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5) contrast(200%)" +
+        suffix),
+  );
+  xray.addEventListener("mouseout", () => (xray.style.filter = suffix));
+  function stopXrayShot() {
+    xray.style.animation = "none";
+    shot.pause();
+    shot.currentTime = 0;
+  }
+  xray.addEventListener("mousedown", () => {
+    shot.volume = 0.02;
+    shot.play();
+
+    suffix = "saturate(100) contrast(200%)";
+    xray.style.filter =
+      "saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5) contrast(200%)" +
+      suffix;
+    xray.style.animation = "blink normal 0.1s 3 linear";
+  });
+
+  xray.addEventListener("mouseup", stopXrayShot);
+  xray.addEventListener("mouseleave", stopXrayShot);
+  xray.addEventListener("focusout", stopXrayShot);
+
+  document.getElementById("xray").addEventListener("mousedown", () => {});
+</script>
+
+<audio id="shot-xray" src="shot-xray.wav" preload="auto"></audio>
+<div class="block wrapper">
+  <img class="xray" src={xrayImg.src} id="xray" />
+</div>
+<CustomLabel
+  mousetracked={false}
+  text="That's not me lol, it's an asset for a game"
+/>

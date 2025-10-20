@@ -7,17 +7,11 @@ import UpdateLog from "../components/mainPage/UpdateLog.astro";
 import Body from "../components/mainPage/Body.astro";
 import Socials from "../components/mainPage/Socials.astro";
 import Sidebar from "../components/mainPage/Sidebar.astro";
+import Xray from "../components/mainPage/Xray/Xray.astro";
+import Gallery from "../components/mainPage/Gallery/Gallery.astro";
 ---
 
 <style>
-  .nano {
-    image-rendering: pixelated;
-    height: 310px;
-    /* width: fit-content; */
-    z-index: 6;
-    margin-top: 50px;
-  }
-
   .extended {
     display: flex;
     justify-content: center;
@@ -44,6 +38,7 @@ import Sidebar from "../components/mainPage/Sidebar.astro";
     <Background />
     <Bank />
     <div class="extended">
+      <Gallery />
       <main>
         <div style="padding-top: 90px">
           <header class="block">
@@ -95,11 +90,7 @@ import Sidebar from "../components/mainPage/Sidebar.astro";
           <UpdateLog />
         </div>
       </main>
-      <img src="/v2-highres.gif" class="block nano" />
-      <CustomLabel
-        mousetracked={false}
-        text="That's not me lol, it's an asset for a game"
-      />
+      <Xray />
     </div>
   </body>
 </html>
