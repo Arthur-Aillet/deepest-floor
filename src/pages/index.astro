@@ -12,11 +12,18 @@ import Gallery from "../components/mainPage/Gallery/Gallery.astro";
 ---
 
 <style>
-  .extended {
+  .zero-layer {
     display: flex;
     justify-content: center;
+  }
+  .first-layer {
+    display: flex;
+    align-items: start;
+  }
+
+  .second-layer {
+    display: flex;
     align-items: center;
-    padding-left: 300px;
     gap: 40px;
   }
 </style>
@@ -37,60 +44,65 @@ import Gallery from "../components/mainPage/Gallery/Gallery.astro";
     <Cursor />
     <Background />
     <Bank />
-    <div class="extended">
-      <Gallery />
-      <main>
-        <div style="padding-top: 90px">
-          <header class="block">
-            Endless pit for <a style="color: orange; background-color: black;"
-              >withered</a
-            > souls
-          </header>
-          <div class="section">
-            <div class="sidebar-left">
-              <Socials />
-              <div
-                class="block"
-                style="
+
+    <div class="zero-layer">
+      <div class="first-layer">
+        <Gallery />
+        <div class="second-layer">
+          <main>
+            <div style="padding-top: 90px">
+              <header class="block">
+                Endless pit for <a
+                  style="color: orange; background-color: black;">withered</a
+                > souls
+              </header>
+              <div class="section">
+                <div class="sidebar-left">
+                  <Socials />
+                  <div
+                    class="block"
+                    style="
                 flex-grow: 1;
                 overflow-x: hidden;
                 width: 100%;
                 margin-top: 0;
               "
-              >
-                <p>Just plug me already</p>
+                  >
+                    <p>Just plug me already</p>
+                  </div>
+                </div>
+                <Body />
+                <Sidebar />
               </div>
-            </div>
-            <Body />
-            <Sidebar />
-          </div>
-          <footer class="block">
-            <p style="postition: relative;">
-              <small>
-                This page content is available on
-                <a
-                  href="https://github.com/Arthur-Aillet/deepest-floor"
-                  target="_blank">github</a
-                >
-                under the
-                <a
-                  href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE"
-                  target="_blank"
+              <footer class="block">
+                <p style="postition: relative;">
+                  <small>
+                    This page content is available on
+                    <a
+                      href="https://github.com/Arthur-Aillet/deepest-floor"
+                      target="_blank">github</a
+                    >
+                    under the
+                    <a
+                      href="https://github.com/Arthur-Aillet/deepest-floor/blob/main/LICENSE"
+                      target="_blank"
+                      id="license-link"
+                      >AGPL GNU License
+                    </a>
+                  </small>
+                </p>
+                <CustomLabel
                   id="license-link"
-                  >AGPL GNU License
-                </a>
-              </small>
-            </p>
-            <CustomLabel
-              id="license-link"
-              mousetracked={false}
-              text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."
-            />
-          </footer>
-          <UpdateLog />
+                  mousetracked={false}
+                  text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."
+                />
+              </footer>
+              <UpdateLog />
+            </div>
+          </main>
+          <Xray />
         </div>
-      </main>
-      <Xray />
+      </div>
     </div>
   </body>
 </html>

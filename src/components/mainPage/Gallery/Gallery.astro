@@ -1,9 +1,87 @@
 ---
 import CustomLabel from "../../CustomLabel.astro";
+import galleryClose from "./gallery_close.png";
+import galleryScrewUp from "./gallery_screw_up.png";
+import galleryScrewDown from "./gallery_screw_down.png";
+import galleryOpen from "./gallery_open.png";
+import galleryHeartHover from "./gallery_heart_hover.png";
 ---
 
-<!-- <img src="/v2-highres.gif" class="block xray" /> -->
-<div>
-    <div></div>
-    <CustomLabel mousetracked={false} text="" />
+<style>
+  .wrapper {
+    position: relative;
+    width: 430px;
+    z-index: 12;
+    padding-top: 100px;
+    padding-right: 40px;
+    margin-left: -240px;
+  }
+
+  .gallery-img {
+    display: block;
+    height: 100%;
+    z-index: 13;
+    width: 100%;
+    image-rendering: pixelated;
+  }
+
+  .screw {
+    z-index: 11;
+    image-rendering: pixelated;
+    position: absolute;
+    bottom: 0;
+    width: 430px;
+    pointer-events: none;
+    transition: ease 2.5s;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .heart {
+    z-index: 12;
+    transition: ease 1s;
+    opacity: 0;
+  }
+</style>
+
+<script>
+  let gallery = document.getElementById("gallery");
+  let screwUp = document.getElementById("screw-up");
+  let screwDown = document.getElementById("screw-down");
+  let open = document.getElementById("open");
+  let hover = document.getElementById("hover");
+
+  let step = 0;
+
+  gallery.addEventListener("mousedown", () => {
+    step += 1;
+    if (step == 1) {
+      screwUp.style.transform = "translateY(2000px)";
+    } else if (step == 2) {
+      screwDown.style.transform = "translateY(2400px)";
+    } else if (step == 3) {
+      open.style.display = "inherit";
+      hover.style.display = "inherit";
+      hover.style.opacity = 100;
+      gallery.addEventListener("mouseover", () => {
+        hover.style.display = "inherit";
+      });
+      gallery.addEventListener("mouseleave", () => {
+        hover.style.display = "none";
+      });
+    } else {
+      window.location.href = "/gallery/index.html";
+    }
+  });
+</script>
+
+<div class="wrapper">
+  <img src={galleryClose.src} class="gallery-img" id="gallery" />
+  <img src={galleryScrewUp.src} class="screw" id="screw-up" />
+  <img src={galleryScrewDown.src} class="screw" id="screw-down" />
+  <img src={galleryOpen.src} class="screw hidden" id="open" />
+  <img src={galleryHeartHover.src} class="screw heart" id="hover" />
+  <CustomLabel mousetracked={false} text="" />
 </div>
