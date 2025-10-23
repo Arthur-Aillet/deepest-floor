@@ -1,6 +1,7 @@
 ---
 import CustomLabel from "../../CustomLabel.astro";
 import xrayImg from "./v2-highres.gif";
+import glass from "./glass.png";
 ---
 
 <style>
@@ -9,6 +10,8 @@ import xrayImg from "./v2-highres.gif";
     image-rendering: pixelated;
     position: relative;
     z-index: 6;
+    overflow: hidden;
+    height: 310px;
   }
 
   .xray {
@@ -20,6 +23,16 @@ import xrayImg from "./v2-highres.gif";
     /* filter: saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5)
       contrast(200%); */
     transition: ease-in-out 0.1s all;
+  }
+
+  .glass {
+    height: 310px;
+    left: 0px;
+    margin: 0px;
+    pointer-events: none;
+    position: absolute;
+    opacity: 0.9;
+    display: none;
   }
 
   .red {
@@ -65,26 +78,33 @@ import xrayImg from "./v2-highres.gif";
 <script>
   const xray = document.getElementById("xray");
   const shot = document.getElementById("shot-xray");
+  const glass = document.getElementById("glass");
 
   let suffix = "";
 
-  xray.addEventListener(
-    "mouseover",
-    () =>
-      (xray.style.filter =
-        "saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5) contrast(200%)" +
-        suffix),
-  );
+  xray.addEventListener("mouseover", () => {
+    xray.style.filter =
+      "saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5) contrast(200%)" +
+      suffix;
+    glass.style.opacity = 0.7;
+  });
   xray.addEventListener("mouseout", () => (xray.style.filter = suffix));
   function stopXrayShot() {
     xray.style.animation = "none";
+    glass.style.animation = "none";
     shot.pause();
     shot.currentTime = 0;
+    glass.style.opacity = 0.9;
   }
-  xray.addEventListener("mousedown", () => {
+  xray.addEventListener("mousedown", (e) => {
+    if (e.which != 1) {
+      return;
+    }
     shot.volume = 0.02;
     shot.play();
 
+    glass.style.display = "initial";
+    glass.style.animation = "blink normal 0.1s 3 linear";
     suffix = "saturate(100) contrast(200%)";
     xray.style.filter =
       "saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5) contrast(200%)" +
@@ -95,13 +115,12 @@ import xrayImg from "./v2-highres.gif";
   xray.addEventListener("mouseup", stopXrayShot);
   xray.addEventListener("mouseleave", stopXrayShot);
   xray.addEventListener("focusout", stopXrayShot);
-
-  document.getElementById("xray").addEventListener("mousedown", () => {});
 </script>
 
 <audio id="shot-xray" src="shot-xray.wav" preload="auto"></audio>
 <div class="block wrapper lockable">
   <img class="xray" src={xrayImg.src} id="xray" />
+  <img class="glass" src={glass.src} id="glass" />
 </div>
 <CustomLabel
   mousetracked={false}
