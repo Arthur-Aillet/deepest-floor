@@ -1,100 +1,103 @@
 <script type="module">
+  import { Pixelate } from "/pixelate.js";
 
-import { Pixelate } from "/pixelate.js";
+  let pixelate = null;
 
-let pixelate = null;
+  window.onload = () => {
+    let pixelaters = [];
+    let clicked = false;
 
-window.onload = () => {
-  let pixelaters = [];
-  let clicked = false;
-
-  [document.getElementById('butterfly'), document.getElementById('discord')].forEach((image, n) => {
-    pixelaters.push(new Pixelate(image, 0.5));
-    pixelaters[n].canvas.addEventListener('mouseover', () => {
+    [
+      document.getElementById("butterfly"),
+      document.getElementById("discord"),
+    ].forEach((image, n) => {
+      pixelaters.push(new Pixelate(image, 0.5));
+      pixelaters[n].canvas.addEventListener("mouseover", () => {
         pixelaters[n].setAmount(0.3);
         pixelaters[n].render();
+      });
+
+      pixelaters[n].canvas.addEventListener("mouseout", () => {
+        pixelaters[n].setAmount(0.5);
+        pixelaters[n].render();
+      });
+
+      if (n == 0) {
+        console.log(pixelaters[n].canvas);
+        pixelaters[n].canvas.addEventListener("mousedown", () => {
+          if (clicked == false) {
+            clicked = true;
+            let div = document.createElement("div");
+            div.style.width = "28px";
+            div.style.height = "25px";
+            div.style.border = "inset 1px";
+            pixelaters[n].canvas.parentNode.insertBefore(
+              div,
+              pixelaters[n].canvas,
+            );
+            let image = document.createElement("img");
+            image.style.width = "30px";
+            image.style.height = "27px";
+            image.src = "/icons/bluesky.gif";
+            image.style.position = "absolute";
+            image.animate(
+              [
+                { translate: "0 0" },
+                { translate: "0 -15px" },
+                { translate: "0 -45px" },
+                { translate: "0 -65px" },
+                { translate: "0 -110px" },
+                { translate: "0 -130px" },
+                { translate: "0 -175px" },
+                { translate: "0 -195px" },
+                { translate: "0 -240px" },
+                { translate: "0 -260px" },
+              ],
+              {
+                duration: 3000, // milliseconds = 1s
+                fill: "forwards",
+                easing: "linear",
+              },
+            );
+            let parent = pixelaters[n].canvas.parentNode;
+            parent.replaceChild(image, pixelaters[n].canvas);
+
+            let godray = document.createElement("img");
+            godray.style.width = "270px";
+            godray.style.top = "0px";
+            godray.style.left = "-115px";
+            godray.src = "/godrays.png";
+            godray.style.position = "absolute";
+            godray.animate(
+              [
+                { opacity: "0%" },
+                { opacity: "0%" },
+                { opacity: "0%" },
+                { opacity: "0%" },
+                { opacity: "40%" },
+                { opacity: "0%" },
+              ],
+              {
+                duration: 3000,
+                fill: "forwards",
+                easing: "linear",
+              },
+            );
+            parent.appendChild(godray);
+          }
+        });
+      }
     });
-
-    pixelaters[n].canvas.addEventListener('mouseout', () => {
-      pixelaters[n].setAmount(0.5);
-      pixelaters[n].render();
-    });
-
-    if (n == 0) {
-      console.log(pixelaters[n].canvas);
-      pixelaters[n].canvas.addEventListener('mousedown', () => {
-        if (clicked == false) {
-          clicked = true;
-          let div = document.createElement('div');
-          div.style.width = '28px';
-          div.style.height = '25px';
-          div.style.border = 'inset 1px';
-          pixelaters[n].canvas.parentNode.insertBefore(div, pixelaters[n].canvas);
-          let image = document.createElement('img');
-          image.style.width = '30px';
-          image.style.height = '27px';
-          image.src = "/icons/bluesky.gif";
-          image.style.position = "absolute";
-          image.animate(
-            [
-              { translate: "0 0" },
-              { translate: "0 -15px" },
-              { translate: "0 -45px" },
-              { translate: "0 -65px" },
-              { translate: "0 -110px" },
-              { translate: "0 -130px" },
-              { translate: "0 -175px" },
-              { translate: "0 -195px" },
-              { translate: "0 -240px" },
-              { translate: "0 -260px" },
-            ],
-            {
-              duration: 3000, // milliseconds = 1s
-              fill: "forwards",
-              easing: "linear",
-            }
-          );
-          let parent = pixelaters[n].canvas.parentNode;
-          parent.replaceChild(image, pixelaters[n].canvas);
-
-          let godray = document.createElement('img');
-          godray.style.width = '270px';
-          godray.style.top = '0px';
-          godray.style.left = '-115px';
-          godray.src = "/godrays.png";
-          godray.style.position = "absolute";
-          godray.animate(
-            [
-              { opacity: "0%" },
-              { opacity: "0%" },
-              { opacity: "0%" },
-              { opacity: "0%" },
-              { opacity: "40%" },
-              { opacity: "0%" },
-            ],
-            {
-              duration: 3000,
-              fill: "forwards",
-              easing: "linear",
-            }
-          );
-          parent.appendChild(godray);
-        }
-      })
-    }
-  })
-}
+  };
 </script>
 
 <style>
-
-.line {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  margin: 5px;
-}
-
+  .line {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 5px;
+  }
 </style>
 
 <div
@@ -102,12 +105,26 @@ window.onload = () => {
   style="height: 130px; width: calc(100% - 16px); margin-bottom: 0"
 >
   <p>My Socials</p>
-  <div class="line">
-    <img src="/icons/bluesky.gif" id="butterfly" width="30px" style="background-color: black;"/>
-    <a href="https://bsky.app/profile/iddeko.bsky.social" target="_blank">bluesky</a>
+  <div class="line lockable">
+    <img
+      src="/icons/bluesky.gif"
+      id="butterfly"
+      width="30px"
+      style="background-color: black;"
+    />
+    <a href="https://bsky.app/profile/iddeko.bsky.social" target="_blank"
+      >bluesky</a
+    >
   </div>
-    <div class="line">
-      <img src="/icons/discord.png" id="discord" width="30px" style="background-color: black;"/>      
-      <a href="https://discordapp.com/users/582199835994750982" target="_blank">discord</a>
+  <div class="line">
+    <img
+      src="/icons/discord.png"
+      id="discord"
+      width="30px"
+      style="background-color: black;"
+    />
+    <a href="https://discordapp.com/users/582199835994750982" target="_blank"
+      >discord</a
+    >
   </div>
 </div>

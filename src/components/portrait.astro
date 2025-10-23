@@ -5,6 +5,8 @@ import CustomLabel from "./CustomLabel.astro";
 <script type="module">
   import { cursorData } from "/stores/app.js";
 
+  const img = document.getElementById("portrait-img");
+
   function portraitHover() {
     cursorData.lockCursor();
   }
@@ -12,10 +14,11 @@ import CustomLabel from "./CustomLabel.astro";
   function portraitLeave() {
     cursorData.unlockCursor();
   }
-  const img = document.getElementById("portrait-img");
 
-  img.addEventListener("mouseout", portraitLeave);
-  img.addEventListener("mouseover", portraitHover);
+  [...document.getElementsByClassName("lockable")].map((lockable) => {
+    lockable.addEventListener("mouseout", portraitLeave);
+    lockable.addEventListener("mouseover", portraitHover);
+  });
 
   function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -154,6 +157,7 @@ import CustomLabel from "./CustomLabel.astro";
   <div id="images">
     <img
       id="portrait-img"
+      class="lockable"
       style="width: 100%; display:block;"
       src="/portrait.png"
     />

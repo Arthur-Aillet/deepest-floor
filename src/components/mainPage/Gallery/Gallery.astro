@@ -46,7 +46,9 @@ import galleryHeartHover from "./gallery_heart_hover.png";
   }
 </style>
 
-<script>
+<script type="module">
+  import { cursorData } from "/stores/app.js";
+
   let gallery = document.getElementById("gallery");
   let screwUp = document.getElementById("screw-up");
   let screwDown = document.getElementById("screw-down");
@@ -55,13 +57,19 @@ import galleryHeartHover from "./gallery_heart_hover.png";
 
   let step = 0;
 
-  gallery.addEventListener("mousedown", () => {
+  gallery.addEventListener("mousedown", (e) => {
+    if (e.which != 1) {
+      return;
+    }
     step += 1;
     if (step == 1) {
       screwUp.style.transform = "translateY(2000px)";
     } else if (step == 2) {
       screwDown.style.transform = "translateY(2400px)";
     } else if (step == 3) {
+      cursorData.lockCursor();
+      gallery.addEventListener("mouseover", () => cursorData.lockCursor());
+      gallery.addEventListener("mouseout", () => cursorData.unlockCursor());
       open.style.display = "inherit";
       hover.style.display = "inherit";
       hover.style.opacity = 100;
@@ -77,7 +85,7 @@ import galleryHeartHover from "./gallery_heart_hover.png";
   });
 </script>
 
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
   <img src={galleryClose.src} class="gallery-img" id="gallery" />
   <img src={galleryScrewUp.src} class="screw" id="screw-up" />
   <img src={galleryScrewDown.src} class="screw" id="screw-down" />
