@@ -4,6 +4,62 @@ import Namecard from "../namecard.astro";
 import Portrait from "../portrait.astro";
 ---
 
+<script>
+  let gif = document.getElementById("gif");
+  let kill = false;
+  let blinkies = [
+    "https://adriansblinkiecollection.neocities.org/buttons/a81.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/h6.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/a90.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/f21.jpg",
+    "https://adriansblinkiecollection.neocities.org/buttons/h6.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/a29.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/a14.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/d6.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/a94.gif",
+    "https://zhongvie.neocities.org/img/buttons/piracynow.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/e23.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/4.jpg",
+    "https://adriansblinkiecollection.neocities.org/buttons/d7.gif",
+    "https://adriansblinkiecollection.neocities.org/buttons/b13.png",
+    "https://adriansblinkiecollection.neocities.org/buttons/e9.jpg",
+    "https://adriansblinkiecollection.neocities.org/buttons/h7.jpg",
+    "https://ghost-eater.neocities.org/img/linux.gif",
+    "https://ghost-eater.neocities.org/img/UK.gif",
+    "https://ghost-eater.neocities.org/img/pirate.gif",
+    "https://ghost-eater.neocities.org/img/firewall.gif",
+    "https://ghost-eater.neocities.org/img/0x5.png",
+    "https://demondanceclub.net/chrome.gif",
+    "https://demondanceclub.net/mikuapproved.gif",
+  ];
+
+  let preload_image_object = new Image();
+  blinkies.map((img) => {
+    preload_image_object.src = img;
+  });
+
+  gif.addEventListener("mouseover", () => {
+    kill = false;
+    function loopOverBlinkies(time) {
+      console.log(time);
+      if (kill == false) {
+        const random = Math.floor(Math.random() * blinkies.length);
+        gif.src = blinkies[random];
+        let newTime = Math.max(time - 1, 1);
+        setTimeout(() => loopOverBlinkies(newTime), newTime);
+      } else {
+        gif.src =
+          "https://adriansblinkiecollection.neocities.org/buttons/e21.gif";
+      }
+    }
+    setTimeout(() => loopOverBlinkies(200), 200);
+  });
+
+  gif.addEventListener("mouseout", () => {
+    kill = true;
+  });
+</script>
+
 <div class="sidebar">
   <Portrait />
   <Namecard>
@@ -23,4 +79,10 @@ import Portrait from "../portrait.astro";
     <Fragment slot="front">Non-binary mess</Fragment>
     <Fragment slot="back">AUDHD Bravest warrior</Fragment>
   </Namecard>
+  <img
+    src="https://adriansblinkiecollection.neocities.org/buttons/e21.gif"
+    class="block"
+    style="margin-top: 0px; margin-bottom: 1px; height: 47px; width: 133px; image-rendering: pixelated;"
+    id="gif"
+  />
 </div>
