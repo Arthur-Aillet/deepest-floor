@@ -38,7 +38,7 @@ body {
 }
 
 
-.dialog {
+.popup {
   background-color: grey;
   border-style: double;
   border-width: 2px;
@@ -54,6 +54,40 @@ body {
   width: fit-content;
   z-index: 10;
   display: none;
+}
+
+@keyframes flare {
+  0% {
+    opacity: 1;
+    transform: rotateZ(0deg);
+    transform-origin: 50% 45.5%;
+  }
+  12.5% {
+    opacity: 0.4;
+  }
+  25% {
+    opacity: 1;
+  }
+  37.5% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  62.5% {
+    opacity: 0.4;
+  }
+  75% {
+    opacity: 1;
+  }
+  87.5% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+    transform: rotateZ(360deg);
+    transform-origin: 50% 45.5%;
+  }
 }
 
 </style>
@@ -118,7 +152,7 @@ let imageClicked = (width, height) => {
         console.log(`
           "x": ${coords.x},
           "y": ${coords.y},
-          "width": ${x - coords.x}
+          "width": ${x - coords.x},
           "height": ${y - coords.y}
         `);
         coords = null;
@@ -127,22 +161,54 @@ let imageClicked = (width, height) => {
   }
 }
 
-let loadAreas = (areas) => {
-  areas.map(areaData => {
-    let newArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    newArea.setAttribute('x', areaData.coords.x);
-    newArea.setAttribute('y', areaData.coords.y);
-    newArea.setAttribute('width', areaData.coords.width);
-    newArea.setAttribute('height', areaData.coords.height);
-    newArea.setAttribute('id', 'test');
-    newArea.setAttribute('fill', 'blue');
-    newArea.setAttribute('opacity', '0');
+function mapColor(type) {
+  if (type == "forward") {
+    return 'blue';
+  } else if (type == "speech") {
+    return 'red';
+  } else {
+    return 'black';
+  }
+}
 
-    newArea.addEventListener("mouseover", areaOver(areaData.type));
-    newArea.addEventListener("mouseout", areaOut);
-    newArea.addEventListener("click", areaClicked(areaData.id));
-    container.appendChild(newArea);
-  })
+interface Area {
+  coords: { x: number, y: number, width: number, height: number};
+  type: 'forward' | 'speech';
+}
+
+function loadArea(areaData: Area) {
+  let newArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  newArea.setAttribute('x', areaData.coords.x);
+  newArea.setAttribute('y', areaData.coords.y);
+  newArea.setAttribute('width', areaData.coords.width);
+  newArea.setAttribute('height', areaData.coords.height);
+  newArea.setAttribute('id', 'area');
+  newArea.setAttribute('fill', mapColor(areaData.type));
+  newArea.setAttribute('opacity', '0');
+
+  newArea.addEventListener("mouseover", areaOver(areaData.type));
+  newArea.addEventListener("mouseout", areaOut);
+  newArea.addEventListener("click", areaClicked(areaData.id));
+  container.appendChild(newArea);
+}
+
+function launchEvent(scene, startAreas) {
+  if (scene.event == "pause") {
+    let popup = document.getElementById("popup");
+    popup.style.display = "inherit";
+  } else if (scene.event == "ghost") {
+    let ghost = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    ghost.setAttribute("href", "/kata/Ghost.png");
+    container.appendChild(ghost);
+
+    let flare = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    flare.setAttribute("href", "/kata/Flare.png");
+    flare.style.animation = "flare normal 15s infinite linear";
+    container.appendChild(flare);
+    flare.addEventListener("click", startAreas);
+  } else {
+    startAreas();
+  }
 }
 
 setScene(first);
@@ -151,7 +217,6 @@ function setScene(scene) {
   container.innerHTML = "";
   let newImg = new Image();
   newImg.onload = () => {
-    console.log(`0 0 ${newImg.naturalWidth} ${newImg.naturalHeight}`);
     container.setAttribute("viewBox", `0 0 ${newImg.naturalWidth} ${newImg.naturalHeight}`);
     let image = document.createElementNS("http://www.w3.org/2000/svg", "image");
     image.setAttribute("width", newImg.naturalWidth);
@@ -161,18 +226,19 @@ function setScene(scene) {
     container.appendChild(image);
 
     image.addEventListener("click", imageClicked(newImg.naturalWidth, newImg.naturalHeight));
-    loadAreas(scene.areas)
+    if (scene.event !== null) {
+      let startAreas = () => {
+        if (scene.areas !== undefined) {
+          scene.areas.map(areaData => loadArea(areaData));
+        }
+      };
+      launchEvent(scene, startAreas)
+    }
     container.style.display = "inherit";
   };
   newImg.src = scene.image;
 
   cursorData.unsetType();
-  if (scene.event != null) {
-    if (scene.event == "pause") {
-      let dialog = document.getElementById("dialog");
-      dialog.style.display = "inherit";
-    }
-  }
 }
 
 
@@ -181,7 +247,7 @@ function setScene(scene) {
 
 <html>
   <body>
-    <div class="dialog" id="dialog">
+    <div class="popup" id="popup">
       Nothing to see here, come back later...
     </div>
     <Cursor/>
