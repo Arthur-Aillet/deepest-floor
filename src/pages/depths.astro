@@ -15,15 +15,22 @@ html {
 body {
   background-color: black;
   height: 100%;
-  display: flex;
+  width: 100%;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
   overflow: hidden;
 }
 
 .cursed {
   height: 70%;
-  margin: auto;
   display: none;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   border-style: dashed;
   border-width: 2px;
   border-color: rgb(0, 0, 0);
@@ -57,15 +64,29 @@ import { cursorData } from "../components/depth/depth.js";
 import * as map from "../components/depth/map.json";
 
 let first = map["default"]["1"];
+let debug = false;
 
-console.log(map, first, first.image);
+let container = document.getElementById("container");
 
-let image = document.getElementById("cursed");
-let areas = document.getElementById("areas");
+document.addEventListener("keydown", (e) => {
+  if (e.shiftKey == true) {
+    let rects = [...document.getElementsByTagName("rect")];
+    rects.forEach((el) => el.setAttribute("opacity", 0.1));
+    debug = true;
+  }
+})
+document.addEventListener("keyup", (e) => {
+  if (debug == true) {
+    let rects = [...document.getElementsByTagName("rect")];
+    rects.forEach((el) => el.setAttribute("opacity", 0));
+    debug = false;
+  }
+})
 
+let coords = null;
 
 let areaOver = (type) => {
-  return () => {
+  return (e) => {
     cursorData.setType(type);
   }
 }
@@ -82,29 +103,76 @@ let areaOut = () => {
   cursorData.unsetType();
 }
 
+let imageClicked = (width, height) => {
+  return (e) => {
+    if (e.shiftKey == true) {
+      let dim = e.target.getBoundingClientRect();
+      let unscaledX = e.clientX - dim.left;
+      let unscaledY = e.clientY - dim.top;
+      let x = unscaledX * width / dim.width;
+      let y = unscaledY * height / dim.height;
+      if (coords == null) {
+        coords = {x, y};
+        console.log('...');
+      } else {
+        console.log(`
+          "x": ${coords.x},
+          "y": ${coords.y},
+          "width": ${x - coords.x}
+          "height": ${y - coords.y}
+        `);
+        coords = null;
+      }
+    }
+  }
+}
+
+let loadAreas = (areas) => {
+  areas.map(areaData => {
+    let newArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    newArea.setAttribute('x', areaData.coords.x);
+    newArea.setAttribute('y', areaData.coords.y);
+    newArea.setAttribute('width', areaData.coords.width);
+    newArea.setAttribute('height', areaData.coords.height);
+    newArea.setAttribute('id', 'test');
+    newArea.setAttribute('fill', 'blue');
+    newArea.setAttribute('opacity', '0');
+
+    newArea.addEventListener("mouseover", areaOver(areaData.type));
+    newArea.addEventListener("mouseout", areaOut);
+    newArea.addEventListener("click", areaClicked(areaData.id));
+    container.appendChild(newArea);
+  })
+}
+
 setScene(first);
 
 function setScene(scene) {
-  image.style.display = "inherit";
-  image.src = scene.image;
+  container.innerHTML = "";
+  let newImg = new Image();
+  newImg.onload = () => {
+    console.log(`0 0 ${newImg.naturalWidth} ${newImg.naturalHeight}`);
+    container.setAttribute("viewBox", `0 0 ${newImg.naturalWidth} ${newImg.naturalHeight}`);
+    let image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    image.setAttribute("width", newImg.naturalWidth);
+    image.setAttribute("height", newImg.naturalHeight);
+    image.setAttribute("href", scene.image);
+    image.setAttribute("id", "image");
+    container.appendChild(image);
+
+    image.addEventListener("click", imageClicked(newImg.naturalWidth, newImg.naturalHeight));
+    loadAreas(scene.areas)
+    container.style.display = "inherit";
+  };
+  newImg.src = scene.image;
+
   cursorData.unsetType();
-  areas.innerHTML = "";
   if (scene.event != null) {
     if (scene.event == "pause") {
       let dialog = document.getElementById("dialog");
       dialog.style.display = "inherit";
     }
   }
-
-  scene.areas.map(areaData => {
-    let newEl = document.createElement("area");
-    newEl.shape = "rect";
-    newEl.coords = areaData.coords;
-    newEl.addEventListener("mouseover", areaOver(areaData.type));
-    newEl.addEventListener("mouseout", areaOut);
-    newEl.addEventListener("click", areaClicked(areaData.id));
-    areas.appendChild(newEl);
-  })
 }
 
 
@@ -118,10 +186,11 @@ function setScene(scene) {
     </div>
     <Cursor/>
     <!-- <Interaction type="forward" /> -->
-    <img alt="" class="cursed" id="cursed" usemap="#map">
-    <map name="map" id="areas"> 
-        <!-- <area shape="rect" coords="224,232,287,312"
-            href="https://www.geeksforgeeks.org/"/>  -->
-    </map>
+    <!-- <img alt="" class="cursed" id="cursed" usemap="#map">
+    <map name="map" id="areas">
+    </map> -->
+
+    <svg class="cursed" id="container" ></svg>
+    </div>
   </body>
 </html>
