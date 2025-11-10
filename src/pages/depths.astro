@@ -125,10 +125,11 @@ let areaOver = (type) => {
   }
 }
 
-let areaClicked = (id) => {
+let areaClicked = (out, action) => {
   return (e) => {
     if (e.shiftKey == false) {
-      setScene(map["default"][id])
+      out();
+      action()
     }
   }
 }
@@ -166,6 +167,8 @@ function mapColor(type) {
     return 'blue';
   } else if (type == "speech") {
     return 'red';
+  } else if (type == "question") {
+    return 'green';
   } else {
     return 'black';
   }
@@ -173,23 +176,35 @@ function mapColor(type) {
 
 interface Area {
   coords: { x: number, y: number, width: number, height: number};
-  type: 'forward' | 'speech';
+  type: 'forward' | 'question' | 'speech';
 }
 
-function loadArea(areaData: Area) {
+function loadArea(areaData: Area, clickFunction: () => void) {
   let newArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
   newArea.setAttribute('x', areaData.coords.x);
   newArea.setAttribute('y', areaData.coords.y);
   newArea.setAttribute('width', areaData.coords.width);
   newArea.setAttribute('height', areaData.coords.height);
-  newArea.setAttribute('id', 'area');
+  newArea.setAttribute('id', areaData.type + '-area');
   newArea.setAttribute('fill', mapColor(areaData.type));
   newArea.setAttribute('opacity', '0');
 
   newArea.addEventListener("mouseover", areaOver(areaData.type));
   newArea.addEventListener("mouseout", areaOut);
-  newArea.addEventListener("click", areaClicked(areaData.id));
+
+  newArea.addEventListener("click", areaClicked(areaOut, clickFunction));
+
   container.appendChild(newArea);
+}
+
+function ghostClickFirst(ghostData, startAreas: () => void) {
+  document.getElementById('question-area').remove();
+  loadArea(ghostData[1], () => ghostClickSecond(startAreas));
+}
+
+function ghostClickSecond(startAreas: () => void) {
+  document.getElementById('speech-area').remove();
+  startAreas();
 }
 
 function launchEvent(scene, startAreas) {
@@ -199,13 +214,17 @@ function launchEvent(scene, startAreas) {
   } else if (scene.event == "ghost") {
     let ghost = document.createElementNS("http://www.w3.org/2000/svg", "image");
     ghost.setAttribute("href", "/kata/Ghost.png");
+    ghost.style.pointerEvents = "none";
     container.appendChild(ghost);
 
     let flare = document.createElementNS("http://www.w3.org/2000/svg", "image");
     flare.setAttribute("href", "/kata/Flare.png");
+    flare.style.pointerEvents = "none";
     flare.style.animation = "flare normal 15s infinite linear";
+    flare.addEventListener("click", imageClicked(1000, 1300));
+
     container.appendChild(flare);
-    flare.addEventListener("click", startAreas);
+    loadArea(scene.ghost[0], () => ghostClickFirst(scene.ghost, startAreas));
   } else {
     startAreas();
   }
@@ -229,7 +248,7 @@ function setScene(scene) {
     if (scene.event !== null) {
       let startAreas = () => {
         if (scene.areas !== undefined) {
-          scene.areas.map(areaData => loadArea(areaData));
+          scene.areas.map(areaData => loadArea(areaData, () => setScene(map["default"][areaData.id])));
         }
       };
       launchEvent(scene, startAreas)
