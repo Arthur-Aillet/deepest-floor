@@ -15,15 +15,22 @@ html {
 body {
   background-color: black;
   height: 100%;
-  display: flex;
+  width: 100%;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
   overflow: hidden;
 }
 
 .cursed {
   height: 70%;
-  margin: auto;
   display: none;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   border-style: dashed;
   border-width: 2px;
   border-color: rgb(0, 0, 0);
@@ -31,7 +38,7 @@ body {
 }
 
 
-.dialog {
+.popup {
   background-color: grey;
   border-style: double;
   border-width: 2px;
@@ -49,6 +56,40 @@ body {
   display: none;
 }
 
+@keyframes flare {
+  0% {
+    opacity: 1;
+    transform: rotateZ(0deg);
+    transform-origin: 50% 45.5%;
+  }
+  12.5% {
+    opacity: 0.4;
+  }
+  25% {
+    opacity: 1;
+  }
+  37.5% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  62.5% {
+    opacity: 0.4;
+  }
+  75% {
+    opacity: 1;
+  }
+  87.5% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+    transform: rotateZ(360deg);
+    transform-origin: 50% 45.5%;
+  }
+}
+
 </style>
 
 <script>
@@ -57,23 +98,38 @@ import { cursorData } from "../components/depth/depth.js";
 import * as map from "../components/depth/map.json";
 
 let first = map["default"]["1"];
+let debug = false;
 
-console.log(map, first, first.image);
+let container = document.getElementById("container");
 
-let image = document.getElementById("cursed");
-let areas = document.getElementById("areas");
+document.addEventListener("keydown", (e) => {
+  if (e.shiftKey == true) {
+    let rects = [...document.getElementsByTagName("rect")];
+    rects.forEach((el) => el.setAttribute("opacity", 0.1));
+    debug = true;
+  }
+})
+document.addEventListener("keyup", (e) => {
+  if (debug == true) {
+    let rects = [...document.getElementsByTagName("rect")];
+    rects.forEach((el) => el.setAttribute("opacity", 0));
+    debug = false;
+  }
+})
 
+let coords = null;
 
 let areaOver = (type) => {
-  return () => {
+  return (e) => {
     cursorData.setType(type);
   }
 }
 
-let areaClicked = (id) => {
+let areaClicked = (out, action) => {
   return (e) => {
     if (e.shiftKey == false) {
-      setScene(map["default"][id])
+      out();
+      action()
     }
   }
 }
@@ -82,29 +138,126 @@ let areaOut = () => {
   cursorData.unsetType();
 }
 
+let imageClicked = (width, height) => {
+  return (e) => {
+    if (e.shiftKey == true) {
+      let dim = e.target.getBoundingClientRect();
+      let unscaledX = e.clientX - dim.left;
+      let unscaledY = e.clientY - dim.top;
+      let x = unscaledX * width / dim.width;
+      let y = unscaledY * height / dim.height;
+      if (coords == null) {
+        coords = {x, y};
+        console.log('...');
+      } else {
+        console.log(`
+          "x": ${coords.x},
+          "y": ${coords.y},
+          "width": ${x - coords.x},
+          "height": ${y - coords.y}
+        `);
+        coords = null;
+      }
+    }
+  }
+}
+
+function mapColor(type) {
+  if (type == "forward") {
+    return 'blue';
+  } else if (type == "speech") {
+    return 'red';
+  } else if (type == "question") {
+    return 'green';
+  } else {
+    return 'black';
+  }
+}
+
+interface Area {
+  coords: { x: number, y: number, width: number, height: number};
+  type: 'forward' | 'question' | 'speech';
+}
+
+function loadArea(areaData: Area, clickFunction: () => void) {
+  let newArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  newArea.setAttribute('x', areaData.coords.x);
+  newArea.setAttribute('y', areaData.coords.y);
+  newArea.setAttribute('width', areaData.coords.width);
+  newArea.setAttribute('height', areaData.coords.height);
+  newArea.setAttribute('id', areaData.type + '-area');
+  newArea.setAttribute('fill', mapColor(areaData.type));
+  newArea.setAttribute('opacity', '0');
+
+  newArea.addEventListener("mouseover", areaOver(areaData.type));
+  newArea.addEventListener("mouseout", areaOut);
+
+  newArea.addEventListener("click", areaClicked(areaOut, clickFunction));
+
+  container.appendChild(newArea);
+}
+
+function ghostClickFirst(ghostData, startAreas: () => void) {
+  document.getElementById('question-area').remove();
+  loadArea(ghostData[1], () => ghostClickSecond(startAreas));
+}
+
+function ghostClickSecond(startAreas: () => void) {
+  document.getElementById('speech-area').remove();
+  startAreas();
+}
+
+function launchEvent(scene, startAreas) {
+  if (scene.event == "pause") {
+    let popup = document.getElementById("popup");
+    popup.style.display = "inherit";
+  } else if (scene.event == "ghost") {
+    let ghost = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    ghost.setAttribute("href", "/kata/Ghost.png");
+    ghost.style.pointerEvents = "none";
+    container.appendChild(ghost);
+
+    let flare = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    flare.setAttribute("href", "/kata/Flare.png");
+    flare.style.pointerEvents = "none";
+    flare.style.animation = "flare normal 15s infinite linear";
+    flare.addEventListener("click", imageClicked(1000, 1300));
+
+    container.appendChild(flare);
+    loadArea(scene.ghost[0], () => ghostClickFirst(scene.ghost, startAreas));
+  } else {
+    startAreas();
+  }
+}
+
 setScene(first);
 
 function setScene(scene) {
-  image.style.display = "inherit";
-  image.src = scene.image;
-  cursorData.unsetType();
-  areas.innerHTML = "";
-  if (scene.event != null) {
-    if (scene.event == "pause") {
-      let dialog = document.getElementById("dialog");
-      dialog.style.display = "inherit";
-    }
-  }
+  container.innerHTML = "";
+  let newImg = new Image();
+  newImg.onload = () => {
+    container.setAttribute("viewBox", `0 0 ${newImg.naturalWidth} ${newImg.naturalHeight}`);
+    let image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    image.setAttribute("width", newImg.naturalWidth);
+    image.setAttribute("height", newImg.naturalHeight);
+    image.setAttribute("href", scene.image);
+    image.setAttribute("id", "image");
+    container.appendChild(image);
 
-  scene.areas.map(areaData => {
-    let newEl = document.createElement("area");
-    newEl.shape = "rect";
-    newEl.coords = areaData.coords;
-    newEl.addEventListener("mouseover", areaOver(areaData.type));
-    newEl.addEventListener("mouseout", areaOut);
-    newEl.addEventListener("click", areaClicked(areaData.id));
-    areas.appendChild(newEl);
-  })
+    image.addEventListener("click", imageClicked(newImg.naturalWidth, newImg.naturalHeight));
+    if (scene.event !== null) {
+      let startAreas = () => {
+        if (scene.areas !== undefined) {
+          scene.areas.map(areaData => loadArea(areaData, () => setScene(map["default"][areaData.id])));
+        }
+      };
+      launchEvent(scene, startAreas)
+    }
+    container.style.display = "inherit";
+  };
+  newImg.src = scene.image;
+
+  cursorData.unsetType();
 }
 
 
@@ -113,15 +266,16 @@ function setScene(scene) {
 
 <html>
   <body>
-    <div class="dialog" id="dialog">
+    <div class="popup" id="popup">
       Nothing to see here, come back later...
     </div>
     <Cursor/>
     <!-- <Interaction type="forward" /> -->
-    <img alt="" class="cursed" id="cursed" usemap="#map">
-    <map name="map" id="areas"> 
-        <!-- <area shape="rect" coords="224,232,287,312"
-            href="https://www.geeksforgeeks.org/"/>  -->
-    </map>
+    <!-- <img alt="" class="cursed" id="cursed" usemap="#map">
+    <map name="map" id="areas">
+    </map> -->
+
+    <svg class="cursed" id="container" ></svg>
+    </div>
   </body>
 </html>

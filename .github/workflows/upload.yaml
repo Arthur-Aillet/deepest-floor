@@ -45,7 +45,7 @@ jobs:
         with:
           server: ftp-europe.nekoweb.org
           port: 30000
-          username: iddeko
+          username: hopeflea
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./iddeko.nekoweb.org/
+          server-dir: ./hopeflea.net/

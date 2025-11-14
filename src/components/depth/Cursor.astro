@@ -1,8 +1,4 @@
----
-import Arrow from './arrow.png';
----
-
-<img class="custom-cursor" src={Arrow.src} data-cursor />
+<img class="custom-cursor" src="/icons/arrow.png" data-cursor />
 
 <style>
 
@@ -25,6 +21,13 @@ const cursor = document.querySelector(".custom-cursor");
 cursorData.setType = (type) => {
   document.body.style.cursor = "none";
   cursor.style.display = "inherit";
+  if (type == "forward") {
+    cursor.src = "/icons/arrow.png";
+  } else if (type == "question") {
+    cursor.src = "/icons/question.png";
+  } else if (type == "speech") {
+    cursor.src = "/icons/speech.png";
+  }
 }
 
 cursorData.unsetType = () => {
