@@ -5,6 +5,7 @@ import Color from "../components/depth/Color.astro";
 import Interaction from "../components/depth/Interaction.astro";
 
 import Cursor from "../components/depth/Cursor.astro";
+import DialogBox from "../components/depth/Dialog/DialogBox.astro";
 ---
 
 <style>
@@ -273,9 +274,10 @@ function setScene(scene) {
     <!-- <Interaction type="forward" /> -->
     <!-- <img alt="" class="cursed" id="cursed" usemap="#map">
     <map name="map" id="areas">
-    </map> -->
+      </map> -->
 
-    <svg class="cursed" id="container" ></svg>
+      <svg class="cursed" id="container" ></svg>
+    <DialogBox/>
     </div>
   </body>
 </html>

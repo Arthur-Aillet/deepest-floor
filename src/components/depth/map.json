@@ -76,7 +76,7 @@
         "id": "6"
       }
     ],
-    "event": "pause",
+    "event": "ghost",
     "ghost": [{
       "coords": {
         "x": 448.7870619946092,

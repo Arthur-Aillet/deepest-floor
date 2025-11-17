@@ -1,0 +1,38 @@
+---
+import Image from "astro/components/Image.astro";
+import DialogBoxImage from './dialogbox.png';
+import DialogBoxImageRed from './dialogbox-red.png';
+---
+
+<style>
+.box {
+  position: absolute;
+  left: 50vw;
+  top: 70vh;
+  transform-origin: center;
+  transform: translate(-50%,-50%) scale(0.7);
+  border: rgb(88, 88, 88) inset 5px;
+  outline: white outset 2px;
+}
+
+@keyframes red-anim {
+  0% {
+    opacity: 5%;
+  }
+  50% {
+    opacity: 10%;
+  }
+  100% {
+    opacity: 5%;
+  }
+}
+
+
+
+.red{
+  animation: red-anim 4s linear infinite;
+}
+</style>
+
+<Image src={DialogBoxImage} alt="dialog" class="box"/>
+<Image src={DialogBoxImageRed} alt="dialog" class="box red"/>
