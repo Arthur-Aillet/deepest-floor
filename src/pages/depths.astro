@@ -38,6 +38,10 @@ body {
   box-shadow: 0px 0px 10px rgb(255, 0, 0);
 }
 
+.dialog{
+  display: none;
+}
+
 
 .popup {
   background-color: grey;
@@ -200,6 +204,8 @@ function loadArea(areaData: Area, clickFunction: () => void) {
 
 function ghostClickFirst(ghostData, startAreas: () => void) {
   document.getElementById('question-area').remove();
+  let dialog = document.getElementById('dialog');
+  dialog.style.display = "inherit";
   loadArea(ghostData[1], () => ghostClickSecond(startAreas));
 }
 
@@ -277,7 +283,7 @@ function setScene(scene) {
       </map> -->
 
       <svg class="cursed" id="container" ></svg>
-    <DialogBox/>
     </div>
+    <DialogBox title="Test!"/>
   </body>
 </html>

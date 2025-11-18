@@ -2,37 +2,84 @@
 import Image from "astro/components/Image.astro";
 import DialogBoxImage from './dialogbox.png';
 import DialogBoxImageRed from './dialogbox-red.png';
+
+const { title } = Astro.props;
 ---
 
 <style>
+
 .box {
   position: absolute;
-  left: 50vw;
-  top: 70vh;
-  transform-origin: center;
-  transform: translate(-50%,-50%) scale(0.7);
+  top: 70%;
+  left: 50%;
+  height: 20vh;
+  transform: translate(-50%, -50%);
   border: rgb(88, 88, 88) inset 5px;
   outline: white outset 2px;
 }
 
-@keyframes red-anim {
-  0% {
-    opacity: 5%;
-  }
-  50% {
-    opacity: 10%;
-  }
-  100% {
-    opacity: 5%;
-  }
+.inner{
+  width: fit-content;
+  height: 20vh;
 }
 
-
+@keyframes red-anim {
+  0% {
+    opacity: 3%;
+  }
+  50% {
+    opacity: 8%;
+  }
+  100% {
+    opacity: 3%;
+  }
+}
 
 .red{
   animation: red-anim 4s linear infinite;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
 }
+
+.text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: white;
+}
+
 </style>
 
-<Image src={DialogBoxImage} alt="dialog" class="box"/>
-<Image src={DialogBoxImageRed} alt="dialog" class="box red"/>
+
+<dialog-box id="dialog" class="box" speaker-name={title}>
+  <Image src={DialogBoxImage} alt="dialog" class="inner"/>
+  <Image src={DialogBoxImageRed} alt="dialog" class="red inner"/>
+  <div id="name" class="text"/>
+</dialog-box>
+
+
+<script>
+  class DialogBox extends HTMLElement {
+    static get observedAttributes() {
+      return ["speaker-name"];
+    }
+
+    connectedCallback() {
+      this.render();
+    }
+
+    attributeChangedCallback() {
+      this.render();
+    }
+
+    render() {
+      let title = this.querySelector('#name');
+      title.innerHTML = this.getAttribute("speaker-name");
+    }
+  }
+
+  customElements.define("dialog-box", DialogBox);
+</script>
