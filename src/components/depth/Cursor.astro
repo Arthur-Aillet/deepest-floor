@@ -32,7 +32,8 @@ cursorData.setType = (type) => {
 
 cursorData.unsetType = () => {
     cursor.style.display = "none";
-    document.body.style.cursor = "pointer";
+    document.body.style.cursor = "auto";
+    cursor.src = "";
 }
 
 document.addEventListener("mousemove", (e) => {

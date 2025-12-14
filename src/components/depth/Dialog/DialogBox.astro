@@ -11,6 +11,7 @@ const { name, content } = Astro.props;
 
 .box {
   position: absolute;
+  display: none;
   top: 70%;
   left: 50%;
   height: 20vh;
@@ -97,15 +98,34 @@ const { name, content } = Astro.props;
 
 <script>
   let writeProgress = 0;
-  let running
+  let running;
+  let clickCallback;
 
   class DialogBox extends HTMLElement {
     static get observedAttributes() {
       return ["speaker-name", "content"];
     }
 
+    display() {
+      writeProgress = 0;
+      this.style.cursor = "auto";
+      running = true;
+      setTimeout(() => this.renderNextLetter(), 600);
+    }
+
+    clickCallback(func) {
+      clickCallback = func;
+    }
+
     connectedCallback() {
       this.render();
+      this.addEventListener("click", () => {
+        if (running == true) return;
+        this.style.display = "none";
+        this.setAttribute("content", "");
+        this.querySelector('#content').innerHTML = "";
+        clickCallback();
+      });
     }
 
     attributeChangedCallback() {
@@ -119,25 +139,14 @@ const { name, content } = Astro.props;
         this.querySelector('#content').innerHTML = content.substring(0, writeProgress);
         setTimeout(()=> this.renderNextLetter(), 150);
       } else {
+        this.style.cursor = "pointer";
         running = false;
       }
-    }
-
-    renderLetters() {
-      if (running == true) {
-        return;
-      }
-      running = true;
-
-      setTimeout(() => this.renderNextLetter(), 150);
     }
 
     render() {
       let name = this.querySelector('#name');
       name.innerHTML = this.getAttribute("speaker-name");
-
-      writeProgress = 0;
-      this.renderLetters();
     }
   }
 

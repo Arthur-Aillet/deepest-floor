@@ -185,6 +185,8 @@ interface Area {
 }
 
 function loadArea(areaData: Area, clickFunction: () => void) {
+  cursorData.unsetType();
+
   let newArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
   newArea.setAttribute('x', areaData.coords.x);
   newArea.setAttribute('y', areaData.coords.y);
@@ -205,12 +207,23 @@ function loadArea(areaData: Area, clickFunction: () => void) {
 function ghostClickFirst(ghostData, startAreas: () => void) {
   document.getElementById('question-area').remove();
   let dialog = document.getElementById('dialog');
+  dialog.clickCallback(() => loadArea(ghostData[1], () => ghostClickSecond(ghostData, startAreas)));
   dialog.style.display = "inherit";
-  loadArea(ghostData[1], () => ghostClickSecond(startAreas));
+  dialog.display();
 }
 
-function ghostClickSecond(startAreas: () => void) {
+function ghostClickSecond(ghostData, startAreas: () => void) {
   document.getElementById('speech-area').remove();
+  let dialog = document.getElementById('dialog');
+  dialog.setAttribute("content", "whatever");
+  dialog.clickCallback(() => ghostClickThird(ghostData, startAreas));
+  dialog.style.display = "inherit";
+  dialog.display();
+}
+
+function ghostClickThird(ghostData, startAreas: () => void) {
+  document.getElementById("ghost").remove();
+  document.getElementById("flare").remove();
   startAreas();
 }
 
@@ -221,11 +234,13 @@ function launchEvent(scene, startAreas) {
   } else if (scene.event == "ghost") {
     let ghost = document.createElementNS("http://www.w3.org/2000/svg", "image");
     ghost.setAttribute("href", "/kata/Ghost.png");
+    ghost.id = "ghost";
     ghost.style.pointerEvents = "none";
     container.appendChild(ghost);
 
     let flare = document.createElementNS("http://www.w3.org/2000/svg", "image");
     flare.setAttribute("href", "/kata/Flare.png");
+    flare.id = "flare";
     flare.style.pointerEvents = "none";
     flare.style.animation = "flare normal 15s infinite linear";
     flare.addEventListener("click", imageClicked(1000, 1300));
@@ -240,6 +255,7 @@ function launchEvent(scene, startAreas) {
 setScene(first);
 
 function setScene(scene) {
+  cursorData.unsetType();
   container.innerHTML = "";
   let newImg = new Image();
   newImg.onload = () => {
@@ -263,8 +279,6 @@ function setScene(scene) {
     container.style.display = "inherit";
   };
   newImg.src = scene.image;
-
-  cursorData.unsetType();
 }
 
 
