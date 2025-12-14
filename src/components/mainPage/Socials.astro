@@ -43,18 +43,20 @@
             image.animate(
               [
                 { translate: "0 0" },
-                { translate: "0 -15px" },
-                { translate: "0 -45px" },
-                { translate: "0 -65px" },
-                { translate: "0 -110px" },
-                { translate: "0 -130px" },
-                { translate: "0 -175px" },
-                { translate: "0 -195px" },
-                { translate: "0 -240px" },
+                { translate: "0 -15px" }, //15
+                { translate: "0 -45px" }, //30
+                { translate: "0 -65px" },  //20
+                { translate: "0 -110px" }, //45
+                { translate: "0 -130px" }, //20
+                { translate: "0 -175px" }, //45
+                { translate: "0 -195px" }, //20
+                { translate: "0 -240px" }, //45
                 { translate: "0 -260px" },
+                { translate: "0 -305px" },
+                { translate: "0 -325px" },
               ],
               {
-                duration: 3000, // milliseconds = 1s
+                duration: 4000, // milliseconds = 1s
                 fill: "forwards",
                 easing: "linear",
               },
@@ -74,13 +76,15 @@
                 { opacity: "0%" },
                 { opacity: "0%" },
                 { opacity: "0%" },
-                { opacity: "40%" },
+                { opacity: "0%" },
+                { opacity: "0%" },
+                { opacity: "100%" },
                 { opacity: "0%" },
               ],
               {
-                duration: 3000,
+                duration: 5000,
                 fill: "forwards",
-                easing: "linear",
+                easing: "cubic-bezier(0.37, 0, 0.63, 1)",
               },
             );
             parent.appendChild(godray);
