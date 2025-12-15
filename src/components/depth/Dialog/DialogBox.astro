@@ -7,8 +7,11 @@ import Ghost from './ghost.png';
 const { name, content } = Astro.props;
 ---
 
-<style>
+<link rel="preload" href={DialogBoxImage.src} as="image">
+<link rel="preload" href={DialogBoxImageRed.src} as="image">
+<link rel="preload" href={Ghost.src} as="image">
 
+<style>
 .box {
   position: absolute;
   display: none;
