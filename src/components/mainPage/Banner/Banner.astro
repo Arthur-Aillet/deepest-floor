@@ -17,6 +17,12 @@ import Spark from "./spark.gif";
         width: 100%;
         position: absolute;
     }
+    .svg {
+        position: absolute;
+        width: 100%;
+        z-index: 100;
+        opacity: 0;
+    }
 
     @keyframes rotating {
         from {
@@ -53,14 +59,80 @@ import Spark from "./spark.gif";
     }
 
     .spark {
+        position: absolute;
+        height: 50px;
     }
 </style>
 
+<script>
+    const metalObjects = [...document.getElementsByClassName("metal")];
+
+    metalObjects.map((metal) => {
+        metal.addEventListener("click", () => console.log(metal));
+    });
+</script>
 <div class="echographic">
     <img src={Background.src} class="logo" />
     <div class="shadow">
-        <img src={Saw.src} class="saw" />
+        <img src={Saw.src} class="saw metal" />
     </div>
     <img src={Letters.src} class="logo" />
-    <img src={Spark.src} class="spark" />
+    <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        class="svg"
+        viewBox="0 0 2392 641"
+        width="100%"
+    >
+        <a
+            ><polygon
+                class="metal"
+                points="651,538 672,430 717,337 705,220 728,203 955,195 962,318 902,402 779,402 785,337 866,335 888,304 884,270 787,269 769,483 760,532 651,538"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="2334,450 2328,253 2271,203 2094,200 2052,228 2054,313 2044,315 2044,359 2057,364 2055,404 2043,410 2046,447 2134,450 2132,405 2131,280 2243,275 2258,295 2255,309 2131,310 2131,360 2258,361 2262,451 2334,450"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="1734,330 1741,198 2029,199 2030,286 1944,283 1930,272 1830,271 1828,294 1969,299 1929,351 1837,351 1854,371 1988,374 1988,360 2033,363 2029,451 1813,447 1734,330"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="1452,455 1540,232 1655,232 1586,372 1692,371 1705,355 1727,357 1783,441 1545,441 1522,464 1452,455"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="1263,449 1352,193 1325,172 1331,126 1737,134 1679,212 1389,206 1445,215 1430,239 1505,248 1461,302 1412,291 1387,435 1366,470 1263,449"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="981,193 1232,192 1233,274 1048,274 1059,287 1172,290 1136,348 1061,343 1060,366 1189,374 1201,365 1241,364 1240,441 991,423 978,398 981,193"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="507,321 594,122 655,151 705,198 542,353 514,347 507,321"
+            ></polygon></a
+        >
+        <a
+            ><polygon
+                class="metal"
+                points="53,241 111,241 124,151 237,155 207,237 306,237 300,153 381,145 360,316 383,462 289,464 301,309 185,305 174,337 195,400 152,575 42,442 89,293 53,241"
+            ></polygon></a
+        >
+    </svg>
+    <!-- <img src={Spark.src} class="spark" /> -->
 </div>
