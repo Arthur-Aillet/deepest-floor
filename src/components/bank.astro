@@ -3,113 +3,113 @@ import CustomLabel from "./CustomLabel.astro";
 ---
 
 <style>
-
-.bank {
-  position: fixed;
-  left: 75%;
-  display: flex;
-  flex-flow: row;
-  z-index: 9;
-  top: -1px;
-  transform: scale(0.95);
-}
-
-.textblock {
-  border: 1px;
-  border-style: inset;
-  background-color: black;
-  padding-right: 3px;
-  background: linear-gradient(to top, black, black, #151515, #151515);
-  background-size: 100% 2px;
-  height: 1em;
-  width: 177px;
-  overflow: hidden;
-  animation: scanlines infinite 10s linear;
-}
-
-.text {
-  animation: scroll 10s linear infinite;
-  text-align: right;
-}
-
-green {
-  color: rgb(47, 255, 54);
-}
-red {
-  color: rgb(255, 47, 47);
-}
-
-.bank-overlay {
-  position: absolute;
-  background: linear-gradient(
-    to top,
-    #00000000,
-    #00000000,
-    #5d5d5da3,
-    #5d5d5da3
-  );
-  mix-blend-mode: hard-light;
-  background-size: 100% 2px;
-  animation: scanlines infinite 10s linear;
-  z-index: 10;
-  width: 100%;
-  top: 0;
-  height: 100%;
-  pointer-events: none;
-}
-
-@keyframes scanlines {
-  from {
-    background-position: 0 0;
+  .bank {
+    position: fixed;
+    left: 75%;
+    display: flex;
+    flex-flow: row;
+    z-index: 9;
+    top: -1px;
+    transform: scale(0.95);
   }
-  to {
-    background-position: 0 -10px;
+
+  .textblock {
+    border: 1px;
+    border-style: inset;
+    background-color: black;
+    padding-right: 3px;
+    background: linear-gradient(to top, black, black, #151515, #151515);
+    background-size: 100% 2px;
+    height: 1em;
+    width: 177px;
+    overflow: hidden;
+    animation: scanlines infinite 10s linear;
   }
-}
 
-@keyframes scroll {
-  from {
-    transform: translateY(1em);
+  .text {
+    animation: scroll 10s linear infinite;
+    text-align: right;
   }
-  to {
-    transform: translateY(-100%);
+
+  green {
+    color: rgb(47, 255, 54);
   }
-}
+  red {
+    color: rgb(255, 47, 47);
+  }
 
-.square {
-  position: relative;
-  height: calc(1em - 4px + 2px); /* 1em for text size, 4px for border * 2, 2px for textblock border * 2*/
-  width: calc(1em - 4px + 2px);
-  background-color: #151515;
-  border: 1px;
-  border-style: inset;
-}
+  .bank-overlay {
+    position: absolute;
+    background: linear-gradient(
+      to top,
+      #00000000,
+      #00000000,
+      #5d5d5da3,
+      #5d5d5da3
+    );
+    mix-blend-mode: hard-light;
+    background-size: 100% 2px;
+    animation: scanlines infinite 10s linear;
+    z-index: 10;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    pointer-events: none;
+  }
 
-.square:hover {
-  background-color: #2e2e2e;
-}
+  @keyframes scanlines {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 0 -10px;
+    }
+  }
 
-.dollar {
-  color: lightcyan;
-  font-size: 13px;
-  position: absolute;
-  left: 3px;
-}
+  @keyframes scroll {
+    from {
+      transform: translateY(1em);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
 
-.first {
-  color: rgb(0, 255, 102);
-  top: -3px;
-}
+  .square {
+    position: relative;
+    height: calc(
+      1em - 4px + 2px
+    ); /* 1em for text size, 4px for border * 2, 2px for textblock border * 2*/
+    width: calc(1em - 4px + 2px);
+    background-color: #151515;
+    border: 1px;
+    border-style: inset;
+  }
 
-.second {
-  color: rgb(0, 255, 255);
-  top: -2px;
-}
-.outer {
-  border: 1px;
-  border-style: outset;
-}
+  .square:hover {
+    background-color: #2e2e2e;
+  }
 
+  .dollar {
+    color: lightcyan;
+    font-size: 13px;
+    position: absolute;
+    left: 3px;
+  }
+
+  .first {
+    color: rgb(0, 255, 102);
+    top: -3px;
+  }
+
+  .second {
+    color: rgb(0, 255, 255);
+    top: -2px;
+  }
+  .outer {
+    border: 1px;
+    border-style: outset;
+  }
 </style>
 
 <>
@@ -122,20 +122,19 @@ red {
         <green>+10000000$<br /></green>
         <red>-10000$</red>
       </div>
-      <div class="bank-overlay"/>
+      <div class="bank-overlay"></div>
     </div>
     <div class="outer">
       <div style="position: static;">
         <div class="square">
-          <div class="dollar second">
-            $
-          </div>
-          <div class="dollar first">
-            $
-          </div>
+          <div class="dollar second">$</div>
+          <div class="dollar first">$</div>
         </div>
       </div>
-      <CustomLabel mousetracked={false} text="what sin do you relish the most? greed. how insatiable. i only want what's mine -and theirs, and his and yours."/>
+      <CustomLabel
+        mousetracked={false}
+        text="what sin do you relish the most? greed. how insatiable. i only want what's mine -and theirs, and his and yours."
+      />
     </div>
   </div>
 </>

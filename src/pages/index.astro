@@ -9,6 +9,7 @@ import Socials from "../components/mainPage/Socials.astro";
 import Sidebar from "../components/mainPage/Sidebar.astro";
 import Xray from "../components/mainPage/Xray/Xray.astro";
 import Gallery from "../components/mainPage/Gallery/Gallery.astro";
+import Banner from "../components/mainPage/Banner/Banner.astro";
 ---
 
 <style>
@@ -25,14 +26,6 @@ import Gallery from "../components/mainPage/Gallery/Gallery.astro";
     display: flex;
     align-items: center;
     gap: 40px;
-  }
-
-  .echographic {
-    margin-left: 5%;
-    width: 90%;
-    height: 140px;
-    margin-bottom: 20px;
-    border: 2px dotted white;
   }
 </style>
 
@@ -59,7 +52,7 @@ import Gallery from "../components/mainPage/Gallery/Gallery.astro";
         <div class="second-layer">
           <main>
             <div style="padding-top: 20px">
-              <div class="echographic"></div>
+              <Banner />
               <header class="block">
                 Endless pit for <a
                   style="color: orange; background-color: black;">withered</a

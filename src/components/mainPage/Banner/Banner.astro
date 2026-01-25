@@ -1,0 +1,66 @@
+---
+import { Image } from "astro:assets";
+import Background from "./LowBG.png";
+import Letters from "./LowLetters.png";
+import Saw from "./LowSaw.png";
+import Spark from "./spark.gif";
+---
+
+<style>
+    .echographic {
+        width: 90%;
+        height: 140px;
+        margin-bottom: 40px;
+    }
+
+    .logo {
+        width: 100%;
+        position: absolute;
+    }
+
+    @keyframes rotating {
+        from {
+            -ms-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        to {
+            -ms-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -webkit-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    .shadow {
+        filter: drop-shadow(-2px 2px 0.7px rgba(0, 0, 0, 0.877));
+        position: absolute;
+        top: 51.5px;
+        left: 86.5px;
+    }
+
+    .saw {
+        -webkit-animation: rotating 0.3s linear infinite;
+        -moz-animation: rotating 0.3s linear infinite;
+        -ms-animation: rotating 0.3s linear infinite;
+        -o-animation: rotating 0.3s linear infinite;
+        animation: rotating 0.3s linear infinite;
+        image-rendering: pixelated;
+        height: 103px;
+    }
+
+    .spark {
+    }
+</style>
+
+<div class="echographic">
+    <img src={Background.src} class="logo" />
+    <div class="shadow">
+        <img src={Saw.src} class="saw" />
+    </div>
+    <img src={Letters.src} class="logo" />
+    <img src={Spark.src} class="spark" />
+</div>
