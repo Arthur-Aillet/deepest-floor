@@ -4,6 +4,7 @@ import Background from "./LowBG.png";
 import Letters from "./LowLetters.png";
 import Saw from "./LowSaw.png";
 import Spark from "./spark.gif";
+import Hit from "./hit.mp3";
 ---
 
 <style>
@@ -68,10 +69,18 @@ import Spark from "./spark.gif";
     const metalObjects = [...document.getElementsByClassName("metal")];
 
     metalObjects.map((metal) => {
-        metal.addEventListener("click", () => console.log(metal));
+        metal.addEventListener("click", () => {
+            const element = document.getElementById("hit");
+            element.volume = 0.2;
+
+            element.currentTime = 0.15;
+
+            element.play();
+        });
     });
 </script>
 <div class="echographic">
+    <audio id="hit" src="hit.mp3" preload="auto"></audio>
     <img src={Background.src} class="logo" />
     <div class="shadow">
         <img src={Saw.src} class="saw metal" />
