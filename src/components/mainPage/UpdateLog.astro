@@ -3,69 +3,76 @@ import LogLine from "./LogLine.astro";
 ---
 
 <style>
+  .log {
+    margin: 10px auto;
+    width: 80%;
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.75)),
+      url("/metal.jpg");
+    background-position: right top;
+    border-style: outset;
+    font-size: 12px;
+    border-color: grey;
+    padding-left: 5px;
+    height: 1rem;
+    transition: 1s;
+    color: rgb(255, 255, 255);
+    font-family: monospace;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
 
-.log {
-  margin: 10px auto;
-  width: 80%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.75)), url('./metal.jpg');
-  background-position: right top;
-  border-style: outset;
-  font-size: 12px;
-  border-color: grey;
-  padding-left: 5px;
-  height: 1rem;
-  transition: 1s;
-  color: rgb(255, 255, 255);
-  font-family: monospace;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
+  .logText {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 7px;
+    position: absolute;
+    width: 76%;
+    height: 1rem;
+    transition: 1s;
+    overflow: hidden;
+  }
 
-.logText {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-right: 7px;
-  position: absolute;
-  width: 76%;
-  height: 1rem;
-  transition: 1s;
-  overflow: hidden;
-}
-
-.arrow {
-  width: 12px;
-  height: fit-content;
-  transition: linear 0.1s;
-  transform: rotate(90deg) translateX(2px) translateY(2px);
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-  position: absolute;
-  right: 60px;
-}
-
+  .arrow {
+    width: 12px;
+    height: fit-content;
+    transition: linear 0.1s;
+    transform: rotate(90deg) translateX(2px) translateY(2px);
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    position: absolute;
+    right: 60px;
+  }
 </style>
 
 <script>
-import { string } from "astro:schema";
+  import { string } from "astro:schema";
 
-  
-  const button = document.getElementById('logArrow');
-  const text = document.getElementById('logText');
-  const bloc = document.getElementById('logBloc');
-  
-  console.log()
+  const button = document.getElementById("logArrow");
+  const text = document.getElementById("logText");
+  const bloc = document.getElementById("logBloc");
 
-  fetch('/log.txt').then((res) => res.text())
-  .then((log) => {
-    log.split('@@@').filter(string => string != "").map(line => {
-      let commit = line.split('>', 3);
-      const el = document.createElement("log-line");
-      el.setAttribute("hash", commit[0]);
-      el.setAttribute("date", commit[1]);
-      el.setAttribute("message", commit[2]);
-      text.appendChild(el);
-    })
-   })
+  console.log();
+
+  fetch("/log.txt")
+    .then((res) => res.text())
+    .then((log) => {
+      log
+        .split("@@@")
+        .filter((string) => string != "")
+        .map((line) => {
+          let commit = line.split(">", 3);
+          const el = document.createElement("log-line");
+          el.setAttribute("hash", commit[0]);
+          el.setAttribute("date", commit[1]);
+          el.setAttribute("message", commit[2]);
+          text.appendChild(el);
+        });
+    });
 
   // fetch('https://api.github.com/repos/Arthur-Aillet/deepest-floor/commits?per_page=100')
   // .then(res => res.json())
@@ -80,29 +87,26 @@ import { string } from "astro:schema";
   let logOpened = false;
 
   // Handle clicks on each button.
-  bloc.addEventListener('click', () => {
+  bloc.addEventListener("click", () => {
     logOpened = !logOpened;
     if (logOpened) {
-      button.style.transform = 'none';
-      text.style.whiteSpace = 'normal';
-      bloc.style.height = '15rem';
-      text.style.height = '15rem';
-      text.style.overflow = 'scroll';
+      button.style.transform = "none";
+      text.style.whiteSpace = "normal";
+      bloc.style.height = "15rem";
+      text.style.height = "15rem";
+      text.style.overflow = "scroll";
     } else {
-      button.style.transform = 'rotate(90deg) translateX(2px) translateY(2px)';
-      bloc.style.height = '1rem';
-      text.style.height = '1rem';
-      text.style.overflow = 'hidden';
-      text.style.whiteSpace = 'nowrap';
+      button.style.transform = "rotate(90deg) translateX(2px) translateY(2px)";
+      bloc.style.height = "1rem";
+      text.style.height = "1rem";
+      text.style.overflow = "hidden";
+      text.style.whiteSpace = "nowrap";
     }
   });
 </script>
 
 <div class="log" id="logBloc">
-  <LogLine/>
-  <div class="logText" id="logText">
-  </div>
-  <a class="arrow" id="logArrow">
-    v
-  </a>
+  <LogLine />
+  <div class="logText" id="logText"></div>
+  <a class="arrow" id="logArrow"> v </a>
 </div>

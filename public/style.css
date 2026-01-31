@@ -42,7 +42,8 @@ header {
 
 .block {
   border-style: inset;
-  background-color: grey;
+  background-image: linear-gradient(rgba(150, 150, 150, 0.7), rgba(110, 110, 110, 0.7)), url("/metal.jpg");
+  background-position: center;
   margin: 5px;
   font-size: 20px;
 }
