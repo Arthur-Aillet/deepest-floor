@@ -46,17 +46,9 @@ import Hit from "./hit.mp3";
 
     @keyframes rotating {
         from {
-            -ms-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -webkit-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
             transform: rotate(0deg);
         }
         to {
-            -ms-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -webkit-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
             transform: rotate(360deg);
         }
     }
@@ -64,18 +56,14 @@ import Hit from "./hit.mp3";
     .shadow {
         filter: drop-shadow(-2px 2px 0.7px rgba(0, 0, 0, 0.877));
         position: absolute;
-        top: 51.5px;
-        left: 86.5px;
+        top: 52.5px;
+        left: 87.5px;
     }
 
     .saw {
-        -webkit-animation: rotating 0.3s linear infinite;
-        -moz-animation: rotating 0.3s linear infinite;
-        -ms-animation: rotating 0.3s linear infinite;
-        -o-animation: rotating 0.3s linear infinite;
-        animation: rotating 0.3s linear infinite;
+        animation: rotating 20s linear infinite;
         image-rendering: pixelated;
-        height: 103px;
+        height: 101px;
     }
 
     .spark {
@@ -88,6 +76,8 @@ import Hit from "./hit.mp3";
 <script>
     const metalObjects = [...document.getElementsByClassName("metal")];
     const container = document.getElementById("spark-container");
+    const saw = document.getElementById("saw");
+    const sawHitbox = document.getElementById("saw-hitbox");
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     const audioPlay = (() => {
@@ -117,6 +107,20 @@ import Hit from "./hit.mp3";
             source.start(0, start);
         };
     })();
+
+    let rotDurationID = 0;
+    const durationMap = [12, 6, 3, 1, 0.5, 0.3, 0.2, 0.1];
+    sawHitbox.addEventListener("mousedown", () => {
+        rotDurationID += 1;
+        if (rotDurationID < 7) {
+            saw.style.animation =
+                "rotating " + durationMap[rotDurationID] + "s linear infinite";
+        } else {
+            const randomId = Math.floor(Math.random() * 7);
+            saw.style.animation =
+                "rotating " + durationMap[randomId] + "s linear infinite";
+        }
+    });
 
     metalObjects.map((metal) => {
         metal.addEventListener("mousedown", async (e) => {
@@ -166,7 +170,7 @@ import Hit from "./hit.mp3";
     <div class="hopeflea">
         <img src={Background.src} class="logo" />
         <div class="shadow metal">
-            <img src={Saw.src} class="saw" />
+            <img src={Saw.src} class="saw" id="saw" />
         </div>
         <img src={Letters.src} class="logo" />
         <svg
@@ -177,7 +181,8 @@ import Hit from "./hit.mp3";
             viewBox="0 0 2392 641"
             width="100%"
         >
-            <circle r="162" cx="533" cy="325" class="metal"></circle>
+            <circle r="162" cx="533" cy="325" class="metal" id="saw-hitbox"
+            ></circle>
             <polygon
                 class="metal"
                 points="651,538 672,430 717,337 705,220 728,203 955,195 962,318 902,402 779,402 785,337 866,335 888,304 884,270 787,269 769,483 760,532 651,538"
