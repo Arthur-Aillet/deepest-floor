@@ -10,6 +10,9 @@ import Sidebar from "../components/mainPage/Sidebar.astro";
 import Xray from "../components/mainPage/Xray/Xray.astro";
 import Gallery from "../components/mainPage/Gallery/Gallery.astro";
 import Banner from "../components/mainPage/Banner/Banner.astro";
+import Ladder from "./ladder.png";
+import Flag from "./flag.gif";
+import Shader from "./shader.png";
 ---
 
 <style>
@@ -26,6 +29,60 @@ import Banner from "../components/mainPage/Banner/Banner.astro";
     display: flex;
     align-items: center;
     gap: 40px;
+  }
+
+  /*screen upto 400px*/
+  @media (max-width: 1700px) {
+    .ladder-img {
+      image-rendering: pixelated;
+    }
+  }
+
+  .ladder-img {
+    width: 80px;
+    height: 148px;
+    left: 69.2%;
+    position: absolute;
+    z-index: -1;
+    margin-top: -5px;
+    filter: drop-shadow(2px 2px 0.7px rgba(0, 0, 0, 0.877));
+  }
+
+  .shader-img {
+    transform: scale(0);
+    width: 400px;
+    left: 82%;
+    position: absolute;
+    transition-delay: 0.3s;
+    transition: all 1s ease-in-out;
+    margin-top: 83px;
+    border: 1px solid rgba(175, 175, 175);
+    outline: 2px solid black;
+    transform-origin: top left;
+    z-index: -2;
+  }
+
+  .flag-img:hover + .shader-img {
+    transition-delay: 0.3s;
+    transform: scale(1);
+  }
+
+  .flag-img:hover {
+    background-image:
+      url(flag.gif), linear-gradient(rgba(128, 128, 128, 0.3), rgba(0, 0, 0, 1));
+  }
+
+  .flag-img {
+    image-rendering: pixelated;
+    width: 115px;
+    left: 81%;
+    position: absolute;
+    z-index: -1;
+    margin-top: 75px;
+    filter: drop-shadow(1px 1px rgba(175, 175, 175))
+      drop-shadow(-1px -1px rgba(175, 175, 175))
+      drop-shadow(1px 1px rgba(0, 0, 0)) drop-shadow(-1px -1px rgba(0, 0, 0))
+      drop-shadow(2px 2px 0.7px rgba(0, 0, 0, 0.877));
   }
 </style>
 
@@ -104,6 +161,9 @@ import Banner from "../components/mainPage/Banner/Banner.astro";
                   text="AGPL is the most efficient license I know to force companies to publish the changes they make. If they use our software, even in their private networks, and edit it, they have to publish the changes under the same license! If they use our libraries they need to make their whole software open source. AGPL spreads to every project it touches and could save us from closed source software."
                 />
               </footer>
+              <img src={Ladder.src} class="ladder-img" />
+              <img src={Flag.src} class="flag-img" />
+              <img src={Shader.src} class="shader-img" />
               <UpdateLog />
             </div>
           </main>
