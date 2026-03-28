@@ -147,9 +147,15 @@ import CustomLabel from "./CustomLabel.astro";
     background-color: white;
     color: black;
   }
+
+  .height {
+    -webkit-box-shadow: 0px 16px 23px 7px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 16px 23px 7px rgba(0, 0, 0, 0.7);
+    z-index: 5;
+  }
 </style>
 
-<div class="block portrait-container">
+<div class="block height portrait-container">
   <audio id="shot" src="shot.wav" preload="auto"></audio>
   <audio id="atencion-1" src="atencion-1.wav" preload="auto"></audio>
   <audio id="atencion-2" src="atencion-2.wav" preload="auto"></audio>

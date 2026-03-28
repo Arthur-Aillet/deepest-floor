@@ -53,7 +53,7 @@ import Shader from "./shader.png";
     width: 400px;
     left: 82%;
     position: absolute;
-    transition-delay: 0.3s;
+    transition-delay: 0.6s;
     transition: all 1s ease-in-out;
     margin-top: 83px;
     border: 1px solid rgba(175, 175, 175);
@@ -63,7 +63,7 @@ import Shader from "./shader.png";
   }
 
   .flag-img:hover + .shader-img {
-    transition-delay: 0.3s;
+    transition-delay: 0.6s;
     transform: scale(1);
   }
 
@@ -85,6 +85,32 @@ import Shader from "./shader.png";
       drop-shadow(-1px -1px rgba(175, 175, 175))
       drop-shadow(1px 1px rgba(0, 0, 0)) drop-shadow(-1px -1px rgba(0, 0, 0))
       drop-shadow(2px 2px 0.7px rgba(0, 0, 0, 0.877));
+  }
+
+  .withered {
+    color: orange;
+    background-color: black;
+  }
+
+  .withered:hover {
+    -webkit-text-stroke: rgb(255, 211, 79) 0.5px;
+    background-color: black;
+  }
+
+  footer {
+    z-index: 30;
+    -webkit-box-shadow: 0px 15px 22px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 16px 22px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+
+  header {
+    z-index: 2;
+    text-align: center;
+    position: relative;
+    filter: brightness(100%);
+    -webkit-box-shadow: 0px 12px 21px 6px rgba(0, 0, 0, 0.45);
+    box-shadow: 0px 12px 21px 6px rgba(0, 0, 0, 0.45);
   }
 </style>
 
@@ -113,9 +139,7 @@ import Shader from "./shader.png";
             <div style="padding-top: 20px">
               <Banner />
               <header class="block">
-                Endless pit for <a
-                  style="color: orange; background-color: black;">withered</a
-                > souls
+                Endless pit for <a class="withered">withered</a> souls
               </header>
               <div class="section">
                 <div class="sidebar-left">
@@ -127,6 +151,10 @@ import Shader from "./shader.png";
                 overflow-x: hidden;
                 width: 100%;
                 margin-top: 0;
+                z-index: 2;
+                filter: brightness(90%);
+                -webkit-box-shadow: 0px 15px 20px 6px rgba(0, 0, 0, 0.5);
+                box-shadow: 0px 15px 20px 6px rgba(0, 0, 0, 0.5);
               "
                   >
                     <p>Just plug me already</p>

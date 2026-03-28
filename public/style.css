@@ -36,10 +36,6 @@ a:visited {
   }
 }
 
-header {
-  text-align: center;
-}
-
 .block {
   border-style: inset;
   border-color: rgb(85, 85, 85) rgb(160, 160, 160) rgb(160, 160, 160) rgb(85, 85, 85);

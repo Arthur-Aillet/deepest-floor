@@ -1,8 +1,13 @@
-<style>
+---
+const { opacity, zindex } = Astro.props;
+---
+
+<style define:vars={{ opacity, zindex }}>
   .namecard {
     width: fit-content;
     height: fit-content;
     position: relative;
+    z-index: var(--zindex);
   }
 
   .inner {
@@ -10,6 +15,10 @@
     transform: rotateX(0deg);
     transition: all 1s;
     backface-visibility: hidden;
+    -webkit-box-shadow: 0px 9px 11px 6px rgba(0, 0, 0, var(--opacity));
+    box-shadow: 0px 9px 11px 6px rgba(0, 0, 0, var(--opacity));
+    z-index: var(--zindex);
+    filter: brightness(calc(90% + (5% * var(--zindex)) / 10));
   }
 
   .namecard:hover .inner {

@@ -60,13 +60,24 @@ import Portrait from "../portrait.astro";
   });
 </script>
 
+<style>
+  .gifs {
+    margin-top: 0px;
+    margin-bottom: 1px;
+    width: 150px;
+    image-rendering: pixelated;
+    -webkit-box-shadow: 0px 16px 23px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 16px 23px 6px rgba(0, 0, 0, 0.5);
+  }
+</style>
+
 <div class="sidebar">
   <Portrait />
-  <Namecard>
+  <Namecard opacity="0.3" zindex="25">
     <Fragment slot="front">Radical FOSS activist</Fragment>
     <Fragment slot="back">Leftist optimist</Fragment>
   </Namecard>
-  <Namecard>
+  <Namecard opacity="0.2" zindex="20">
     <Fragment slot="front">Post-cyberpunk artist</Fragment>
     <Fragment slot="back">
       <div id="eyes-enabled">
@@ -75,14 +86,13 @@ import Portrait from "../portrait.astro";
       <div id="eyes-disabled" style="display: none;">AVPD enjoyer</div>
     </Fragment>
   </Namecard>
-  <Namecard>
+  <Namecard opacity="0.7" zindex="55">
     <Fragment slot="front">Non-binary mess</Fragment>
-    <Fragment slot="back">AUDHD Bravest warrior</Fragment>
+    <Fragment slot="back">AuDHD Bravest warrior</Fragment>
   </Namecard>
   <img
     src="https://adriansblinkiecollection.neocities.org/buttons/e21.gif"
-    class="block"
-    style="margin-top: 0px; margin-bottom: 1px; width: 150px; image-rendering: pixelated;"
+    class="block gifs"
     id="gif"
   />
 </div>
