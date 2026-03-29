@@ -5,8 +5,6 @@ import LogLine from "./LogLine.astro";
 <style>
   .log {
     margin: 10px auto;
-    z-index: 40;
-    position: relative;
     width: 80%;
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.75)),
@@ -107,8 +105,10 @@ import LogLine from "./LogLine.astro";
   });
 </script>
 
-<div class="log" id="logBloc">
-  <LogLine />
-  <div class="logText" id="logText"></div>
-  <a class="arrow" id="logArrow"> v </a>
+<div style="z-index: 40; position:relative;">
+  <div class="log" id="logBloc">
+    <LogLine />
+    <div class="logText" id="logText"></div>
+    <a class="arrow" id="logArrow"> v </a>
+  </div>
 </div>
