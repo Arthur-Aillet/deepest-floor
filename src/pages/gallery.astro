@@ -3,8 +3,87 @@
     background-color: black;
     color: white;
   }
+  .card {
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+  }
+  .top {
+    border: 1px solid white;
+    flex-grow: 0.9;
+  }
+  .bottom {
+    transition: 0.1s;
+
+    background-color: white;
+
+    clip-path: polygon(
+      0% 0%,
+      100% 0,
+      100% 34%,
+      95% 44%,
+      95% 79%,
+      95% 79%,
+      100% 89%,
+      100% 100%,
+      18% 100%,
+      0 75%
+    );
+    flex-grow: 1;
+    display: flex;
+  }
+
+  .card:hover .bottom,
+  .card:hover .bottom-inner {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 34%,
+      100% 44%,
+      100% 79%,
+      90% 89%,
+      50% 89%,
+      41% 100%,
+      12% 100%,
+      0 83%
+    );
+  }
+  .card:hover .bottom-inner {
+    background-size: 6600px;
+    background-position: center;
+  }
+
+  .bottom-inner {
+    transition: 0.1s;
+
+    margin: 1px;
+    clip-path: polygon(
+      0% 0%,
+      100% 0,
+      100% 34%,
+      95% 44%,
+      95% 79%,
+      95% 79%,
+      100% 89%,
+      100% 100%,
+      18% 100%,
+      0 75%
+    );
+    flex-grow: 1;
+    background: black;
+    image-rendering: pixelated;
+    background-size: 7000px;
+    display: flex;
+    background-position: center;
+  }
 </style>
 
 <body>
-  <div>more coming soon</div>
+  <div class="card">
+    <div class="top"></div>
+    <div class="bottom">
+      <div class="bottom-inner"></div>
+    </div>
+  </div>
 </body>
