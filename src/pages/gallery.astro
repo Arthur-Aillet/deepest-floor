@@ -1,89 +1,65 @@
+---
+import Card from "../components/gallery/Card.astro";
+import Banner from "../components/gallery/banner.png";
+---
+
 <style>
   body {
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     color: white;
+    margin: 0;
+    display: flex;
+    justify-content: center;
   }
-  .card {
-    width: 200px;
-    height: 250px;
+
+  .middle {
+    width: 60vw;
+    height: 5000px;
     display: flex;
     flex-direction: column;
-  }
-  .top {
-    border: 1px solid white;
-    flex-grow: 0.9;
-  }
-  .bottom {
-    transition: 0.1s;
-
-    background-color: white;
-
-    clip-path: polygon(
-      0% 0%,
-      100% 0,
-      100% 34%,
-      95% 44%,
-      95% 79%,
-      95% 79%,
-      100% 89%,
-      100% 100%,
-      18% 100%,
-      0 75%
-    );
-    flex-grow: 1;
-    display: flex;
+    overflow-y: scroll;
   }
 
-  .card:hover .bottom,
-  .card:hover .bottom-inner {
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% 34%,
-      100% 44%,
-      100% 79%,
-      90% 89%,
-      50% 89%,
-      41% 100%,
-      12% 100%,
-      0 83%
-    );
-  }
-  .card:hover .bottom-inner {
-    background-size: 6600px;
-    background-position: center;
+  .banner {
+    width: 60vw;
+    position: absolute;
+    height: fit-content;
   }
 
-  .bottom-inner {
-    transition: 0.1s;
-
-    margin: 1px;
-    clip-path: polygon(
-      0% 0%,
-      100% 0,
-      100% 34%,
-      95% 44%,
-      95% 79%,
-      95% 79%,
-      100% 89%,
-      100% 100%,
-      18% 100%,
-      0 75%
-    );
-    flex-grow: 1;
-    background: black;
-    image-rendering: pixelated;
-    background-size: 7000px;
-    display: flex;
-    background-position: center;
+  .aside {
+    background-color: gray;
+    position: fixed;
+    width: 20vw;
+    height: 100vh;
   }
 </style>
 
+<script>
+  let asides = document.getElementsByClassName("aside");
+
+  document.addEventListener("scroll", (event) => {
+    let currentScroll =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    let maxScroll =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+    let scrollPercent = currentScroll / (maxScroll * 0.8);
+    let lerp = Math.max(1 - scrollPercent * 1.5, 0);
+    for (const aside of asides) {
+      let asideColor = 128 * lerp;
+      aside.style["backgroundColor"] =
+        "rgb(" + asideColor + ", " + asideColor + ", " + asideColor + ")";
+    }
+    let bodyColor = 255 * lerp;
+    document.body.style["backgroundColor"] =
+      "rgb(" + bodyColor + ", " + bodyColor + ", " + bodyColor + ")";
+  });
+</script>
+
 <body>
-  <div class="card">
-    <div class="top"></div>
-    <div class="bottom">
-      <div class="bottom-inner"></div>
-    </div>
+  <div class="aside" style="left: 0;"></div>
+  <div class="middle">
+    <img src={Banner.src} class="banner" />
   </div>
+  <div class="aside" style="right: 0;"></div>
+  <!-- <Card /> -->
 </body>
