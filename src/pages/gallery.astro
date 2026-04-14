@@ -4,26 +4,23 @@ import Banner from "../components/gallery/banner.png";
 ---
 
 <style>
-  body {
-    background-color: rgb(255, 255, 255);
-    color: white;
+  * {
+    padding: 0;
     margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
     display: flex;
     justify-content: center;
   }
 
   .middle {
     width: 60vw;
-    height: 5000px;
+    height: 10000px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-  }
-
-  .banner {
-    width: 60vw;
-    position: absolute;
-    height: fit-content;
   }
 
   .aside {
@@ -32,25 +29,109 @@ import Banner from "../components/gallery/banner.png";
     width: 20vw;
     height: 100vh;
   }
+
+  .banner {
+    position: fixed;
+    z-index: 4;
+    width: 60vw;
+    gap: 0px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .line {
+    background-image: url("/band.png");
+    background-size: 50px;
+    z-index: 2;
+    background-color: yellow;
+    image-rendering: pixelated;
+    width: 100%;
+    height: 30px;
+  }
+
+  .links {
+    background-size: 50px;
+    background-color: rgb(165, 165, 165);
+    image-rendering: pixelated;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding-left: 30px;
+  }
+
+  @keyframes descend {
+    from {
+      top: -21px;
+    }
+    to {
+      top: 60px;
+    }
+  }
+
+  .link {
+    position: relative;
+    z-index: 1;
+    color: black;
+    top: -21px;
+    padding-top: 40px;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .link:hover {
+    color: white;
+    animation: descend 0.3s linear;
+    animation-fill-mode: forwards;
+  }
+
+  .content {
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    color: white;
+    margin: 0;
+  }
 </style>
 
 <script>
   let asides = document.getElementsByClassName("aside");
+  let content = document.getElementById("content");
+  let links = document.getElementById("links");
+  let banner = document.getElementById("banner");
+
+  function lerp(start, stop, amount) {
+    return amount * (stop - start) + start;
+  }
+
+  function map(x, in_min, in_max, out_min, out_max) {
+    return ((x - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+  }
 
   document.addEventListener("scroll", (event) => {
     let currentScroll =
       document.documentElement.scrollTop || document.body.scrollTop;
     let maxScroll =
       document.documentElement.scrollHeight || document.body.scrollHeight;
-    let scrollPercent = currentScroll / (maxScroll * 0.8);
-    let lerp = Math.max(1 - scrollPercent * 1.5, 0);
+    let scrollPercent = currentScroll / (maxScroll * 1.5);
+    let amount = Math.max(1 - scrollPercent * 1.5, 0);
     for (const aside of asides) {
-      let asideColor = 128 * lerp;
+      let asideColor = 128 * amount;
       aside.style["backgroundColor"] =
         "rgb(" + asideColor + ", " + asideColor + ", " + asideColor + ")";
     }
-    let bodyColor = 255 * lerp;
-    document.body.style["backgroundColor"] =
+
+    banner.style["top"] = -currentScroll / 40 + "px";
+    let linksSize = 30;
+    if (1 - amount > 0.1 && 1 - amount < 0.2) {
+      linksSize = map(1 - amount, 0.1, 0.35, 30, 70);
+    }
+    links.style["height"] = linksSize + "px";
+
+    let bodyColor = 255 * amount;
+    content.style["backgroundColor"] =
       "rgb(" + bodyColor + ", " + bodyColor + ", " + bodyColor + ")";
   });
 </script>
@@ -58,8 +139,17 @@ import Banner from "../components/gallery/banner.png";
 <body>
   <div class="aside" style="left: 0;"></div>
   <div class="middle">
-    <img src={Banner.src} class="banner" />
+    <div class="banner" id="banner">
+      <img src={Banner.src} style="width: 100%;" />
+      <div class="line"></div>
+      <div class="links" id="links">
+        <a class="link">touch</a>
+        <a class="link">soul</a>
+      </div>
+      <div class="line"></div>
+    </div>
+    <div class="content" id="content"></div>
+    <!-- <Card /> -->
   </div>
   <div class="aside" style="right: 0;"></div>
-  <!-- <Card /> -->
 </body>
