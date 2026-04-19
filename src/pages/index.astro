@@ -13,6 +13,7 @@ import Banner from "../components/mainPage/Banner/Banner.astro";
 import Ladder from "./ladder.png";
 import Flag from "./flag.gif";
 import Shader from "./shader.png";
+import Follow from "../components/mainPage/Follow/Follow.astro";
 ---
 
 <style>
@@ -144,26 +145,7 @@ import Shader from "./shader.png";
               <div class="section">
                 <div class="sidebar-left">
                   <Socials />
-                  <div
-                    class="block"
-                    style="
-                flex-grow: 1;
-                overflow-x: hidden;
-                width: 100%;
-                margin-top: 0;
-                z-index: 2;
-                filter: brightness(90%);
-                -webkit-box-shadow: 0px 15px 20px 6px rgba(0, 0, 0, 0.5);
-                box-shadow: 0px 15px 20px 6px rgba(0, 0, 0, 0.5);
-              "
-                  >
-                    <p>Just plug me already</p>
-                    <p>
-                      <a href="https://nekoweb.org/follow/hopeflea.net/">
-                        Follow me on Nekoweb
-                      </a>
-                    </p>
-                  </div>
+                  <Follow />
                 </div>
                 <Body />
                 <Sidebar />

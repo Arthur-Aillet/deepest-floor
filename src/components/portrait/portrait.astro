@@ -1,5 +1,6 @@
 ---
-import CustomLabel from "./CustomLabel.astro";
+import CustomLabel from "../CustomLabel.astro";
+import PortraitImg from "./portrait.png";
 ---
 
 <script type="module">
@@ -165,7 +166,7 @@ import CustomLabel from "./CustomLabel.astro";
       id="portrait-img"
       class="lockable"
       style="width: 100%; display:block;"
-      src="/portrait.png"
+      src={PortraitImg.src}
     />
     <img
       id="atencion-img"

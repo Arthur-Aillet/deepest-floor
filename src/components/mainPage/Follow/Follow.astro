@@ -1,0 +1,77 @@
+---
+import PortraitAltImg from "./portrait-alt.png";
+---
+
+<style>
+    .area {
+        flex-grow: 1;
+        overflow-x: hidden;
+        width: 100%;
+        margin-top: 0;
+        z-index: 2;
+        filter: brightness(90%);
+        -webkit-box-shadow: 0px 15px 20px 6px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 15px 20px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .portrait-pop {
+        position: absolute;
+        width: 250px;
+        z-index: 300;
+        left: 30px;
+        top: 400px;
+        opacity: 100%;
+        height: 266.367px;
+        display: none;
+    }
+
+    .portrait-pop-img {
+        width: 100%;
+        opacity: 80%;
+    }
+
+    .portrait-pop:hover .portrait-pop-img {
+        opacity: 100%;
+    }
+
+    .close {
+        position: absolute;
+        color: black;
+        right: 5px;
+        z-index: 301;
+    }
+
+    .close:hover {
+        text-decoration: underline;
+        color: blue;
+    }
+
+    .me:hover {
+        color: blue;
+    }
+</style>
+
+<script>
+    const close = document.getElementById("close");
+    const popup = document.getElementById("popup");
+    close.addEventListener("click", (e) => {
+        popup.style.display = "none";
+    });
+    const me = document.getElementById("me");
+    me.addEventListener("click", (e) => {
+        popup.style.display = "block";
+    });
+</script>
+
+<div id="popup" class="block portrait-pop">
+    <div class="close" id="close">x</div>
+    <img class="lockable portrait-pop-img" src={PortraitAltImg.src} />
+</div>
+<div class="block area">
+    <p>Just plug <a id="me" class="me">me</a> already</p>
+    <p>
+        <a href="https://nekoweb.org/follow/hopeflea.net/">
+            Follow me on Nekoweb
+        </a>
+    </p>
+</div>
