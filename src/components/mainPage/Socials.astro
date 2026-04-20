@@ -54,9 +54,10 @@
                 { translate: "0 -260px" },
                 { translate: "0 -305px" },
                 { translate: "0 -325px" },
+                { translate: "0 -370px" },
               ],
               {
-                duration: 4000, // milliseconds = 1s
+                duration: 4330, // milliseconds = 1s
                 fill: "forwards",
                 easing: "linear",
               },
@@ -66,8 +67,8 @@
 
             let godray = document.createElement("img");
             godray.style.width = "270px";
-            godray.style.top = "0px";
-            godray.style.left = "-115px";
+            godray.style.top = "-280px";
+            godray.style.left = "-125px";
             godray.src = "/godrays.png";
             godray.style.position = "absolute";
             godray.animate(
@@ -82,7 +83,7 @@
                 { opacity: "0%" },
               ],
               {
-                duration: 5000,
+                duration: 5500,
                 fill: "forwards",
                 easing: "cubic-bezier(0.37, 0, 0.63, 1)",
               },
