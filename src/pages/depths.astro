@@ -96,11 +96,12 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
 </style>
 
 <script>
+  import { imageConfig } from "astro:assets";
   import { cursorData } from "../components/depth/depth.js";
 
   import * as map from "../components/depth/map.json";
 
-  let first = map["default"]["1"];
+  const scenes = map["default"];
   let debug = false;
 
   let container = document.getElementById("container");
@@ -168,6 +169,8 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
   function mapColor(type) {
     if (type == "forward") {
       return "blue";
+    } else if (type == "backward") {
+      return "purple";
     } else if (type == "speech") {
       return "red";
     } else if (type == "question") {
@@ -179,7 +182,7 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
 
   interface Area {
     coords: { x: number; y: number; width: number; height: number };
-    type: "forward" | "question" | "speech";
+    type: "forward" | "backward" | "question" | "speech";
   }
 
   function loadArea(areaData: Area, clickFunction: () => void) {
@@ -261,9 +264,12 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
     }
   }
 
-  setScene(first);
+  setScene("1");
 
-  function setScene(scene) {
+  const sceneIdsHistory = [];
+
+  function setScene(id) {
+    let scene = scenes[id];
     cursorData.unsetType();
     container.innerHTML = "";
     let newImg = new Image();
@@ -289,9 +295,31 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
       if (scene.event !== null) {
         let startAreas = () => {
           if (scene.areas !== undefined) {
-            scene.areas.map((areaData) =>
-              loadArea(areaData, () => setScene(map["default"][areaData.id])),
-            );
+            scene.areas.map((areaData) => {
+              loadArea(areaData, () => {
+                sceneIdsHistory.push(id);
+                setScene(areaData.id);
+              });
+            });
+          }
+
+          let previousAreaData = {
+            coords: {
+              x: newImg.naturalWidth / 4,
+              y: (newImg.naturalHeight * 8) / 9,
+              width: newImg.naturalWidth / 2,
+              height: newImg.naturalHeight / 9,
+            },
+            type: "backward",
+          };
+
+          if (sceneIdsHistory.length == 0) {
+            loadArea(previousAreaData, () => history.back());
+          } else {
+            loadArea(previousAreaData, () => {
+              let previousId = sceneIdsHistory.pop();
+              setScene(previousId);
+            });
           }
         };
         launchEvent(scene, startAreas);
