@@ -1,5 +1,6 @@
 ---
 import Card from "../components/gallery/Card.astro";
+import Link from "../components/gallery/Link.astro";
 import Banner from "../components/gallery/banner.png";
 ---
 
@@ -61,31 +62,6 @@ import Banner from "../components/gallery/banner.png";
     padding-left: 30px;
   }
 
-  @keyframes descend {
-    from {
-      top: -21px;
-    }
-    to {
-      top: 60px;
-    }
-  }
-
-  .link {
-    position: relative;
-    z-index: 1;
-    color: black;
-    top: -21px;
-    padding-top: 40px;
-    text-decoration: underline;
-    font-weight: 600;
-  }
-
-  .link:hover {
-    color: white;
-    animation: descend 0.3s linear;
-    animation-fill-mode: forwards;
-  }
-
   .content {
     background-color: rgb(255, 255, 255);
     z-index: 2;
@@ -143,8 +119,8 @@ import Banner from "../components/gallery/banner.png";
       <img src={Banner.src} style="width: 100%;" />
       <div class="line"></div>
       <div class="links" id="links">
-        <a class="link">touch</a>
-        <a class="link">soul</a>
+        <Link>touch</Link>
+        <Link>soul</Link>
       </div>
       <div class="line"></div>
     </div>

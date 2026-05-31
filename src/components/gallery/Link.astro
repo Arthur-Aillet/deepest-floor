@@ -1,0 +1,57 @@
+---
+
+---
+
+<style>
+  @keyframes descend {
+    0% {
+      top: 0px;
+      opacity: 1;
+    }
+    60% {
+      opacity: 0;
+    }
+    100% {
+      top: 60px;
+      opacity: 0;
+    }
+  }
+
+  @keyframes ascend {
+    0% {
+      top: 60px;
+      opacity: 0;
+    }
+    39% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      opacity: 1;
+    }
+  }
+
+  .link {
+    position: relative;
+    z-index: 0;
+    color: black;
+    text-decoration: underline;
+    font-weight: 600;
+    animation: ascend 0.2s forwards;
+  }
+  .box {
+    position: relative;
+    padding: 5px;
+  }
+
+  .box:hover .link {
+    animation: descend 0.2s forwards;
+  }
+</style>
+
+<div class="box">
+  <a id="link" class="link"><slot /></a>
+</div>
