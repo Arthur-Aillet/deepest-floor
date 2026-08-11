@@ -103,6 +103,7 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
 
   const scenes = map["default"];
 
+  // preload all images
   for (let scene of Object.keys(scenes)) {
     let img = new Image();
     img.src = scenes[scene].image;
