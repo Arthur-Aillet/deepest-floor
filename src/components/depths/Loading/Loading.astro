@@ -1,6 +1,7 @@
 ---
 import loadingGif from "./hopeflea-loading.gif";
 import barGif from "./bar-loading.gif";
+import depthsGif from "./depths.gif";
 ---
 
 <style>
@@ -29,7 +30,7 @@ import barGif from "./bar-loading.gif";
         }
     }
 
-    .gif {
+    .text {
         animation: appearing 7.62s linear;
     }
     .bar {
@@ -37,12 +38,18 @@ import barGif from "./bar-loading.gif";
         height: 35px;
         animation-fill-mode: forwards;
     }
+    .depths {
+        width: 915px;
+        margin-bottom: 100px;
+    }
 </style>
 
-<script define:vars={{barGif}}>
-    const gifDuration = 5110;
-    const totalDuration = 7620;
-    const gifSpawn = (totalDuration - gifDuration) / 2;
+<script define:vars={{barGif, depthsGif}}>
+    const barDuration = 5110;
+    const textDuration = 7620;
+    const sleepDuration = 1000;
+    const depthsDuration = 2200;
+    const gifSpawn = (textDuration - barDuration) / 2;
 
     setTimeout(() => {
         let bar = document.getElementById("bar");
@@ -52,10 +59,26 @@ import barGif from "./bar-loading.gif";
     setTimeout(() => {
         let bar = document.getElementById("bar");
         bar.src = "";
-    }, gifSpawn + gifDuration);
+    }, gifSpawn + barDuration);
+    setTimeout(() => {
+        let text = document.getElementById("text");
+        text.src = "";
+    }, textDuration);
+    setTimeout(() => {
+        let layout = document.getElementById("layout");
+        layout.style["justifyContent"] = "end";
+        let depths = document.getElementById("depths");
+        depths.style["animation"] = "appearing 2.19s linear";
+        depths.src = depthsGif.src;
+    }, sleepDuration + textDuration);
+    setTimeout(() => {
+        let depths = document.getElementById("depths");
+        depths.remove();
+    }, sleepDuration + textDuration + depthsDuration);
 </script>
 
-<div class="layout">
-    <img src={loadingGif.src} class="gif" />
+<div class="layout" id="layout">
+    <img src={loadingGif.src} class="text" id="text" />
     <img class="bar" id="bar" />
+    <img id="depths" class="depths" />
 </div>

@@ -105,15 +105,15 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
   const scenes = map["default"];
 
   // preload all images
+  let img = new Image();
   for (let scene of Object.keys(scenes)) {
-    let img = new Image();
     img.src = scenes[scene].image;
   }
 
   setTimeout(() => {
     document.getElementById("loading")?.remove();
     setScene("1");
-  }, 7620);
+  }, 9820 + 100 + 1000);
 
   let debug = false;
 

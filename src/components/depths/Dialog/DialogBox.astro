@@ -7,9 +7,9 @@ import Ghost from './ghost.png';
 const { name, content } = Astro.props;
 ---
 
-<link rel="preload" href={DialogBoxImage.src} as="image">
-<link rel="preload" href={DialogBoxImageRed.src} as="image">
-<link rel="preload" href={Ghost.src} as="image">
+<link rel="prefetch" href={DialogBoxImage.src} as="image">
+<link rel="prefetch" href={DialogBoxImageRed.src} as="image">
+<link rel="prefetch" href={Ghost.src} as="image">
 
 <style>
 .box {
