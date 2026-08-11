@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 
 import Color from "../components/depths/Color.astro";
+import Loading from "../components/depths/Loading/Loading.astro";
 import Interaction from "../components/depths/Interaction.astro";
 
 import Cursor from "../components/depths/Cursor.astro";
@@ -108,6 +109,11 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
     let img = new Image();
     img.src = scenes[scene].image;
   }
+
+  setTimeout(() => {
+    document.getElementById("loading")?.remove();
+    setScene("1");
+  }, 10000);
 
   let debug = false;
 
@@ -271,8 +277,6 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
     }
   }
 
-  setScene("1");
-
   const sceneIdsHistory = [];
 
   function setScene(id) {
@@ -341,6 +345,9 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
   <body>
     <div class="popup" id="popup">Nothing to see here, come back later...</div>
     <Cursor />
+    <div style="height:100%; width=100%;" id="loading">
+      <Loading />
+    </div>
     <!-- <Interaction type="forward" /> -->
     <!-- <img alt="" class="cursed" id="cursed" usemap="#map">
     <map name="map" id="areas">
