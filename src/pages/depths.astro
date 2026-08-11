@@ -1,11 +1,11 @@
 ---
 import { Image } from "astro:assets";
 
-import Color from "../components/depth/Color.astro";
-import Interaction from "../components/depth/Interaction.astro";
+import Color from "../components/depths/Color.astro";
+import Interaction from "../components/depths/Interaction.astro";
 
-import Cursor from "../components/depth/Cursor.astro";
-import DialogBox from "../components/depth/Dialog/DialogBox.astro";
+import Cursor from "../components/depths/Cursor.astro";
+import DialogBox from "../components/depths/Dialog/DialogBox.astro";
 ---
 
 <style>
@@ -97,9 +97,9 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
 
 <script>
   import { imageConfig } from "astro:assets";
-  import { cursorData } from "../components/depth/depth.js";
+  import { cursorData } from "../components/depths/depth.js";
 
-  import * as map from "../components/depth/map.json";
+  import * as map from "../components/depths/map.json";
 
   const scenes = map["default"];
 
