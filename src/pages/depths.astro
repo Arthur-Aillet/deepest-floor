@@ -102,6 +102,12 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
   import * as map from "../components/depth/map.json";
 
   const scenes = map["default"];
+
+  for (let scene of Object.keys(scenes)) {
+    let img = new Image();
+    img.src = scenes[scene].image;
+  }
+
   let debug = false;
 
   let container = document.getElementById("container");
