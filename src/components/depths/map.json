@@ -113,5 +113,9 @@
   "7": {
     "image": "/kata/7.jpg",
     "event": "pause"
+  },
+  "8": {
+    "image": "/kata/8.jpg",
+    "event": "pause"
   }
 }

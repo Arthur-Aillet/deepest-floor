@@ -285,6 +285,8 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
 
       container.appendChild(flare);
       loadArea(scene.ghost[0], () => ghostClickFirst(scene.ghost, startAreas));
+    } else if (scene.event == "liveleak") {
+
     } else {
       startAreas();
     }
