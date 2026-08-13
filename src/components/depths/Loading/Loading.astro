@@ -53,26 +53,38 @@ import depthsGif from "./depths.gif";
 
     setTimeout(() => {
         let bar = document.getElementById("bar");
+        if (!bar)
+            return;
         bar.src = barGif.src;
         bar.style["animation"] = "appearing 5.11s linear";
     }, gifSpawn);
     setTimeout(() => {
         let bar = document.getElementById("bar");
+        if (!bar)
+            return;
         bar.src = "";
     }, gifSpawn + barDuration);
     setTimeout(() => {
         let text = document.getElementById("text");
+        if (!text)
+            return;
         text.src = "";
     }, textDuration);
     setTimeout(() => {
         let layout = document.getElementById("layout");
+        if (!layout)
+            return;
         layout.style["justifyContent"] = "end";
         let depths = document.getElementById("depths");
+        if (!depths)
+            return;
         depths.style["animation"] = "appearing 2.19s linear";
         depths.src = depthsGif.src;
     }, sleepDuration + textDuration);
     setTimeout(() => {
         let depths = document.getElementById("depths");
+        if (!depths)
+            return;
         depths.remove();
     }, sleepDuration + textDuration + depthsDuration);
 </script>

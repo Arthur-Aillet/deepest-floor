@@ -96,11 +96,21 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
   }
 </style>
 
+
 <script>
   import { imageConfig } from "astro:assets";
   import { cursorData } from "../components/depths/depth.js";
-
+  
   import * as map from "../components/depths/map.json";
+  
+  globalThis.cheatJumpTo = (id) => {
+    let loading = document.getElementById("loading");
+    if (loading) {
+      loading.remove();
+    }
+
+    setScene(id);
+  };
 
   const scenes = map["default"];
 
@@ -111,8 +121,11 @@ import DialogBox from "../components/depths/Dialog/DialogBox.astro";
   }
 
   setTimeout(() => {
-    document.getElementById("loading")?.remove();
-    setScene("1");
+    let loading = document.getElementById("loading");
+    if (loading) {
+      loading.remove();
+      setScene("1");
+    }
   }, 9820 + 100 + 1000);
 
   let debug = false;
