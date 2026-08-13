@@ -1,11 +1,12 @@
 ---
 import { Image } from "astro:assets";
 
-import Color from "../components/depth/Color.astro";
-import Interaction from "../components/depth/Interaction.astro";
+import Color from "../components/depths/Color.astro";
+import Loading from "../components/depths/Loading/Loading.astro";
+import Interaction from "../components/depths/Interaction.astro";
 
-import Cursor from "../components/depth/Cursor.astro";
-import DialogBox from "../components/depth/Dialog/DialogBox.astro";
+import Cursor from "../components/depths/Cursor.astro";
+import DialogBox from "../components/depths/Dialog/DialogBox.astro";
 ---
 
 <style>
@@ -97,11 +98,23 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
 
 <script>
   import { imageConfig } from "astro:assets";
-  import { cursorData } from "../components/depth/depth.js";
+  import { cursorData } from "../components/depths/depth.js";
 
-  import * as map from "../components/depth/map.json";
+  import * as map from "../components/depths/map.json";
 
   const scenes = map["default"];
+
+  // preload all images
+  let img = new Image();
+  for (let scene of Object.keys(scenes)) {
+    img.src = scenes[scene].image;
+  }
+
+  setTimeout(() => {
+    document.getElementById("loading")?.remove();
+    setScene("1");
+  }, 9820 + 100 + 1000);
+
   let debug = false;
 
   let container = document.getElementById("container");
@@ -264,8 +277,6 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
     }
   }
 
-  setScene("1");
-
   const sceneIdsHistory = [];
 
   function setScene(id) {
@@ -334,6 +345,9 @@ import DialogBox from "../components/depth/Dialog/DialogBox.astro";
   <body>
     <div class="popup" id="popup">Nothing to see here, come back later...</div>
     <Cursor />
+    <div style="height:100%; width=100%;" id="loading">
+      <Loading />
+    </div>
     <!-- <Interaction type="forward" /> -->
     <!-- <img alt="" class="cursed" id="cursed" usemap="#map">
     <map name="map" id="areas">
