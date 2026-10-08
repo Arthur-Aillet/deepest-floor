@@ -1,0 +1,105 @@
+---
+import Lever from "./lever.gif";
+import LeverOff from "./leverOff.webp";
+import LeverOn from "./leverOn.webp";
+---
+
+<style>
+  .screen {
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: fixed;
+    opacity: 80%;
+    z-index: 1000;
+  }
+
+  .lever {
+    z-index: 1001;
+    justify-self: right;
+    position: absolute;
+    margin-top: 10px;
+    right: 52px;
+    z-index: 1001;
+    width: 160px;
+    image-rendering: pixelated;
+  }
+
+  .placement {
+    justify-content: right;
+    justify-content: right;
+  }
+</style>
+
+<script type="text/javascript" src="/libgif.js"></script>
+
+<script type="module">
+  let lever = document.getElementById("lever");
+  let contain = document.getElementById("contain");
+  let screen = document.getElementById("screen");
+
+  let gif = new SuperGif({ gif: lever, draw_while_loading: true, show_progress_bar: false, max_width: 160, loop_mode: false });
+  let loaded = false;
+  let clicked = false;
+
+  gif.load(() => {
+    loaded = true;
+    if (clicked) {
+      pullLever();
+    }
+  });
+  contain.addEventListener("mousedown", () => {
+    if (!clicked) {
+      clicked = true;
+      if (loaded) {
+        pullLever();
+      }
+    }
+  });
+  let counter = 0;
+  function pullLever() {
+    // leverOff.remove();
+    // lever.style.opacity = "100%";
+    // gif.play();
+    nextStep();
+  }
+
+  function nextStep() {
+    counter += 1;
+    if (counter == 31) {
+      screen.style.opacity = "40%";
+    }
+    if (counter == 41) {
+      screen.style.opacity = "80%";
+    }
+    if (counter == 46) {
+      screen.style.opacity = "20%";
+    }
+    if (counter == 48) {
+      screen.style.opacity = "80%";
+    }
+    if (counter == 51) {
+      screen.style.opacity = "0%";
+    }
+    if (counter == 57) {
+      screen.style.opacity = "80%";
+    }
+    gif.move_relative(1);
+    if (counter < 60) {
+      setTimeout(nextStep, 30);
+    } else {
+      screen.remove();
+    }
+  }
+</script>
+
+<div class="placement">
+  <div class="screen" id="screen" />
+  <!-- <img class="lever" id="leverOn" src={LeverOn.src} style="opacity: 0%;"/> -->
+  <div id="contain" class="lever">
+    <img class="lever" id="lever" src={LeverOff.src} rel:animated_src={Lever.src} rel:auto_play="0"/>
+  </div>
+  <!-- <img class="lever" id="leverOff" src={LeverOff.src} style="opacity: 0%;" /> -->
+</div>
