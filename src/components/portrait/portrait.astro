@@ -1,12 +1,17 @@
 ---
 import CustomLabel from "../CustomLabel.astro";
-import PortraitImg from "./portrait.png";
+import PortraitBaseImg from "./Base.webp";
+import G1Img from "./G1.webp";
+import G2Img from "./G2.webp";
+import G3Img from "./G3.webp";
+import PortraitOverImg from "./Over.webp";
+import AtencionImg from "./atencion.gif";
 ---
 
 <script type="module">
   import { cursorData } from "/stores/app.js";
 
-  const img = document.getElementById("portrait-img");
+  const img = document.getElementById("clickable-img");
 
   function portraitHover() {
     cursorData.lockCursor();
@@ -73,7 +78,7 @@ import PortraitImg from "./portrait.png";
   atencion.addEventListener("click", playAtencion);
 
   const pronom = document.getElementById("pronom");
-  pronom.addEventListener("mouseover", () => (pronom.textContent = "il/lui"));
+  pronom.addEventListener("mouseover", () => (pronom.textContent = "elle/elle"));
   pronom.addEventListener(
     "mouseleave",
     () => (pronom.textContent = "they/them"),
@@ -82,6 +87,25 @@ import PortraitImg from "./portrait.png";
   const age = document.getElementById("age");
   age.addEventListener("mouseover", () => (age.textContent = "??"));
   age.addEventListener("mouseleave", () => (age.textContent = "21"));
+
+  const grids = [...document.getElementsByClassName("grid")];
+
+  defaultGrids()
+
+  img.addEventListener("mouseleave", defaultGrids);
+  img.addEventListener("mouseover", hoveredGrids);
+
+  function defaultGrids() {
+    grids[0].style.opacity = "100%";
+    grids[1].style.opacity = "100%";
+    grids[2].style.opacity = "0%";
+  }
+
+  function hoveredGrids() {
+    grids[0].style.opacity = "0%";
+    grids[1].style.opacity = "0%";
+    grids[2].style.opacity = "100%";
+  }
 </script>
 <style>
   @keyframes blink {
@@ -154,6 +178,17 @@ import PortraitImg from "./portrait.png";
     box-shadow: 0px 16px 23px 7px rgba(0, 0, 0, 0.7);
     z-index: 5;
   }
+
+  .portrait-img {
+    width: 100%;
+    display: block;
+  }
+
+  .portrait-overlay {
+    width: 100%;
+    top: 0px;
+    position:absolute;
+  }
 </style>
 
 <div class="block height portrait-container">
@@ -162,17 +197,34 @@ import PortraitImg from "./portrait.png";
   <audio id="atencion-2" src="atencion-2.wav" preload="auto"></audio>
   <audio id="atencion-3" src="atencion-3.wav" preload="auto"></audio>
   <div id="images">
-    <img
-      id="portrait-img"
-      class="lockable"
-      style="width: 100%; display:block;"
-      src={PortraitImg.src}
-    />
+    <div style="clip:true;">
+      <img
+        class="portrait-img"
+        src={PortraitBaseImg.src}
+      />
+      <img
+        class="portrait-overlay grid"
+        src={G1Img.src}
+      />
+      <img
+        class="portrait-overlay grid"
+        src={G2Img.src}
+      />
+      <img
+        class="portrait-overlay grid"
+        src={G3Img.src}
+      />
+      <img
+        id="clickable-img"
+        class="lockable portrait-overlay"
+        src={PortraitOverImg.src}
+      />
+    </div>
     <img
       id="atencion-img"
       class="atencion"
       alt="atencion"
-      src="/atencion.gif"
+      src={AtencionImg.src}
     />
     <CustomLabel text="atención" />
     <div class="name">
