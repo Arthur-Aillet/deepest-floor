@@ -27,8 +27,9 @@ import CustomLabel from "./CustomLabel.astro";
   }
 
   .text {
-    animation: scroll 10s linear infinite;
+    animation: none;
     text-align: right;
+    opacity: 0;
   }
 
   green {
@@ -98,11 +99,13 @@ import CustomLabel from "./CustomLabel.astro";
   }
 
   .first {
+    opacity: 0;
     color: rgb(0, 255, 102);
     top: -3px;
   }
 
   .second {
+    opacity: 0;
     color: rgb(0, 255, 255);
     top: -2px;
   }
@@ -112,10 +115,29 @@ import CustomLabel from "./CustomLabel.astro";
   }
 </style>
 
+<script type="module">
+  import { powerState } from "/stores/app.js";
+
+  const textScroll = document.getElementById("text-scroll");
+  const first = document.getElementById("first-dollar");
+  const second = document.getElementById("second-dollar");
+  powerState.powerChangeReactions.push((amount) => {
+    textScroll.style.opacity = amount;
+    first.style.opacity = amount;
+    second.style.opacity = amount;
+    if (amount >= 1) {
+      textScroll.style.animation = "scroll 10s linear infinite";
+    } else {
+      textScroll.style.animation = "none";
+    }
+  });
+
+</script>
+
 <>
   <div class="bank">
     <div class="textblock">
-      <div class="text">
+      <div class="text" id="text-scroll">
         <green>+1000000$</green><br />
         <red>-100000$</red><br />
         <green>+9999999$</green><br />
@@ -127,8 +149,8 @@ import CustomLabel from "./CustomLabel.astro";
     <div class="outer">
       <div style="position: static;">
         <div class="square">
-          <div class="dollar second">$</div>
-          <div class="dollar first">$</div>
+          <div class="dollar second" id="second-dollar">$</div>
+          <div class="dollar first" id="first-dollar">$</div>
         </div>
       </div>
       <CustomLabel
