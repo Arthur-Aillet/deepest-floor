@@ -6,3 +6,8 @@ export const cursorData = {
   lockCursor: () => {},
   unlockCursor: () => {},
 };
+
+export const powerState = {
+  enabled: false,
+  powerChangeReactions: [], // [(powerAmount: number 0 => 1) => {}]
+};

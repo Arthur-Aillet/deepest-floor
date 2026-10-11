@@ -5,11 +5,18 @@ import G1Img from "./G1.webp";
 import G2Img from "./G2.webp";
 import G3Img from "./G3.webp";
 import PortraitOverImg from "./Over.webp";
+import PortraitDarkImg from "./Dark.webp";
 import AtencionImg from "./atencion.gif";
 ---
 
 <script type="module">
-  import { cursorData } from "/stores/app.js";
+  import { cursorData, powerState } from "/stores/app.js";
+
+  const portraitDark = document.getElementById("dark");
+
+  powerState.powerChangeReactions.push((amount) => {
+    portraitDark.style.opacity = 1 - amount;
+  });
 
   const img = document.getElementById("clickable-img");
 
@@ -141,7 +148,9 @@ import AtencionImg from "./atencion.gif";
   }
 
   .portrait-container {
-    width: 100%;
+    width: 150px;
+    height: 167px;
+    background-color: black;
     position: relative;
   }
 
@@ -187,39 +196,48 @@ import AtencionImg from "./atencion.gif";
   .portrait-overlay {
     width: 100%;
     top: 0px;
-    position:absolute;
+    position: absolute;
+  }
+
+  .dark {
+    opacity: 1;
+    pointer-events: none;
   }
 </style>
 
 <div class="block height portrait-container">
-  <audio id="shot" src="shot.wav" preload="auto"></audio>
+  <audio id="shot" src="shot.wav" preload="
+  background-color: black;auto"></audio>
   <audio id="atencion-1" src="atencion-1.wav" preload="auto"></audio>
   <audio id="atencion-2" src="atencion-2.wav" preload="auto"></audio>
   <audio id="atencion-3" src="atencion-3.wav" preload="auto"></audio>
   <div id="images">
-    <div style="clip:true;">
-      <img
-        class="portrait-img"
-        src={PortraitBaseImg.src}
-      />
-      <img
-        class="portrait-overlay grid"
-        src={G1Img.src}
-      />
-      <img
-        class="portrait-overlay grid"
-        src={G2Img.src}
-      />
-      <img
-        class="portrait-overlay grid"
-        src={G3Img.src}
-      />
-      <img
-        id="clickable-img"
-        class="lockable portrait-overlay"
-        src={PortraitOverImg.src}
-      />
-    </div>
+    <img
+    class="portrait-img"
+    src={PortraitBaseImg.src}
+    />
+    <img
+    class="portrait-overlay grid"
+    src={G1Img.src}
+    />
+    <img
+    class="portrait-overlay grid"
+    src={G2Img.src}
+    />
+    <img
+    class="portrait-overlay grid"
+    src={G3Img.src}
+    />
+    <img
+    id="clickable-img"
+    class="lockable portrait-overlay"
+    src={PortraitOverImg.src}
+    />
+    <img
+      class="portrait-overlay dark"
+      id="dark"
+      src={PortraitDarkImg.src}
+    />
     <img
       id="atencion-img"
       class="atencion"

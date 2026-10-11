@@ -14,7 +14,7 @@ import LeverOn from "./leverOn.webp";
     height: 1000vh;
     background-color: black;
     position: fixed;
-    opacity: 80%;
+    opacity: 83%;
     z-index: 1000;
   }
 
@@ -49,6 +49,8 @@ import LeverOn from "./leverOn.webp";
 <script type="text/javascript" src="/libgif.js"></script>
 
 <script type="module">
+  import { powerState } from "/stores/app.js";
+
   let lever = document.getElementById("lever");
   let leverRed = document.getElementById("leverRed");
   let glow1 = document.getElementById("glow1");
@@ -70,12 +72,7 @@ import LeverOn from "./leverOn.webp";
     leverRed.style.opacity = "100%";
     blinkRed();
     if (clicked) {
-      canvasParent.style.opacity = "100%";
-      leverRed.remove();
-      glow1.remove();
-      glow2.remove();
-      continueBlinking = false;
-      nextStep();
+      pullLever();
     }
   });
 
@@ -83,43 +80,55 @@ import LeverOn from "./leverOn.webp";
     if (!clicked) {
       clicked = true;
       if (loaded) {
-        canvasParent.style.opacity = "100%";
-        leverRed.remove();
-        glow1.remove();
-        glow2.remove();
-        continueBlinking = false;
-        nextStep();
+        pullLever();
       }
     }
   });
 
   let counter = 0;
 
+  function pullLever() {
+    canvasParent.style.opacity = "100%";
+    leverRed.remove();
+    glow1.remove();
+    glow2.remove();
+    continueBlinking = false;
+    nextStep();
+  }
+
   function nextStep() {
     counter += 1;
     if (counter == 31) {
       screen.style.opacity = "40%";
+      powerState.powerChangeReactions.map((fn) => fn(0.5));
     }
     if (counter == 41) {
-      screen.style.opacity = "80%";
+      screen.style.opacity = "83%";
+      powerState.powerChangeReactions.map((fn) => fn(0));
     }
     if (counter == 46) {
       screen.style.opacity = "20%";
+      powerState.powerChangeReactions.map((fn) => fn(0.8));
     }
     if (counter == 48) {
-      screen.style.opacity = "80%";
+      screen.style.opacity = "83%";
+      powerState.powerChangeReactions.map((fn) => fn(0));
     }
     if (counter == 51) {
       screen.style.opacity = "0%";
+      powerState.powerChangeReactions.map((fn) => fn(1));
     }
     if (counter == 57) {
-      screen.style.opacity = "80%";
+      screen.style.opacity = "83%";
+      powerState.powerChangeReactions.map((fn) => fn(0));
     }
     gif.move_relative(1);
     if (counter < 60) {
       setTimeout(nextStep, 30);
     } else {
       screen.remove();
+      powerState.enabled = true;
+      powerState.powerChangeReactions.map((fn) => fn(1));
     }
   }
   // Blink
@@ -139,7 +148,7 @@ import LeverOn from "./leverOn.webp";
       glow1.style.opacity = "10%";
       glow2.style.opacity = "10%";
       canvasParent.style.opacity = "0%";
-      setTimeout(blinkRed, 250);
+      setTimeout(blinkRed, 400);
     }
   }
 

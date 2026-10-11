@@ -12,13 +12,34 @@ import glass from "./glass.png";
     z-index: 6;
     overflow: hidden;
     height: 310px;
+    width: 174px;
+    background-color: rgb(0, 10, 3);
+    background-image: none;
+  }
+
+  @keyframes blinkwrapper {
+    0% {
+      background-color: black;
+    }
+    25% {
+      background-color: white;
+    }
+    50% {
+      background-color: black;
+    }
+    75% {
+      background-color: white;
+    }
+    100% {
+      background-color: black;
+    }
   }
 
   .xray {
     height: 310px;
     margin: 0px;
     padding: 0px;
-    width: fit-content;
+    opacity: 0;
     /* filter: saturate(100) contrast(200%); */
     /* filter: saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5)
       contrast(200%); */
@@ -75,12 +96,19 @@ import glass from "./glass.png";
   }
 </style>
 
-<script>
+<script type="module">
+  import { powerState } from "/stores/app.js";
+
   const xray = document.getElementById("xray");
+  const wrapper = document.getElementById("blinkwrapper");
   const shot = document.getElementById("shot-xray");
   const glass = document.getElementById("glass");
 
   let suffix = "";
+
+  powerState.powerChangeReactions.push((amount) => {
+    xray.style.opacity = amount;
+  });
 
   xray.addEventListener("mouseover", () => {
     xray.style.filter =
@@ -92,6 +120,7 @@ import glass from "./glass.png";
   function stopXrayShot() {
     xray.style.animation = "none";
     glass.style.animation = "none";
+    wrapper.style.animation = "none";
     shot.pause();
     shot.currentTime = 0;
     glass.style.opacity = 0.9;
@@ -110,6 +139,7 @@ import glass from "./glass.png";
       "saturate(1.5) sepia(100%) hue-rotate(-50deg) saturate(1.5) contrast(200%)" +
       suffix;
     xray.style.animation = "blink normal 0.1s 3 linear";
+    wrapper.style.animation = "blinkwrapper normal 0.1s 3 linear";
   });
 
   xray.addEventListener("mouseup", stopXrayShot);
@@ -118,7 +148,7 @@ import glass from "./glass.png";
 </script>
 
 <audio id="shot-xray" src="shot-xray.wav" preload="auto"></audio>
-<div class="block wrapper lockable">
+<div class="block wrapper lockable" id="blinkwrapper">
   <img class="xray" src={xrayImg.src} id="xray" />
   <img class="glass" src={glass.src} id="glass" />
 </div>
