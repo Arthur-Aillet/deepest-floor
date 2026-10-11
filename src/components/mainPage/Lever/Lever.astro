@@ -1,6 +1,8 @@
 ---
 import Lever from "./lever.gif";
 import LeverOff from "./leverOff.webp";
+import LeverRed from "./leverRed.webp";
+import Glow from "./glow.webp";
 import LeverOn from "./leverOn.webp";
 ---
 
@@ -8,8 +10,8 @@ import LeverOn from "./leverOn.webp";
   .screen {
     top: 0px;
     left: 0px;
-    width: 100vw;
-    height: 100vh;
+    width: 1000vw;
+    height: 1000vh;
     background-color: black;
     position: fixed;
     opacity: 80%;
@@ -27,6 +29,17 @@ import LeverOn from "./leverOn.webp";
     image-rendering: pixelated;
   }
 
+  .glow {
+    image-rendering: pixelated;
+    position: absolute;
+    justify-self: right;
+    opacity: 0%;
+    right: -95px;
+    margin-top: -140px;
+    pointer-events: none;
+    width: 80%;
+  }
+
   .placement {
     justify-content: right;
     justify-content: right;
@@ -37,34 +50,50 @@ import LeverOn from "./leverOn.webp";
 
 <script type="module">
   let lever = document.getElementById("lever");
+  let leverRed = document.getElementById("leverRed");
+  let glow1 = document.getElementById("glow1");
+  let glow2 = document.getElementById("glow2");
   let contain = document.getElementById("contain");
   let screen = document.getElementById("screen");
 
+  let canvasParent = null;
+  let continueBlinking = true;
+
+  // Activate
   let gif = new SuperGif({ gif: lever, draw_while_loading: true, show_progress_bar: false, max_width: 160, loop_mode: false });
   let loaded = false;
   let clicked = false;
 
   gif.load(() => {
     loaded = true;
+    canvasParent = gif.get_canvas().parentElement;
+    leverRed.style.opacity = "100%";
+    blinkRed();
     if (clicked) {
-      pullLever();
+      canvasParent.style.opacity = "100%";
+      leverRed.remove();
+      glow1.remove();
+      glow2.remove();
+      continueBlinking = false;
+      nextStep();
     }
   });
+
   contain.addEventListener("mousedown", () => {
     if (!clicked) {
       clicked = true;
       if (loaded) {
-        pullLever();
+        canvasParent.style.opacity = "100%";
+        leverRed.remove();
+        glow1.remove();
+        glow2.remove();
+        continueBlinking = false;
+        nextStep();
       }
     }
   });
+
   let counter = 0;
-  function pullLever() {
-    // leverOff.remove();
-    // lever.style.opacity = "100%";
-    // gif.play();
-    nextStep();
-  }
 
   function nextStep() {
     counter += 1;
@@ -93,11 +122,34 @@ import LeverOn from "./leverOn.webp";
       screen.remove();
     }
   }
+  // Blink
+  let blink = true;
+
+  function blinkRed() {
+    if (!continueBlinking) {
+      return;
+    }
+    blink = !blink;
+    if (blink) {
+      glow1.style.opacity = "0%";
+      glow2.style.opacity = "0%";
+      canvasParent.style.opacity = "100%";
+      setTimeout(blinkRed, 1250);
+    } else {
+      glow1.style.opacity = "10%";
+      glow2.style.opacity = "10%";
+      canvasParent.style.opacity = "0%";
+      setTimeout(blinkRed, 250);
+    }
+  }
+
 </script>
 
 <div class="placement">
   <div class="screen" id="screen" />
-  <!-- <img class="lever" id="leverOn" src={LeverOn.src} style="opacity: 0%;"/> -->
+  <img class="glow" id="glow1" src={Glow.src}/>
+  <img class="lever" id="leverRed" style="opacity: 0;" src={LeverRed.src}/>
+  <img class="glow" style="z-index: 1002;" id="glow2" src={Glow.src}/>
   <div id="contain" class="lever">
     <img class="lever" id="lever" src={LeverOff.src} rel:animated_src={Lever.src} rel:auto_play="0"/>
   </div>
