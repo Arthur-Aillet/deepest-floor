@@ -14,7 +14,7 @@ import LeverOn from "./leverOn.webp";
     height: 1000vh;
     background-color: black;
     position: fixed;
-    opacity: 83%;
+    opacity: 89%;
     z-index: 1000;
   }
 
@@ -43,6 +43,31 @@ import LeverOn from "./leverOn.webp";
   .placement {
     justify-content: right;
     justify-content: right;
+  }
+
+  .text {
+    color: white;
+    text-align: center;
+    font-size: 95%;
+    line-height: 75%;
+  }
+
+  .center {
+    width: 100vw;
+    /* height: 100vh; */
+    margin-top: 400px;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    image-rendering: pixelated;
   }
 </style>
 
@@ -103,7 +128,7 @@ import LeverOn from "./leverOn.webp";
       powerState.powerChangeReactions.map((fn) => fn(0.5));
     }
     if (counter == 41) {
-      screen.style.opacity = "83%";
+      screen.style.opacity = "89%";
       powerState.powerChangeReactions.map((fn) => fn(0));
     }
     if (counter == 46) {
@@ -111,7 +136,7 @@ import LeverOn from "./leverOn.webp";
       powerState.powerChangeReactions.map((fn) => fn(0.8));
     }
     if (counter == 48) {
-      screen.style.opacity = "83%";
+      screen.style.opacity = "89%";
       powerState.powerChangeReactions.map((fn) => fn(0));
     }
     if (counter == 51) {
@@ -119,7 +144,7 @@ import LeverOn from "./leverOn.webp";
       powerState.powerChangeReactions.map((fn) => fn(1));
     }
     if (counter == 57) {
-      screen.style.opacity = "83%";
+      screen.style.opacity = "89%";
       powerState.powerChangeReactions.map((fn) => fn(0));
     }
     gif.move_relative(1);
@@ -152,10 +177,47 @@ import LeverOn from "./leverOn.webp";
     }
   }
 
+  let swap = false;
+  let button2 = document.getElementById("button2");
+  let button3 = document.getElementById("button3");
+  blinkButtons();
+  function blinkButtons() {
+    swap = !swap;
+
+    if (swap) {
+      button2.src = "/buttons/NoAiArt2.webp"
+      button3.src = "/buttons/ViewWithComputer2.webp"
+    } else {
+      button2.src = "/buttons/NoAiArt1.webp"
+      button3.src = "/buttons/ViewWithComputer1.webp"
+    }
+
+    setTimeout(blinkButtons, 1500);
+  }
 </script>
 
 <div class="placement">
-  <div class="screen" id="screen" />
+  <div class="screen" id="screen">
+    <div class="center">
+      <p class="text">
+      <b>hopeflea.net</b>
+      <br />
+      <br />
+      <br />
+        The recommanded experience is on a 1920x1080 desktop monitor with firefox.
+      <br />
+      <br />
+        This website may contains unsettling imagery. Viewer discrtion is advised.
+      <br />
+      <br />
+      </p>
+      <div class="buttons">
+        <img id="button1" src="/buttons/Firefox.webp"/>
+        <img id="button2" src="/buttons/NoAiArt1.webp"/>
+        <img id="button3" src="/buttons/ViewWithComputer1.webp"/>
+      </div>
+    </div>
+  </div>
   <img class="glow" id="glow1" src={Glow.src}/>
   <img class="lever" id="leverRed" style="opacity: 0;" src={LeverRed.src}/>
   <img class="glow" style="z-index: 1002;" id="glow2" src={Glow.src}/>
